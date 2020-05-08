@@ -12,7 +12,7 @@ Civilization at Han River
 - Google C++ Style Guide
 
 
-#### 파일명
+### 파일명
 
 - 지금 하고 있는 프로젝트의 컨벤션, 안용학교수님의 컨벤션에 따른다.
 - 클래스를 설계하는 경우, 파일 앞에 대문자 C 를 붙인이고, 대쉬 (-) 를 붙이고, 대표 class 이름으로 사용하며, C 를 제외하고는 소문자와 언더바를 사용한다. ex : C-rect_base
@@ -20,7 +20,7 @@ Civilization at Han River
 - 파일 이름에 대쉬(-) 를 두 개 이상 사용하지 않는다.
 
 
-#### 함수명
+### 함수명
 
 - 일반적인 함수는 대문자로 시작하며, 각 새로운 단어마다 대문자를 사용한다. 언더라인은 사용하지 않는다. ex : MyExcitingFunction()
 - 접근자와 수정자(get, set)는 변수 이름과 일치시킨다. ex : Set_strMyExcitingMemberVariable()
@@ -28,11 +28,11 @@ Civilization at Han River
 - private 함수 이름은 언더바(_) 로 시작한다. ex : _DontTouchMe()
 
 
-#### 타입명
+### 타입명
 
 - 타입명은 대문자로 시작하며, 각 새로운 단어마다 대문자를 갖으며 언더라인을 사용하지 않는다. ex : MyRectangle
 
-#### 변수 및 상수명
+### 변수 및 상수명
 
 - 변수명은 소문자로 시작하며, 대문자와 소문자를 섞어서 사용한다.
 - 클래스 멤버 변수는 'm_' 으로 시작하며, 간단한 자료형 [string : str, integer : n]을 그 뒤에 표기한 후 이름을 붙인다. ex : m_strMyExcitingLocalVariable
@@ -44,7 +44,7 @@ Civilization at Han River
 - 상수는 k로 시작하며 대소문자를 섞어서 사용한다 : ex : kDaysInAWeek
 
 
-#### 기타
+### 기타
 
 - 들여쓰기는 Tab 을 사용한다.
 - 간단한 생성자 초기화는 콜론 초기화로 한다.
