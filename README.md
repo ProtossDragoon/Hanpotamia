@@ -1,7 +1,7 @@
 # Hanpotamia
 Civilization at Han River
 
-
+<br>
 
 ## 이름 규칙
 
@@ -19,6 +19,7 @@ Civilization at Han River
 - 테스트용 (실행 파일) 의 경우, Test- 를 가장 처음에 포함한다. ex : Test-rect_base
 - 파일 이름에 대쉬(-) 를 두 개 이상 사용하지 않는다.
 
+<br>
 
 ### 함수명
 
@@ -27,10 +28,13 @@ Civilization at Han River
 - True/False 값을 return 하는 경우, 함수 이름은 is 혹은 has 로 시작한다. ex : IsHungry()
 - private 함수 이름은 언더바(_) 로 시작한다. ex : _DontTouchMe()
 
+<br>
 
 ### 타입명
 
 - 타입명은 대문자로 시작하며, 각 새로운 단어마다 대문자를 갖으며 언더라인을 사용하지 않는다. ex : MyRectangle
+
+<br>
 
 ### 변수 및 상수명
 
