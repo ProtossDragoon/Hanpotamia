@@ -11,12 +11,14 @@ Civilization at Han River
 - 안용학 교수님이 수업에서 언급했던 규칙
 - Google C++ Style Guide
 
+
 #### 파일명
 
 - 지금 하고 있는 프로젝트의 컨벤션, 안용학교수님의 컨벤션에 따른다.
 - 클래스를 설계하는 경우, 파일 앞에 대문자 C 를 붙인이고, 대쉬 (-) 를 붙이고, 대표 class 이름으로 사용하며, C 를 제외하고는 소문자와 언더바를 사용한다. ex : C-rect_base
 - 테스트용 (실행 파일) 의 경우, Test- 를 가장 처음에 포함한다. ex : Test-rect_base
 - 파일 이름에 대쉬(-) 를 두 개 이상 사용하지 않는다.
+
 
 #### 함수명
 
@@ -25,3 +27,18 @@ Civilization at Han River
 - True/False 값을 return 하는 경우, 함수 이름은 is 혹은 has 로 시작한다. ex : IsHungry()
 - private 함수 이름은 언더바(_) 로 시작한다. ex : _DontTouchMe()
 
+
+#### 타입명
+
+- 타입명은 대문자로 시작하며, 각 새로운 단어마다 대문자를 갖으며 언더라인을 사용하지 않는다. ex : MyRectangle
+
+#### 변수 및 상수명
+
+- 변수명은 소문자로 시작하며, 대문자와 소문자를 섞어서 사용한다.
+- 클래스 멤버 변수는 'm_' 으로 시작하며, 간단한 자료형 [string : str, integer : n]을 그 뒤에 표기한 후 이름을 붙인다. ex : m_strMyExcitingLocalVariable
+- static 멤버 변수의 경우 's_' 으로 시작한다. ex : s_nMyExcitingStaticVariable
+- 이름은 가능한 설명적으로 짓는다. 공간 절약이 중요한 게 아니라, 코드를 즉시 보고 이해할 수 있어야 한다. ex : numCompletedConnections
+- 모호한 약어나 의미를 알 수 없는 임의의 문자를 사용하지 않는다. ex : nerr (?)
+- 구조체의 데이터 멤버는 일반적인 변수처럼 이름을 짓는다. 클래스처럼 언더라인으로 끝나지 않는다.
+- 전역 변수는 특별한 요구사항이 없으며, 거의 사용을 하지 않는다. 만약 사용한다면, g_로 시작하거나 로컬 변수와 구별되는 표시를 한다.
+- 상수는 k로 시작하며 대소문자를 섞어서 사용한다 : ex : kDaysInAWeek
