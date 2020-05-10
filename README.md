@@ -1,6 +1,22 @@
 # Hanpotamia
 Civilization at Han River
 
+## VS
+
+- Visual Studio 2019
+- Hanpotamia Game 의 Server
+
+<br>
+
+## LAB
+
+- python 기반의 Hanpotamia Game 의 GUI Client
+
+### Dependencies
+
+- python 3.6
+- pygame
+
 <br>
 
 ## 이름 규칙
