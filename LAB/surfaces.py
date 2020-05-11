@@ -1,5 +1,6 @@
 from __init__ import *
 import pygame
+from pygame import gfxdraw
 
 # pygame 의 구조
 # surface 객체 에 그림을 막 그림. 도화지 같은 것임. (draw 등)
@@ -61,25 +62,68 @@ class Console():
         self.update()        
 
 
-class Citise():
-    pass
+class City():
+    def __init__(self, screen, areaname, player=0, citysize=0):
+        self.screen = screen
+        self.areaname = areaname
+        self.citysize = citysize
+        self.color = COLOR[2]
+        
+        # In order to draw antialiased filled shapes with pygame, use the module gfxdraw
+        # "To draw an anti aliased and filled shape, 
+        # first use the aa* version of the function, and then use the filled version."
+        self.rect = pygame.draw.circle(self.screen, self.color, CITY_LOCATION[self.areaname], CITY_SIZE[self.citysize])
+        gfxdraw.aacircle(self.screen, 
+                         CITY_LOCATION[self.areaname][0], CITY_LOCATION[self.areaname][1], 
+                         CITY_SIZE[self.citysize], self.color)
+        gfxdraw.filled_circle(self.screen,
+                         CITY_LOCATION[self.areaname][0], CITY_LOCATION[self.areaname][1], 
+                         CITY_SIZE[self.citysize], self.color)
+        print(CITY_LOCATION[self.areaname][0],  CITY_LOCATION[self.areaname][1],
+              CITY_SIZE[self.citysize], self.color)
+        self.update()
+        
+    def update(self):
+        self.rect = pygame.draw.circle(self.screen, self.color, CITY_LOCATION[self.areaname], CITY_SIZE[self.citysize])
+        gfxdraw.aacircle(self.screen, 
+                         CITY_LOCATION[self.areaname][0], CITY_LOCATION[self.areaname][1], 
+                         CITY_SIZE[self.citysize], self.color)
+        gfxdraw.filled_circle(self.screen,
+                         CITY_LOCATION[self.areaname][0], CITY_LOCATION[self.areaname][1], 
+                         CITY_SIZE[self.citysize], self.color)
+        pygame.display.update()
+
+    def setSettings(self, player, citysize=0):
+        # setplayer function does not update.
+        self.color = COLOR[player]
+        self.citysize = citysize
+        
     
 class BackgroundMap():
     def __init__(self, screen, console_width, img='imgsrc/Seoul.png'):
         screensize = screen.get_size()
         
-        self.imagebackground = pygame.Surface((screensize[0]-console_width , screensize[1]))
+        self.imagebackground = pygame.Surface((screensize[0]-console_width, screensize[1]))
         self.imagebackground.fill(WHITE)
         self.image = pygame.image.load(img).convert_alpha() # pygame.image.load(img) : return surface
         # self.image = pygame.transform.scale(self.image)
         self.screen = screen
+        
+        self.city = {}
+        for key in CITY_LOCATION:
+            print(key)
+            self.city[key] = City(self.screen, key)
+            
         self.update()
     
     def update(self):
         # 한번만 렌더링하고 마려고 했지만, 이건 discription hide 같이,
         # 중복되는 부분은 다시 칠해줘야 잔상이 안남음.
+        # 그리는 순서 : image background -> image -> city
         self.screen.blit(self.imagebackground, (0,0))
         self.screen.blit(self.image, (0,0))
+        for key in self.city:
+            self.city[key].update()
         pygame.display.update()        
 
 
@@ -106,7 +150,7 @@ class Explaination():
         self.consolesize = tuple((300, 280))
         # self.consolexy = (int(screen.get_size()[0]-self.consolesize[0]),
         #                  int(screen.get_size()[1]-self.consolesize[1]))        
-        self.consolexy = (10, 10)
+        self.consolexy = (20, 20)
 
         self.consolesurface = pygame.Surface(self.consolesize, pygame.SRCALPHA)
         self.consolefontsize = 14

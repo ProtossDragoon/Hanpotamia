@@ -3,7 +3,7 @@ import random
 
 from __init__ import *
 
-from surfaces import Console, BackgroundMap, Charactor, Minimap, Dashboard, Explaination
+from surfaces import Console, BackgroundMap, Charactor, Minimap, Dashboard, Explaination, City
 from pygame.locals import *
 import pygame
 
@@ -28,6 +28,9 @@ if __name__ == '__main__' :
     i = 0
  
     while run :
+        ################################################
+        #                user area                     #
+        ################################################
         clock.tick(10) # Max FPS
         
         for event in pygame.event.get():
@@ -44,9 +47,13 @@ if __name__ == '__main__' :
         else :
             areaexplain.hideDiscription(background_surface)
         
+        
+        
+        
+        
+        # system
         pygame.display.update() # update entire window screen
-        i+=1
-            
+        i+=1    
     pygame.quit()   
 
 # Seoul image reference : https://m.blog.naver.com/batt7424/220651741817
