@@ -143,14 +143,13 @@
     <ClCompile Include="C-player.cpp" />
     <ClCompile Include="C-resource.cpp" />
     <ClCompile Include="C-unit.cpp" />
-    <ClCompile Include="Test-temp_class.cpp" />
+    <ClCompile Include="Test-main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="map.h" />
     <ClInclude Include="master.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="temp-class.h" />
     <ClInclude Include="unit.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

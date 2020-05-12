@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Test-temp_class.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="C-master.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -33,11 +30,11 @@
     <ClCompile Include="C-map.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Test-main.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="temp-class.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="map.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
