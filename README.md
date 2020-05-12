@@ -5,7 +5,7 @@ Civilization at Han River
 
 ## Class
 
-![readmeimage/class_architecture](readmeimage/class_architecture)
+![readmeimage/class_architecture.png](readmeimage/class_architecture.png)
 
 <br>
 
