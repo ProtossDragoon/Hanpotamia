@@ -3,6 +3,12 @@ Civilization at Han River
 
 <br>
 
+## Class
+
+![readmeimage/class_architecture](readmeimage/class_architecture)
+
+<br>
+
 ## VS
 
 - Visual Studio 2019
