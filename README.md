@@ -42,7 +42,7 @@ Civilization at Han River
 
 ### 함수명
 
-- 일반적인 함수는 대문자로 시작하며, 각 새로운 단어마다 대문자를 사용한다. 언더라인은 사용하지 않는다. ex : myExcitingFunction()
+- 일반적인 함수는 소문자로 시작하며, 각 새로운 단어마다 대문자를 사용한다. 언더라인은 사용하지 않는다. ex : myExcitingFunction()
 - 접근자와 수정자(get, set)는 변수 이름과 일치시킨다. ex : set_myExcitingMemberVariable()
 - True/False 값을 return 하는 경우, 함수 이름은 is 혹은 has 로 시작한다. ex : isHungry()
 - private 함수 이름은 언더바(_) 로 시작한다. ex : \_dontTouchMe()
@@ -57,14 +57,14 @@ Civilization at Han River
 
 ### 변수 및 상수명
 
-- 변수명은 소문자로 시작하며, 대문자와 소문자를 섞어서 사용한다.
-- static 멤버 변수의 경우 'S\_' 으로 시작한다. ex : \S_myExcitingStaticVariable
-- const 멤버 상수는 'K\_' 로 시작하며 대소문자를 섞어서 사용한다. ex : \K_daysInAWeek
-- 그 외 private 멤버 변수 및 private 함수는 '\_' 로 시작한다. ex : \_myPrivateVariable 
-- 이름은 가능한 설명적으로 짓는다. 공간 절약이 중요한 게 아니라, 코드를 즉시 보고 이해할 수 있어야 한다. ex : numCompletedConnections
+- 변수명은 소문자로 시작하며, 소문자와 언더바만 사용한다.
+- static 멤버 변수의 경우 's\_' 으로 시작한다. ex : \s_my_exciting_static_variable
+- const 멤버 상수는 'k\_' 로 시작하며 대소문자를 섞어서 사용한다. ex : \k_days_in_a_week
+- 그 외 private 멤버 변수 및 private 함수는 '\_' 로 시작한다. ex : \_my_private_variable 
+- 이름은 가능한 설명적으로 짓는다. 공간 절약이 중요한 게 아니라, 코드를 즉시 보고 이해할 수 있어야 한다. ex : num_completed_connections
 - 모호한 약어나 의미를 알 수 없는 임의의 문자를 사용하지 않는다. ex : nerr (?)
 - 구조체의 데이터 멤버는 일반적인 변수처럼 이름을 짓는다. 클래스처럼 언더라인으로 끝나지 않는다.
-- 전역 변수는 특별한 요구사항이 없으며, 거의 사용을 하지 않는다. 만약 사용한다면, G_로 시작하거나 로컬 변수와 구별되는 표시를 한다.
+- 전역 변수는 특별한 요구사항이 없으며, 거의 사용을 하지 않는다. 만약 사용한다면, 'g\_'로 시작하거나 로컬 변수와 구별되는 표시를 한다.
 
 <br>
 
