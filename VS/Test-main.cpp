@@ -1,9 +1,8 @@
 #include"master.h"
-
+#include"player.h"
 int main()
 {
-	// select player
-	
+	// select player	
 	Master game_master = Master(3);
 
 	game_master.gameStart();
@@ -16,7 +15,7 @@ int main()
 			int action_available = game_master.playerTrunStart(game_master.get_player(i));
 			for (int j = 0; j < action_available; j++)
 			{
-				// °¢ ÇÃ·¹ÀÌ¾îÀÇ Çàµ¿ ¸í·ÉÀº ÇØ´ç °´Ã¼¿¡¼­ ¼±ÅÃÁö º¸¿©ÁÖ°í Á¦¾î
+				// ê° í”Œë ˆì´ì–´ì˜ í–‰ë™ ëª…ë ¹ì€ í•´ë‹¹ ê°ì²´ì—ì„œ ì„ íƒì§€ ë³´ì—¬ì£¼ê³  ì œì–´
 
 				game_master.playerActionEnd();
 			}
@@ -30,6 +29,5 @@ int main()
 
 void masterTester()
 {
-
 
 }
