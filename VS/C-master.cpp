@@ -72,9 +72,6 @@ int Master::playerTrunStart(Player player)
 	}
 }
 
-// 플레이어의 행동 명령을 받을 때 수행
-
-
 // 플레이어의 행동이 끝났을 때 수행
 void Master::playerActionEnd()
 {
