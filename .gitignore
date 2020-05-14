@@ -1,7 +1,7 @@
 #ignore File
 *.suo
 *.vscode
-vs/*.CMakeLists.txt
+/vs/*.CMakeLists.txt
 
 
 #ignore Directory
