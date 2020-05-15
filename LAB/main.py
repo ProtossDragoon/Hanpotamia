@@ -28,9 +28,11 @@ if __name__ == '__main__' :
     i = 0
  
     while run :
+        
         ################################################
         #                user area                     #
         ################################################
+        
         clock.tick(10) # Max FPS
         
         for event in pygame.event.get():
@@ -41,19 +43,21 @@ if __name__ == '__main__' :
         console.insertData(['data', i]) # insert data and update console screen
         worrior1.update()
 
-        if worrior1.rect.collidepoint(pygame.mouse.get_pos()):
-            # print("mouse is over 'newGameButton'")
-            areaexplain.showDiscription(['this is'])
-        else :
-            areaexplain.hideDiscription(background_surface)
-        
-        
-        
-        
+
+        flag = 0
+        for areaname in background_surface.city :
+            print(areaname)
+            if background_surface.city[areaname].rect.collidepoint(pygame.mouse.get_pos()):
+                areaexplain.showDiscription([areaname])
+                flag = 1
+        if flag == 0 :
+            print('hide discription')
+            areaexplain.hideDiscription(background_surface)       
         
         # system
         pygame.display.update() # update entire window screen
-        i+=1    
+        i+=1
+        
     pygame.quit()   
 
 # Seoul image reference : https://m.blog.naver.com/batt7424/220651741817
