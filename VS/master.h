@@ -31,10 +31,10 @@ public:
 	/* Getter & Setter */
 	/// Getter
 	int get_playerCnt() const { return _player_cnt; };
-	Player get_player(int number) const { return _player[number]; };
+	Player &get_player(int number) { return _player[number]; };
 	int get_trunPassed() const { return _turn_passed; };
 	int get_turnAvailable() const {return _turn_available; };
-	
+
 	/// Setter
 	void set_playerCnt(); // do not use
 	void set_player(); // do not use
@@ -52,7 +52,8 @@ public:
 	void gameStart();
 	void turnCycleStart();
 	int playerTrunStart(Player);
-	void playerActionEnd();
+	void playerActionStart(Player, int);
+	void playerActionEnd(Player);
 	void playerTrunEnd(Player);
 	void turnCycleEnd();
 	void gameEnd();

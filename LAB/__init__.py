@@ -15,5 +15,6 @@ BLUE = (10, 10, 120)
 COLOR = [BLACK, RED, GREEN, BLUE]
 CITY_LOCATION = {
     'Dobong' : (666, 85),
+    'Nowon' : (200, 15),    
 }
-CITY_SIZE = [40,]
+CITY_SCALE_LIST = [25, 35, 45]

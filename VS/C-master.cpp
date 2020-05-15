@@ -12,21 +12,22 @@ Master::Master(int initial_player_cnt)
 	if (initial_player_cnt <= 0)
 	{
 		string str = "error";
-		consoleSend(str,false);
+		consoleSend(str, false);
 	}
 	else if (initial_player_cnt == 1)
 	{
 		string str = "cannot play alone";
-		consoleSend(str,false);
+		consoleSend(str, false);
 	}
 	else if (initial_player_cnt <= 4)
 	{
-
+		string str = "game start";
+		consoleSend(str, false);
 	}
 	else
 	{
 		string str = "too much player";
-		consoleSend(str,false);
+		consoleSend(str, false);
 	}
 }
 
@@ -60,36 +61,38 @@ int Master::playerTrunStart(Player player)
 	// 이 함수에서 처리해줄 것.
 	// 즉, Player 배열에서 데이터 빼고 버리지 말고 여기서 흐름 처리.
 
-	// 이 플레이어가 가질 수 있는 동작회수
-	int actions_left = 0;
-
-
-	while (actions_left)
-	{
-		
-		playerActionEnd();
-	}
 }
 
-// �÷��̾��� �ൿ�� ������ �� ����
-void Master::playerActionEnd()
+// 특정 플레이어에게 실행 권한 한 번을 부여할 때 수행
+void Master::playerActionStart(Player player, int action_available)
 {
-	// 플레이어가 수행한 동작에 따라 갱신된 내용을 바탕으로
-	// 마스터에서 집계하고 연산.
+	// 목적 : 여기가 Player 클래스와 직접적인 상호 작용 공간
+	
+	// e.g 
+	player.selectAction();
 }
 
-// 플레이어의 턴이 종료되었을 때 수행
+
+void Master::playerActionEnd(Player player)
+{
+	// 목적 : 플레이어가 수행한 동작에 따라 갱신된 내용을 바탕으로 마스터에서 집계하고 연산.
+	// -- 지역마다 잔존한 병력 점검
+	// -- 지역마다 소유 정보 점검
+}
+
+// 한 플레이어의 턴이 종료되었을 때 수행
 void Master::playerTrunEnd(Player player)
 {
-	// 이 플레이어의 동작 마무리, 
+	// 목적 : 이 플레이어의 동작 마무리 및 갱신
+	// -- 지역마다 소유 정보 점검하여 최대 턴 수 조정
 
 
 }
 
-// 플레이어의 턴이 종료되었을 때 수행
+// 모든 플레이어의 턴이 종료되었을 때 수행
 void Master::turnCycleEnd()
 {
-
+	// -- 플레이어의 멸망을 체크.
 
 }
 
