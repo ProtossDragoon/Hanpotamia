@@ -5,7 +5,16 @@ Civilization at Han River
 
 ## Class
 
+### 1차 견본
+
 ![readmeimage/class_architecture.png](readmeimage/class_architecture.png)
+
+<br>
+
+### 2차 견본
+
+[참고자료 : UML Class diagram 기본](https://infinitejava.tistory.com/61) <br>
+[참고자료 : Sequence diagram] <br>
 
 <br>
 
