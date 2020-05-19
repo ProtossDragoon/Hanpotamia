@@ -3,16 +3,16 @@ class Map
 {
 private:
 	char _area;
-	(¼öÁ¤)(ÇÃ·¹ÀÌ¾î Å¬·¡½º) Æ÷ÀÎÅÍº¯¼ö->¼ÒÀ¯ÇÃ·¹ÀÌ¾î(class)* _host_player
-	(¼öÁ¤)(ÀÚ¿ø Å¬·¡½º) º¯¼ö Á¡·É½Ã ¼Òµæ(class) _occupation_acquirable_resource
-	(¼öÁ¤)(ÀÚ¿ø Å¬·¡½º) º¯¼ö Á¡·Éºñ¿ë(class) _occupation_cost
+	(ï¿½ï¿½ï¿½ï¿½)(ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½ï¿½->ï¿½ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ï¿½Ì¾ï¿½(class)* _host_player
+	(ï¿½ï¿½ï¿½ï¿½)(ï¿½Ú¿ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½É½ï¿½ ï¿½Òµï¿½(class) _occupation_acquirable_resource
+	(ï¿½ï¿½ï¿½ï¿½)(ï¿½Ú¿ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Éºï¿½ï¿½(class) _occupation_cost
 	int _area_level;
 	int _acquirable_resource_water;
 	int _acquirable_resource_gold;
 	int _acquirable_resource_food;
 	
 public:
-	void get_occupationPlayer();
+	void get_occupationPlayer(); //ì´ë¦„ìœ¼ë¡œ ì¸ìë°›ì•„ì„œ get í•  ìˆ˜ ìˆê²Œë” í•´ì£¼ì‹œë©´ ê°ì‚¬í•˜ê² ìŠµë‹ˆë‹¹
 	void get_occupationCost();
 	void get_acquirableResource();
 	void get_upgradeCost();

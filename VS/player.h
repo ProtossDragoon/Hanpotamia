@@ -11,6 +11,7 @@ private:
     int max_control_time;
     int now_control_time;
 
+
 public :
     //setter
     void set_play_name(char *name);
