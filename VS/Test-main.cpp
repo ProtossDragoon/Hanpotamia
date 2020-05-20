@@ -17,7 +17,7 @@ int main()
 			for (int j = action_available; j > 0; j--)
 			{
 				// 각 플레이어의 행동 명령은 해당 객체에서 선택지 보여주고 제어
-				game_master.playerActionStart(player, action_available);
+				game_master.playerActionStart(player);
 				game_master.playerActionEnd(player);
 			}
 			game_master.playerTrunEnd(game_master.get_player(i));
