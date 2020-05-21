@@ -33,4 +33,5 @@ public :
 };
 
 
-
+// get_myPlace(); // return : [0,1,0,0,0,1,0...]
+// set_maxControlCnt(int user_max_control_cnt);
