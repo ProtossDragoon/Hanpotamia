@@ -63,34 +63,34 @@ class Console():
 
 
 class City():
-    def __init__(self, screen, areaname, player=0, citysize=0):
+    def __init__(self, screen, areaname, player=0, cityscale=0):
         self.screen = screen
         self.areaname = areaname
-        self.citysize = citysize
+        self.citysize = cityscale
         self.color = COLOR[2]
         
         # In order to draw antialiased filled shapes with pygame, use the module gfxdraw
         # "To draw an anti aliased and filled shape, 
         # first use the aa* version of the function, and then use the filled version."
-        self.rect = pygame.draw.circle(self.screen, self.color, CITY_LOCATION[self.areaname], CITY_SIZE[self.citysize])
+        self.rect = pygame.draw.circle(self.screen, self.color, CITY_LOCATION[self.areaname], CITY_SCALE_LIST[self.citysize])
         gfxdraw.aacircle(self.screen, 
                          CITY_LOCATION[self.areaname][0], CITY_LOCATION[self.areaname][1], 
-                         CITY_SIZE[self.citysize], self.color)
+                         CITY_SCALE_LIST[self.citysize], self.color)
         gfxdraw.filled_circle(self.screen,
                          CITY_LOCATION[self.areaname][0], CITY_LOCATION[self.areaname][1], 
-                         CITY_SIZE[self.citysize], self.color)
+                         CITY_SCALE_LIST[self.citysize], self.color)
         print(CITY_LOCATION[self.areaname][0],  CITY_LOCATION[self.areaname][1],
-              CITY_SIZE[self.citysize], self.color)
+              CITY_SCALE_LIST[self.citysize], self.color)
         self.update()
         
     def update(self):
-        self.rect = pygame.draw.circle(self.screen, self.color, CITY_LOCATION[self.areaname], CITY_SIZE[self.citysize])
+        self.rect = pygame.draw.circle(self.screen, self.color, CITY_LOCATION[self.areaname], CITY_SCALE_LIST[self.citysize])
         gfxdraw.aacircle(self.screen, 
                          CITY_LOCATION[self.areaname][0], CITY_LOCATION[self.areaname][1], 
-                         CITY_SIZE[self.citysize], self.color)
+                         CITY_SCALE_LIST[self.citysize], self.color)
         gfxdraw.filled_circle(self.screen,
                          CITY_LOCATION[self.areaname][0], CITY_LOCATION[self.areaname][1], 
-                         CITY_SIZE[self.citysize], self.color)
+                         CITY_SCALE_LIST[self.citysize], self.color)
         pygame.display.update()
 
     def setSettings(self, player, citysize=0):
@@ -110,8 +110,8 @@ class BackgroundMap():
         self.screen = screen
         
         self.city = {}
+        cnt = 0
         for key in CITY_LOCATION:
-            print(key)
             self.city[key] = City(self.screen, key)
             
         self.update()
@@ -124,7 +124,8 @@ class BackgroundMap():
         self.screen.blit(self.image, (0,0))
         for key in self.city:
             self.city[key].update()
-        pygame.display.update()        
+        pygame.display.update()
+        print('update background and image')        
 
 
 class Charactor():
