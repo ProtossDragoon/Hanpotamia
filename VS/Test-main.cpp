@@ -5,6 +5,7 @@ int main()
 	// select player	
 	Master game_master = Master(3);
 
+	// 턴 초기화, 플레이어 기본 자원 할당,
 	game_master.gameStart();
 
 	while (game_master.get_turnAvailable())
@@ -14,14 +15,14 @@ int main()
 		for (int i = 0; i < game_master.get_playerCnt(); i++)
 		{
 			Player player = game_master.get_player(i);
-			int action_available = game_master.playerTrunStart(player);
-			for (int j = action_available; j > 0; j--)
+			game_master.playerTrunStart(player);
+			int action_available = 0;
+			while (action_available = player.get_availabeControlCnt())
 			{
-				// 플레이어 클래스 : game_master.playerActionStart() 에서 실행.
 				game_master.playerActionStart(player);
 				game_master.playerActionEnd(player);
 			}
-			game_master.playerTrunEnd(game_master.get_player(i));
+			game_master.playerTurnEnd(game_master.get_player(i));
 		}
 		game_master.turnCycleEnd();
 	}
