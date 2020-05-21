@@ -48,11 +48,11 @@ public:
 	int playerTrunStart(Player);
 	void playerActionStart(Player);
 	void playerActionEnd(Player);
-	void playerTrunEnd(Player);
+	void playerTurnEnd(Player);
 	void turnCycleEnd();
 	void gameEnd();
 
 	//// methods - rule management
-	void calculateAllPlayersLeftCommandCnt();
+	void calculateAllPlayersMaxCommandCnt();
 	void checkAllPlayersAlive();
 };

@@ -94,13 +94,13 @@ void Master::playerActionEnd(Player player)
 	// -- 지역마다 소유 정보 점검
 
 
-	// 모든 플레이어의 자신의 남은 실행횟수 다시 연산하도록 명령
-	calculateAllPlayersLeftCommandCnt();
+	// 모든 플레이어의 자신의 최대 실행횟수 다시 연산하도록 명령
+	calculateAllPlayersMaxCommandCnt();
 }
 
 //// methods - flow management
 // 한 플레이어의 턴이 종료되었을 때 수행
-void Master::playerTrunEnd(Player player)
+void Master::playerTurnEnd(Player player)
 {
 	// 목적 : 이 플레이어의 동작 마무리 및 갱신
 	// -- 지역마다 소유 정보 점검하여 최대 턴 수 조정
@@ -125,22 +125,54 @@ void Master::gameEnd()
 }
 
 //// methods - rule management
-// 모든 플레이어를 대상으로 그 플레이어가 플레이할 수 있는 턴을 다시 연산하도록 명령
-void Master::calculateAllPlayersLeftCommandCnt()
+// 모든 플레이어를 대상으로 그 플레이어가 최대로 플레이할 수 있는 턴을 다시 연산해서 각 플레이어의 변수에 넣어줌.
+void Master::calculateAllPlayersMaxCommandCnt()
 {
-	for (int i = 0; i < _player_cnt; i++)
-	{
+	int myplace_cnt = 0;
+	int user_max_control_cnt;
 
+	for (int i = 1; i < _player_cnt; i++)
+	{
+		int* myplace_arr = _player[i].get_myPlace(); // return : [0,1,0,0,0,1,0...]
+		for (int j = 0; j < 25; j++)
+		{
+			if (myplace_arr[i] == 1) myplace_cnt++;
+		}
+
+		// 소유하고 있는 지역의 개수에 따라 정해짐
+		if (myplace_cnt <= 3)
+		{
+			user_max_control_cnt = 2;
+		}
+		else if (myplace_cnt < 5)
+		{
+			user_max_control_cnt = 3;
+		}
+		else if (myplace_cnt < 7)
+		{
+			user_max_control_cnt = 4;
+		}
+		else if (myplace_cnt < 11)
+		{
+			user_max_control_cnt = 5;
+		}
+		else 
+		{
+			user_max_control_cnt = 6;
+		}
+
+		_player[i].set_maxControlCnt(user_max_control_cnt);
+		delete[] myplace_arr;
 	}
 }
 
 
 //// methods - rule management
-// 모든 플레이어를 대상으로 그 플레이어가 멸망하지 않았는지 확인하도록 명령
+// 모든 플레이어를 대상으로 그 플레이어가 멸망하지 않았는지 확인해줌.
 void Master::checkAllPlayersAlive()
 {
-	for (int i = 0; i < _player_cnt; i++)
+	for (int i = 1; i < _player_cnt; i++)
 	{
-
+	
 	}
 }
