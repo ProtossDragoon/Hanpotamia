@@ -4,9 +4,37 @@
 #include <string.h>
 #include <memory.h>
 
-void Map::set_areaInformation() {
-	area[0] = { "°­³²±¸",0 };
-	area[1]={""}
+void Map::set_areaInformation(areainformation area[]) {
+	area[0] = { "°­³²±¸",0,"À°Áö",1 };
+	area[1] = { "¿ë»ê±¸",1,"À°Áö",1 };
+	area[2] = { "¼­ÃÊ±¸",2,"À°Áö",1 };
+	area[3] = { "¼ÛÆÄ±¸",3,"À°Áö",1 };
+	area[4] = { "¸¶Æ÷±¸",4,"À°Áö",1 };
+	area[5] = { "¼ºµ¿±¸",5,"À°Áö",1 };
+	area[6] = { "µ¿ÀÛ±¸",6,"À°Áö",1 };
+	area[7] = { "¿µµîÆ÷±¸",7,"À°Áö",1 };
+	area[8] = { "±¤Áø±¸",8,"À°Áö",1 };
+	area[9] = { "Á¾·Î±¸",9,"À°Áö",1 };
+	area[10] = { "Áß±¸",10,"À°Áö",1 };
+	area[11] = { "°­µ¿±¸",11,"À°Áö",1 };
+	area[12] = { "¾çÃµ±¸",12,"À°Áö",1 };
+	area[13] = { "µ¿´ë¹®±¸",13,"À°Áö",1 };
+	area[14] = { "¼­´ë¹®±¸",14,"À°Áö",1 };
+	area[15] = { "°­¼­±¸",15,"À°Áö",1 };
+	area[16] = { "°ü¾Ç±¸",16,"À°Áö",1 };
+	area[17] = { "¼ººÏ±¸",17,"À°Áö",1 };
+	area[18] = { "ÀºÆò±¸",18,"À°Áö",1 };
+	area[19] = { "³ë¿ø±¸",19,"À°Áö",1 };
+	area[20] = { "±¸·Î±¸",20,"À°Áö",1 };
+	area[21] = { "Áß¶û±¸",21,"À°Áö",1 };
+	area[22] = { "±İÃµ±¸",22,"À°Áö",1 };
+	area[23] = { "°­ºÏ±¸",23,"À°Áö",1 };
+	area[24] = { "µµºÀ±¸",24,"À°Áö",1 };
+	area[25] = { "°­1",25,"°­",1 };
+	area[26] = { "°­2",26,"±ë",1 };
+	area[27] = { "°­3",27,"°­",1 };
+	area[28] = { "°­4",28,"°­",1 };
+	area[29] = { "°­5",29,"°­",1 };
 }
 
 Map::Map(int _max_area):_max_area(_max_area) {
@@ -17,72 +45,101 @@ Map::Map(int _max_area):_max_area(_max_area) {
 	}
 	_route[0][2] = 1;
 	_route[0][3] = 1;
-	_route[0][13] = 1;
-	_route[1][2] = 1;
+	_route[0][28] = 1;
 	_route[1][4] = 1;
 	_route[1][6] = 1;
 	_route[1][10] = 1;
+	_route[1][27] = 1;
 	_route[2][16] = 1;
+	_route[2][27] = 1;
 	_route[3][11] = 1;
 	_route[3][16] = 1;
-	_route[4][7] = 1;
 	_route[4][14] = 1;
-	_route[4][15] = 1;
+	_route[4][25] = 1;
+	_route[4][26] = 1;
 	_route[5][8] = 1;
 	_route[5][10] = 1;
 	_route[5][13] = 1;
 	_route[6][7] = 1;
 	_route[6][16] = 1;
 	_route[7][20] = 1;
-	_route[8][11] = 1;
+	_route[7][26] = 1;
+	_route[8][29] = 1;
 	_route[9][10] = 1;
 	_route[9][14] = 1;
 	_route[9][17] = 1;
 	_route[9][18] = 1;
 	_route[11][19] = 1;
 	_route[11][21] = 1;
+	_route[11][29] = 1;
 	_route[12][15] = 1;
 	_route[12][20] = 1;
 	_route[13][17] = 1;
 	_route[13][21] = 1;
+	_route[13][28] = 1;
+	_route[15][25] = 1;
 	_route[16][22] = 1;
 	_route[17][23] = 1;
 	_route[19][21] = 1;
 	_route[19][24] = 1;
 	_route[20][22] = 1;
 	_route[23][24] = 1;
+	_route[25][26] = 1;
+	_route[26][27] = 1;
+	_route[27][28] = 1;
+	_route[28][29] = 1;
 }
 
-/*void Map::addRoute(int start, int end) {
-	_route[start][end] = 1;
-	_route[end][start] = 1;
-}*/
-
-void Map::get_movableArea(int start) {
-	cout << "---ÀÌµ¿ÇÒ ¼ö ÀÖ´Â Áö¿ª---" << endl;
+int Map::get_movableArea(areainformation area[], int start) {
+	int j = 0;
 	for (int i = 0; i < _max_area; i++) {
 		if (_route[start][i] == 1) {
-			cout << i << endl;
+			area[start].neighborarea[j] = area[i].areaname;
+			j++;
 		}
 	}
 }
 
-void Map::get_acquirableResource() {
+void Map::get_acquirableResource(areainformation area) {
+	set_acquirableFood(area);
+	set_acquirableGold(area);
+	set_acquirableWater(area);
+}
+
+int Map::set_acquirableFood(areainformation area) {
 	if (_area_type == "À°Áö") {
 		_acquirable_resource_food = 100;
-		_acquirable_resource_gold = 100;
-		_acquirable_resource_water = 30;
 	}
 	else {
 		_acquirable_resource_food = 50;
-		_acquirable_resource_gold = 10;
-		_acquirable_resource_water = 100;
 	}
+	return _acquirable_resource_food;
 }
 
-void Map::set_areaType() {
-	
+int Map::set_acquirableGold(areainformation area) {
+	if (_area_type == "À°Áö") {
+		_acquirable_resource_gold = 100;
+	}
+	else {
+		_acquirable_resource_gold = 10;
+	}
+	return _acquirable_resource_gold;
+}
+
+int Map::set_acquirableWater(areainformation area) {
+	if (_area_type == "À°Áö") {
+		_acquirable_resource_water = 30;
+	}
+	else {
+		_acquirable_resource_water = 100;
+	}
+	return _acquirable_resource_water;
+}
+
+void Map::set_areaHost(Player* _host_player) {
+	area->areahost = _host_player->get_play_name;
 }
 
 int Map::calBattle() {
+
 }
