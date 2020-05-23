@@ -33,11 +33,13 @@ public:
 	Player &get_player(int number) { return _player[number]; };
 	int get_trunPassed() const { return _turn_passed; };
 	int get_turnAvailable() const {return _turn_available; };
+	bool get_isPlayerAlive(int player) const { return _is_player_alive[player]; };
 	/// Setter
 	// void set_playerCnt(); // do not use
 	// void set_player(); // do not use
 	void set_turnPassed(int turn) { _turn_passed = turn;  };
 	void set_turnAvailable(int turn) { _turn_available = turn; };
+	void set_isPlayerAlive(int player, bool isalive) { _is_player_alive[player] = isalive; };
 
 	//// methods - system & alert 
 	void consoleSend(string, bool);

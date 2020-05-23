@@ -35,6 +35,7 @@ public :
     void calculate_Unit(int sum_HP, char *Unit_tendency, char *area);
 };
 
-
-// get_myPlace(); // return : [0,1,0,0,0,1,0...]
-// set_maxControlCnt(int user_max_control_cnt);
+// 추가요청
+// player.get_myPlace(); // return : [0,1,0,0,0,1,0...
+// player.get_maxControlCnt();
+// player.get_nowControlCnt();
