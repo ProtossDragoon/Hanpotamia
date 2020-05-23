@@ -1,26 +1,44 @@
 #pragma once
+#include <iostream>
+using namespace std;
+
+typedef struct {
+	string areaname;
+	int areanum;
+	string areahost;
+}areainformation;
+
 class Map
 {
 private:
 	char _area;
-	(����)(�÷��̾� Ŭ����) �����ͺ���->�����÷��̾�(class)* _host_player
-	(����)(�ڿ� Ŭ����) ���� ���ɽ� �ҵ�(class) _occupation_acquirable_resource
-	(����)(�ڿ� Ŭ����) ���� ���ɺ��(class) _occupation_cost
+	player* _host_player;
+	resource _occupation_acquirable_resource;
+	resource _occupation_cost;
 	int _area_level;
+	int _area_number;
+	string _area_name;
+	string _area_type;
 	int _acquirable_resource_water;
 	int _acquirable_resource_gold;
 	int _acquirable_resource_food;
-	
+	const int _max_area;
+	int** _route;
+	areainformation area[25] = { NULL };
+
 public:
-	void get_occupationPlayer(); //이름으로 인자받아서 get 할 수 있게끔 해주시면 감사하겠습니당
+	Map(int _max_area);
+	void get_occupationPlayer();
 	void get_occupationCost();
 	void get_acquirableResource();
 	void get_upgradeCost();
-	void get_movableArea();
+	void get_movableArea(int start);
 
+	void set_areaName();
 	void set_occupationCost();
+	void set_areaLevel();
+	void set_areaInformation();
+	void set_areaType();
 
 	int calBattle();
-	
-	
 };
