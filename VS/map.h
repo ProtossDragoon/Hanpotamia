@@ -25,7 +25,7 @@ private:
 	const int _max_area;
 	int** _route;
 	areainformation area[25] = { NULL };
-
+	
 public:
 	Map(int _max_area);
 	void get_occupationPlayer();
