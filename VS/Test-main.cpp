@@ -15,12 +15,14 @@ int main()
 		for (int i = 0; i < game_master.get_playerCnt(); i++)
 		{
 			Player player = game_master.get_player(i);
-			game_master.playerTrunStart(player);
-			int action_available = 0;
-			while (action_available = player.get_availabeControlCnt())
+			if(game_master.playerTrunStart(player))
 			{
-				game_master.playerActionStart(player);
-				game_master.playerActionEnd(player);
+				int action_available = 0;
+				while (action_available = player.get_availabeControlCnt())
+				{
+					game_master.playerActionStart(player);
+					game_master.playerActionEnd(player);
+				}
 			}
 			game_master.playerTurnEnd(game_master.get_player(i));
 		}
