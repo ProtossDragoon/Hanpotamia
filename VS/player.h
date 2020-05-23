@@ -4,19 +4,25 @@
 #pragma once
 
 using namespace std;
+
 class Player
 {
 private:
     char *player_name;
     int _max_control_time;
     int _now_control_time;
-
+    Resource _my_resource;
 
 public :
+    Player();
+    Player(char *player_name, int _now_control_time,int _max_control_time);
+
+
     //setter
     void set_player_name(char *name);
     void set_maxControlCnt(int user_max_control_cnt);
     void set_nowControlCnt(int user_now_control_cnt);
+    void set_first_my_resource();
     //getter
     //Output 각 클래스별 배열 ( 배열의 첫 번쨰 주소 Return)
     int *get_my_place();
