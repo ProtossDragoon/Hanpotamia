@@ -11,6 +11,10 @@ typedef struct {
 	int arealevel;
 	string neighborarea[30];
 	string areahost;
+	int areaunit;
+	int areafood;
+	int areawater;
+	int areagold;
 }areainformation;
 
 class Map
@@ -33,19 +37,18 @@ private:
 
 public:
 	Map(int _max_area);
-	string get_occupationPlayer() { return _host_player->get_play_name; }
+	string get_occupationPlayer(string areaname);
 	void get_occupationCost();
-	void get_acquirableResource(areainformation area);
+	void get_acquirableResource(string areaname);
 	void get_upgradeCost();
-	int get_movableArea(areainformation area[], int start);
+	int get_movableArea(string areaname, int start);
+	int get_unit(string areaname, Player* _host_player);
+	int get_unitWhole(Player* _host_player);
 
-	void set_areaName();
 	void set_occupationCost();
 	void set_areaInformation(areainformation area[]);
-	void set_areaHost(Player* _host_player);
-	int set_acquirableFood(areainformation area);
-	int set_acquirableGold(areainformation area);
-	int set_acquirableWater(areainformation area);
-
-	int calBattle();
+	void set_areaHost(Player* _host_player, string areaname);
+	int set_acquirableFood(string areaname);
+	int set_acquirableGold(string areaname);
+	int set_acquirableWater(string areaname);
 };
