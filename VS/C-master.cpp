@@ -74,6 +74,9 @@ int Master::playerTrunStart(Player player)
 	// 이 함수에서 처리해줄 것.
 	// 즉, Player 배열에서 데이터 빼고 버리지 말고 여기서 흐름 처리.
 
+	// -- 만약 멸망한 플레이어라면 주지 않음.
+
+	return player.get_maxControlCnt();
 }
 
 //// methods - flow management
@@ -90,10 +93,13 @@ void Master::playerActionStart(Player player)
 void Master::playerActionEnd(Player player)
 {
 	// 목적 : 플레이어가 수행한 동작에 따라 갱신된 내용을 바탕으로 마스터에서 집계하고 연산.
-	// -- 지역마다 잔존한 병력 점검
-	// -- 지역마다 소유 정보 점검
 
+	// -- 지역마다 잔존한 병력 점검 ? 이게 필요함?
 
+	// -- 특정 플레이어의 남은 실행 횟수를 차감
+	player.set_nowControlCnt(player.get_nowControlCnt()-1);
+
+	// -- 지역마다 소유 정보 점검하여 최대 턴 수 조정	
 	// 모든 플레이어의 자신의 최대 실행횟수 다시 연산하도록 명령
 	calculateAllPlayersMaxCommandCnt();
 }
@@ -120,6 +126,7 @@ void Master::turnCycleEnd()
 // 한 판이 끝났을 때 수행
 void Master::gameEnd()
 {
+	// -- Dashboard
 
 
 }
@@ -128,11 +135,12 @@ void Master::gameEnd()
 // 모든 플레이어를 대상으로 그 플레이어가 최대로 플레이할 수 있는 턴을 다시 연산해서 각 플레이어의 변수에 넣어줌.
 void Master::calculateAllPlayersMaxCommandCnt()
 {
-	int myplace_cnt = 0;
+	int myplace_cnt;
 	int user_max_control_cnt;
 
 	for (int i = 1; i < _player_cnt; i++)
 	{
+		myplace_cnt = 0;
 		int* myplace_arr = _player[i].get_myPlace(); // return : [0,1,0,0,0,1,0...]
 		for (int j = 0; j < 25; j++)
 		{
@@ -171,8 +179,18 @@ void Master::calculateAllPlayersMaxCommandCnt()
 // 모든 플레이어를 대상으로 그 플레이어가 멸망하지 않았는지 확인해줌.
 void Master::checkAllPlayersAlive()
 {
+	int myplace_cnt;
 	for (int i = 1; i < _player_cnt; i++)
 	{
-	
+		myplace_cnt = 0;
+		int* myplace_arr = _player[i].get_myPlace(); // return : [0,1,0,0,0,1,0...]
+		for (int j = 0; j < 25; j++)
+		{
+			if (myplace_arr[i] == 1) myplace_cnt++;
+		}
+		if (myplace_cnt == 0)
+		{
+			set_isPlayerAlive(i, false);
+		}
 	}
 }

@@ -1,20 +1,29 @@
 #pragma once
 #include <iostream>
+#include"player.h"
+#include"resource.h"
 using namespace std;
 
 typedef struct {
 	string areaname;
 	int areanum;
+	string areatype;
+	int arealevel;
+	string neighborarea[30];
 	string areahost;
+	int areaunit;
+	int areafood;
+	int areawater;
+	int areagold;
 }areainformation;
 
 class Map
 {
 private:
 	char _area;
-	player* _host_player;
-	resource _occupation_acquirable_resource;
-	resource _occupation_cost;
+	Player* _host_player;
+	Resource _occupation_acquirable_resource;
+	Resource _occupation_cost;
 	int _area_level;
 	int _area_number;
 	string _area_name;
@@ -22,23 +31,24 @@ private:
 	int _acquirable_resource_water;
 	int _acquirable_resource_gold;
 	int _acquirable_resource_food;
-	const int _max_area;
+	const int _max_area = 30;
 	int** _route;
-	areainformation area[25] = { NULL };
-	
+	areainformation area[30] = { NULL };
+
 public:
 	Map(int _max_area);
-	void get_occupationPlayer();
+	string get_occupationPlayer(string areaname);
 	void get_occupationCost();
-	void get_acquirableResource();
+	void get_acquirableResource(string areaname);
 	void get_upgradeCost();
-	void get_movableArea(int start);
+	int get_movableArea(string areaname, int start);
+	int get_unit(string areaname, Player* _host_player);
+	int get_unitWhole(Player* _host_player);
 
-	void set_areaName();
 	void set_occupationCost();
-	void set_areaLevel();
-	void set_areaInformation();
-	void set_areaType();
-
-	int calBattle();
+	void set_areaInformation(areainformation area[]);
+	void set_areaHost(Player* _host_player, string areaname);
+	int set_acquirableFood(string areaname);
+	int set_acquirableGold(string areaname);
+	int set_acquirableWater(string areaname);
 };
