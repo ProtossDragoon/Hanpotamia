@@ -1,8 +1,8 @@
 #include "player.h"
-#include "map.h"
 
-//Creater
-Player::Player(char *player_name, int _now_control_time, int _max_control_time) {
+
+///Creator
+Player::Player(string player_name, int _now_control_time, int _max_control_time) {
     player_name=player_name;
     _now_control_time=_now_control_time;
     _max_control_time=_max_control_time;
@@ -15,11 +15,18 @@ void Player::set_maxControlCnt(int user_max_control_cnt) {
 void Player::set_nowControlCnt(int user_now_control_cnt) {
     _now_control_time=user_now_control_cnt;
 }
-void Player::set_player_name(char *name) {
+void Player::set_player_name(string name) {
     player_name=name;
 
 }
-void Player::set_first_my_resource() {
+void Player::discount_nowControlCnt() {
+    if(_now_control_time>0)
+        _now_control_time--;
+    if(_now_control_time<=0)
+        cout << "조작 가능 횟수를 초과했습니다." << endl;
+}
+
+void Player::set_my_resource(int Food, int Gold, int Water) {
     this->_my_resource.setFood();
     this->_my_resource.setGold();
     this->_my_resource.setWater();
@@ -43,25 +50,98 @@ int * Player::get_my_place() {
     return searching.get_occupationPlayer(this->player_name); //player_name;
 }
 
-int Player::get_my_control_time() {
+int Player::get_maxControlCnt() {
+    return _max_control_time;
+}
+
+int Player::get_nowControlCnt() {
     return _now_control_time;
 }
 
-char* Player::get_player_name() {
+string  Player::get_player_name() {
     return this->player_name;
 }
 
 //// game function
-Unit Player::produce_unit(char *tendency, int product_count, char *area,char *playername) {
+void Player::selectAction() {
+    //// produce_unit
+    string tendency; int product_count; string area;
+
+    ////move or attack
+    string from, to;
+
+    ////Upgrade area
+
+
+    int command;
+    cout << "=========== 동작을 선택하세요 =============" << endl;
+
+    cout << " 1. 유닛생산 " <<endl;
+    cout << " 2. 이동 및 공격 "<<endl;
+    cout << " 3. 지역 업그레이드 " <<endl;
+    cout << " 4. 보유 지역 조회 " << endl;
+    cout << " 5. 보유 자원 조회 " << endl;
+    cout << " 6. 보유 병력 조회 " << endl;
+
+    cin >> command;
+
+    if(command == 1 ) {
+        cout << " 병과를 선택하세요 " << endl ; //예시 보여주기
+        cin >> tendency;
+        cout << " 생산할 병력의 수를 입력하세요 " << endl;
+        cin >> product_count;
+        cout << " 배치 할 지역을 입력하세요 " << endl;
+        cin >> area;
+        produce_unit(tendency, product_count, area, this->player_name);
+    }
+
+    if(command == 2 ){
+        cout << " 병력을 이동 시킬 지역을 입력하세요 " << endl;
+        cout << " From : " ;
+        cin >> from;
+        cout << " To : ";
+        cin >> to;
+        MoveOrAttack_unit(from,to);
+    }
+
+    if(command==3){
+        cout << "업그레이드 할 지역을 입력하세요 " << endl;
+        cin >> area;
+        upgradeArea(area);
+    }
+
+    if(command== 4 ){
+        cout << " 1. 전체 지역 정보 조회    2. 단일 지역 정보 조회 " <<endl;
+        cin >> command;
+        if(command == 1 ){
+
+        }
+        if(command == 2){
+
+        }
+    }
+
+    if(command == 5){
+        get_my_resource();
+    }
+
+    if(command == 6){
+        cout << "1. 전체 보유 병력 조회     2. 단일 지역 병력 조회" <<endl;
+
+    }
+}
+
+
+Unit Player::produce_unit(string tendency, int product_count, string area,string playername) {
     Unit pro;
     //pro.product(tendency, product_count); 유닛 성격 ( 병과) , 생산 개수 지정 => Player 정보 조회해서 생산가능한지 검사
     //pro 객체에 생산 된 Unit 정보 있음.
-    ////Map 함수에 생산한 병력 배치할 함수 필요 (Unit product, char * area) 인자 => Player Name 검사해서 병력 생산 가능 구역인지 확인
+    ////Map 함수에 생산한 병력 배치할 함수 필요 (Unit product, string  area) 인자 => Player Name 검사해서 병력 생산 가능 구역인지 확인
     //set_Unit()
     return pro;
 }
 
-void Player::MoveOrAttack_unit(char *from, char *to) {
+void Player::MoveOrAttack_unit(string from, string to) {
     Map searching;
     //모든 클래스에서 get_player_name 이 존재해야할 것 같다.
 
@@ -74,12 +154,12 @@ void Player::MoveOrAttack_unit(char *from, char *to) {
     move(from,to);
 }
 
-void Player::fight(char *from_area, char *to_area) {
+void Player::fight(string from_area, string to_area) {
     Map searching();
     Unit fight;
     int sum_HP;
     int count_attacker;
-    char *attack_Unit, *under_attack_Unit;
+    string attack_Unit, *under_attack_Unit;
     //공격하려는 Unit 과 공격당하는 Unit 의 공격력을 더해서 서로 차감하고
     //해당 체력에 관해 modulo 연산으로 남은 유닛을 반영한다.
     while(attack_Unit != NULL && under_attack_Unit != NULL ) {
@@ -104,7 +184,7 @@ void Player::fight(char *from_area, char *to_area) {
     calculate_Unit(10000,under_attack_Unit,to_area);
 }
 
-void Player::calculate_Unit(int sum_HP, char *Unit_tendency, char *area) {
+void Player::calculate_Unit(int sum_HP, string Unit_tendency, string area) {
 
     //area name, Unit tendency, Unit_count 를 인자로 해당 지역의 병력 변경 가능해야함
     if(sum_HP<0)
@@ -115,9 +195,9 @@ void Player::calculate_Unit(int sum_HP, char *Unit_tendency, char *area) {
     }
 }
 
-void Player::move(char *from, char *to) {
+void Player::move(string from, string to) {
     Map searching();
-    char *tendency;
+    string tendency;
     int count;
 
     //움직일 병과를 입력하세요
@@ -127,4 +207,10 @@ void Player::move(char *from, char *to) {
 
     ////searching.set_Unit(from, tendency , 원래있던 병과의 수 - count);
     ////searching.set_Unit(to, tendency , count);
+}
+
+
+void Player::upgradeArea(string area) {
+    // 지역업그레이드 함수
+
 }
