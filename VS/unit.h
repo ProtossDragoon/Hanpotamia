@@ -1,126 +1,118 @@
+#include "resource.h"
+//#include "player.h"
 #pragma once
+using namespace std;
 class Unit
 {
 private:
 
 protected:
-	int UnitType;//Unit종류
-	int AttackDamage;//공격
-	int HitPoint;//체력
-	int Resource_Gold;//금
-	int Resource_Water;//물
-	int Resource_Food;//음식
-	int TroopProduction;//한턴생산병력
-	int MovingRange;//한턴이동범위
-	int MovingAreaType;//이동할 수 있는 지역 특성
-	int AttackRange;//공격가능범위
+	int _unit_type;//병종 Infantry(보병)=0, Archer(궁수)=1, Cavalry(기병)=2, Navy(수군)=3
+	int _attack_damage;//공격 infantry(보병)=10, Archer(궁수)=10, Cavalry(기병)=20, Navy(수군)=20
+	int _hit_point;//체력 infantry(보병)=50, Archer(궁수)=30, Cavalry(기병)=100, Navy(수군)=20
+	int _resource_gold;//금 infantry(보병)=10, Archer(궁수)=10, Cavalry(기병)=20, Navy(수군)=10
+	int _resource_water;//물 infantry(보병)=10, Archer(궁수)=5, Cavalry(기병)=10, Navy(수군)=20
+	int _resource_food;//음식 infantry(보병)=10, Archer(궁수)=5, Cavalry(기병)=10, Navy(수군)=20
+	int _troop_production;//한턴생산병력 infantry(보병)=50, Archer(궁수)=3, Cavalry(기병)=2, Navy(수군)=2
+	int _moving_range;//한턴이동범위 infantry(보병)=2, Archer(궁수)=1, Cavalry(기병)=3, Navy(수군)=2
+	int _moving_area_type;//이동할 수 있는 지역 특성	--수정필요--	땅=0, 물=1, 땅+물=2		infantry(보병)=0(수정사항-upgrade to 2), Archer(궁수)=0, Cavalry(기병)=0, Navy(수군)=2
+	int _attack_range;//공격가능범위 infantry(보병)=0, Archer(궁수)=1, Cavalry(기병)=0, Navy(수군)=2
+	int _unit_cnt;//유닛수
 
 public:
-	//생성자
+	//constructor
+
+	Unit();
+	//Unit(int);
+
+	//소멸자
+	~Unit();
 
 
-	/*Unit::Unit() {
-		UnitType = 0;
-		AttackDamage = 0;
-		HitPoint = 0;
-		Resource_Gold = 0;
-		Resource_Water = 0;
-		Resource_Food = 0;
-		TroopProduction = 0;
-		MovingRange = 0;
-		MovingAreaType = 0;
-		AttackRange = 0;
-	}*/
-
-
-	/*Unit::Unit(int new_UnitType, int new_AttackDamage, int new_Hitpoint, int new_Resource_Gold, int new_Resource_Water, int new_Resource_Food, int new_TroopProduction, int new_MovingRange, int new_MovingAreaType, int new_AttackRange){
-		UnitType=new_UnitType;
-		AttackDamage=new_AttackDamage;
-		HitPoint=new_HitPoint;
-		Resource_Gold=new_Resource_Gold;
-		Resource_Water=new_Resource_Water;
-		Resource_Food=new_Resource_Food;
-		TroopProduction=new_TroopProduction;
-		MovingRange=new_MovingRange;
-		MovingAreaType=new_MovingAreaType;
-		AttackRange=new_AttackRange;
-	}*/ //생성자들은 나중에 수정
-
-	//setter
-	void setUnitType();
-	void setAttackDamage();
-	void setHitPoint();
-	void setResource_Gold();
-	void setResource_Water();
-	void setResource_Food();
-	void setTroopProduction();
-	void setMovingRange();
-	void setAttackRange();
+	//setter 사실상 필요없을듯
+	void set_unit_type(int type);
+	void set_attack_damage(int attackdamage);
+	void set_hit_point(int hp);
+	void set_resource_gold(int gold);
+	void set_resource_water(int water);
+	void set_resource_food(int food);
+	void set_troop_production(int troopproduction);
+	void set_moving_range(int movingrange);
+	void set_moving_area_type(int movingareatype);//보병이 물에서 다닐수 있게 한다면 사용
+	void set_attack_range(int attackrange);
+	void set_unit_cnt(int cnt);
 
 	//getter
-	int getUnitType();
-	int getAttackDamage();
-	int getHitPoint();
-	int getResource_Gold();
-	int getResource_Water();
-	int getResource_Food();
-	int getTroopProduction();
-	int getMovingRange();
-	int getAttackRange();
+	int get_unit_type() { return _unit_type; };
+	int get_attack_damage() { return _attack_damage; };
+	int get_hit_point() { return _hit_point; };
+	int get_resource_gold() { return _resource_gold; };
+	int get_resource_water() { return _resource_water; };
+	int get_resource_food() { return _resource_food; };
+	int get_troop_production() { return _troop_production; };
+	int get_moving_range() { return _moving_range; };
+	int get_moving_area_type() { return _moving_area_type; };
+	int get_attack_range() { return _attack_range; };
+	int get_unit_cnt() { return _unit_cnt; };
+
+	//함수
+	void UnitProduct(tendency, product_count);//병과, 생산 개수 인자로->palyer정보 조회해서 생산가능한지 검사
+
+
+	//Unit객체들이 합쳤을 때 함수
+	void AddUnit();
+
 };
 
 
-//상속하는 파생클래스들은 Unit클래스의 멤버변수들에 각각의 값을 가지고 있다(생성자를 호출할 때 따로 숫자를 넣을 필요가 없다)
-class Unit_Infantry {
+//보병
+class Unit_Infantry : public Unit{
 private:
-	int UnitType;
+	
 protected:
 
 public:
 	//생성자
-	Unit_Infantry(int new_UnitType = 0, int new_AttackDamage = 0, int new_Hitpoint = 0, int new_Resource_Gold = 0, int new_Resource_Water = 0, int new_Resource_Food, int new_TroopProduction, int new_MovingRange, int new_AttackRange) :Unit(new_AttackDamage, new_Hitpoint, new_Resource_Gold, new_Resource_Water, new_Resource_Food, new_TroopProduction, new_MovingRange, new_AttackRange) {};
-
-	//Unit.cpp
-	//Unit_Infantry::Unit_Infantry(int new_UnitType, int new_AttackDamage, int new_Hitpoint, int new_Resource_Gold, int new_Resource_Water, int new_Resource_Food, int new_TroopProduction, int new_MovingRange, int new_AttackRange)):Unit(new_AttackDamage, new_Hitpoint, new_Resource_Gold, new_Resource_Water, new_Resource_Food, new_TroopProduction, new_MovingRange, new_AttackRange){//파생클래스Unit_Infantry의 생성자에서 받은 매개변수의 값을 기반클래스Unit에 전달
-	//	UnitType = new_UnitType;
-	//	AttackDamage = new_AttackDamage;
-	//	HitPoint = new_HitPoint;
-	//	Resource_Gold = new_Resource_Gold;
-	//	Resource_Water = new_Resource_Water;
-	//	Resource_Food = new_Resource_Food;
-	//	TroopProduction = new_TroopProduction;
-	//	MovingRange = new_MovingRange;
-	//	AttackRange = new_AttackRange;
-	//}
-
+	Unit_Infantry();
+	//소멸자
+	~Unit_Infantry();
 };
 
-class Unit_Archer {
+//궁수
+class Unit_Archer : public Unit{
+private:
+	
+protected:
+
+public:
+	//생성자
+	Unit_Archer();
+	//소멸자
+	~Unit_Archer();
+};
+
+//기병
+class Unit_Cavalry : public Unit{
+private:
+	
+protected:
+
+public:
+	//생성자
+	Unit_Cavalry();
+	//소멸자
+	~Unit_Cavalry();
+};
+
+//수군
+class Unit_Navy : public Unit{
 private:
 
 protected:
 
 public:
 	//생성자
-
-};
-
-class Unit_Cavalry {
-private:
-
-protected:
-
-public:
-	//생성자
-
-};
-
-class Unit_Navy {
-private:
-
-protected:
-
-public:
-	//생성자
-
+	Unit_Navy();
+	//소멸자
+	~Unit_Navy();
 };

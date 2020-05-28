@@ -29,6 +29,7 @@ public:
 
 	//// Getter & Setter
 	/// Getter
+	string get_gameState() const { return _game_state; };
 	int get_playerCnt() const { return _player_cnt; };
 	Player &get_player(int number) { return _player[number]; };
 	int get_trunPassed() const { return _turn_passed; };
@@ -37,6 +38,7 @@ public:
 	/// Setter
 	// void set_playerCnt(); // do not use
 	// void set_player(); // do not use
+	void set_gameState(string statename) { _game_state = statename; };
 	void set_turnPassed(int turn) { _turn_passed = turn;  };
 	void set_turnAvailable(int turn) { _turn_available = turn; };
 	void set_isPlayerAlive(int player, bool isalive) { _is_player_alive[player] = isalive; };
@@ -53,6 +55,10 @@ public:
 	void playerTurnEnd(Player);
 	void turnCycleEnd();
 	void gameEnd();
+
+	//// methods - gmae explanation
+	void showGameDiscription();
+
 
 	//// methods - rule management
 	void calculateAllPlayersMaxCommandCnt();
