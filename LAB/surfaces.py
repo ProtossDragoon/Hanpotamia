@@ -29,7 +29,6 @@ class Console():
         self.consolefont = pygame.font.SysFont("Consolas", self.consolefontsize)
         self.textsurfacepaddingxy = (15,15)
         self.printingdata = [] # printingdata should be a list
-        pygame.display.update()
 
     def update(self):
         self.rect = self.screen.blit(self.consolesurface, self.consolexy)
@@ -54,7 +53,6 @@ class Console():
         for i in range(len(buffersurface)):
             self.screen.blit(buffersurface[i], (buffer_text_surface_x, 
                                                 buffer_text_surface_y + i * buffer_text_surface_y_adder))
-        pygame.display.update()
 
     def insertData(self, data):
         self.newdata = data
@@ -67,7 +65,7 @@ class City():
         self.screen = screen
         self.areaname = areaname
         self.citysize = cityscale
-        self.color = COLOR[2]
+        self.color = COLOR[0]
         
         # In order to draw antialiased filled shapes with pygame, use the module gfxdraw
         # "To draw an anti aliased and filled shape, 
@@ -91,12 +89,11 @@ class City():
         gfxdraw.filled_circle(self.screen,
                          CITY_LOCATION[self.areaname][0], CITY_LOCATION[self.areaname][1], 
                          CITY_SCALE_LIST[self.citysize], self.color)
-        pygame.display.update()
 
-    def setSettings(self, player, citysize=0):
+    def setSettings(self, player, cityscale=0):
         # setplayer function does not update.
         self.color = COLOR[player]
-        self.citysize = citysize
+        self.citysize = cityscale
         
     
 class BackgroundMap():
@@ -124,7 +121,6 @@ class BackgroundMap():
         self.screen.blit(self.image, (0,0))
         for key in self.city:
             self.city[key].update()
-        pygame.display.update()
         print('update background and image')        
 
 
@@ -137,10 +133,9 @@ class Charactor():
     def drawCharactor(self):
         pass
 
-    def update(self):
-        self.charactorxy = (50, 50)
+    def update(self, charactorxy):
+        self.charactorxy = charactorxy
         self.rect = self.screen.blit(self.image, self.charactorxy)
-        pygame.display.update()
 
 
 class Explaination():
@@ -159,7 +154,6 @@ class Explaination():
         self.textsurfacepaddingxy = (15,15)
         self.printingdata = [] # printingdata should be a list
         self.hidesignal = 0
-        pygame.display.update()
 
     def update(self, show_or_hide, recovorysurface = None):
         if show_or_hide == 'show':
@@ -192,11 +186,9 @@ class Explaination():
         else :
             print('error! parameter should be show or hide')
 
-        pygame.display.update()
-
     def insertData(self, data):
         self.newdata = data
-        self.printingdata = self.newdata 
+        self.printingdata = self.newdata
 
     def showDiscription(self, discription):
         self.insertData(discription)
