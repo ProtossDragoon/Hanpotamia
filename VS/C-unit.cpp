@@ -1,4 +1,5 @@
 #include "unit.h"
+#include "player.h"
 
 
 //constructor
@@ -14,7 +15,10 @@ Unit::Unit()
 	_moving_range = 0;
 	_moving_area_type = 0;
 	_attack_range = 0;
+	_unit_cnt = 0;
 }
+
+Unit::~Unit() {}
 
 Unit_Infantry::Unit_Infantry() : Unit()
 {
@@ -28,7 +32,10 @@ Unit_Infantry::Unit_Infantry() : Unit()
 	_moving_range = 2;
 	_moving_area_type = 0;//¼öÁ¤
 	_attack_range = 0;
+	_unit_cnt = 0;
 }
+
+Unit_Infantry::~Unit_Infantry() {}
 
 Unit_Archer::Unit_Archer() : Unit() 
 {
@@ -42,7 +49,10 @@ Unit_Archer::Unit_Archer() : Unit()
 	_moving_range = 1;
 	_moving_area_type = 0;//¼öÁ¤
 	_attack_range = 1;
+	_unit_cnt = 0;
 }
+
+Unit_Archer::~Unit_Archer() {}
 
 Unit_Cavalry::Unit_Cavalry() : Unit() 
 {
@@ -56,7 +66,10 @@ Unit_Cavalry::Unit_Cavalry() : Unit()
 	_moving_range = 2;
 	_moving_area_type = 0;//¼öÁ¤
 	_attack_range = 0;
+	_unit_cnt = 0;
 }
+
+Unit_Cavalry::~Unit_Cavalry() {}
 
 Unit_Navy::Unit_Navy() : Unit() 
 {
@@ -70,7 +83,10 @@ Unit_Navy::Unit_Navy() : Unit()
 	_moving_range = 2;
 	_moving_area_type = 2;//¼öÁ¤
 	_attack_range = 2;
+	_unit_cnt = 0;
 }
+
+Unit_Navy::~Unit_Navy() {}
 
 //Unit setter
 void Unit::set_unit_type(int type)
@@ -112,4 +128,22 @@ void Unit::set_moving_area_type(int movingareatype)//º¸º´ÀÌ ¹°¿¡¼­ ´Ù´Ò¼ö ÀÖ°Ô Ç
 void Unit::set_attack_range(int attackrange) 
 {
 	_attack_range = attackrange;
+}
+void Unit::set_unit_cnt(int cnt) 
+{
+	_unit_cnt = cnt;
+}
+
+//func
+
+void AddUnit()
+{
+	
+}
+
+void UnitProduct(string *tendency, int product_count)
+{
+	if (strcmp(tendency, "Cavalry")) {
+		
+	}
 }
