@@ -8,6 +8,7 @@ Player::Player(string player_name, int _now_control_time, int _max_control_time)
     _max_control_time=_max_control_time;
 }
 ////setter
+
 void Player::set_maxControlCnt(int user_max_control_cnt) {
     _max_control_time=user_max_control_cnt;
 }
@@ -15,10 +16,12 @@ void Player::set_maxControlCnt(int user_max_control_cnt) {
 void Player::set_nowControlCnt(int user_now_control_cnt) {
     _now_control_time=user_now_control_cnt;
 }
+
 void Player::set_player_name(string name) {
     player_name=name;
 
 }
+
 void Player::discount_nowControlCnt() {
     if(_now_control_time>0)
         _now_control_time--;
@@ -33,11 +36,11 @@ void Player::set_my_resource(int Food, int Gold, int Water) {
 }
 
 ////getter
-Resource* Player::get_my_resource() {
+Resource* Player::get_myResource() {
   return &_my_resource;
 }
 
-Unit* Player::get_my_unit() {
+Unit* Player::get_myUnit() {
     Unit searching;
    //searching.getUnit(player_name);
    //cout << present status on Unit
@@ -45,7 +48,7 @@ Unit* Player::get_my_unit() {
 }
 
 
-int * Player::get_my_place() {
+int * Player::get_myPlace() {
     Map searching;
     return searching.get_occupationPlayer(this->player_name); //player_name;
 }
@@ -71,9 +74,9 @@ void Player::selectAction() {
     string from, to;
 
     ////Upgrade area
-
-
     int command;
+
+
     cout << "=========== 동작을 선택하세요 =============" << endl;
 
     cout << " 1. 유닛생산 " <<endl;
@@ -122,7 +125,7 @@ void Player::selectAction() {
     }
 
     if(command == 5){
-        get_my_resource();
+        get_myResource();
     }
 
     if(command == 6){
@@ -159,10 +162,10 @@ void Player::fight(string from_area, string to_area) {
     Unit fight;
     int sum_HP;
     int count_attacker;
-    string attack_Unit, *under_attack_Unit;
+    string attack_Unit, under_attack_Unit;
     //공격하려는 Unit 과 공격당하는 Unit 의 공격력을 더해서 서로 차감하고
     //해당 체력에 관해 modulo 연산으로 남은 유닛을 반영한다.
-    while(attack_Unit != NULL && under_attack_Unit != NULL ) {
+    while(attack_Unit.data()!=NULL && under_attack_Unit.data() != NULL ) {
         cout << "공격 할 병과를 입력하세요" << endl;
         cin >> attack_Unit;
         cout << "공격 할 병력의 수를 입력하세요 " << endl;
@@ -212,5 +215,7 @@ void Player::move(string from, string to) {
 
 void Player::upgradeArea(string area) {
     // 지역업그레이드 함수
+    Map upgrading_target;
 
+    upgrading_target.
 }
