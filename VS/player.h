@@ -3,6 +3,7 @@
 #include "unit.h"
 #include "map.h"
 
+
 #pragma once
 
 using namespace std;
@@ -28,9 +29,9 @@ public :
 
     //getter
     //Output 각 클래스별 배열 ( 배열의 첫 번쨰 주소 Return)
-    int *get_my_place();
-    Resource *get_my_resource();
-    Unit *get_my_unit();
+    int *get_myPlace();
+    Resource *get_myResource();
+    Unit *get_myUnit();
     string get_player_name();
     //Turn getter
     int get_maxControlCnt();
