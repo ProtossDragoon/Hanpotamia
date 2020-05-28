@@ -1,4 +1,9 @@
+
 #pragma once
+#include "string.h"
+#include <iostream>
+using namespace std;
+
 class Resource
 {
 	//물 금 식량
@@ -24,5 +29,23 @@ public:
 	void set_resource_gold(int gold);
 	void set_resource_food(int food);
 	void set_resource_water(int water);
+	//setter overloading
+	void set_resource_gold(int areatype, int gold);
+	void set_resource_water(int areatype, int water);
+	void set_resource_food(int areatype, int food);
 
+
+	//func 
+
+	//bool타입으로
+	//지역 업글
+	bool CheckArea_Upgrade();
+
+	Resource calculate_produce_unit(string tendency, int cnt);
+	//calculate_upgrade_area();
 };
+
+지역업글 
+
+유닛생산 
+player  resource 인원
