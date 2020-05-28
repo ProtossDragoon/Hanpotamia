@@ -12,3 +12,4 @@ __pycache__
 /vs/.idea
 .DS_Store
 /x64/*
+VS/.vs
