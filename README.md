@@ -1,6 +1,11 @@
 # Hanpotamia
 Civilization at Han River<br>
-문명 - 
+한강 문명 : 종의 기원 <br>
+
+<br>
+
+- Sejong University Problem And Solving C++ (prof. 안용학) <br>
+- 최종 팀 프로젝트 <br>
 
 <br>
 
