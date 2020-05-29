@@ -11,13 +11,13 @@ using namespace std;
 class Player
 {
 private:
-    string player_name;
+    string _player_name;
     int _max_control_time;
     int _now_control_time;
     Resource _my_resource;
 
 public :
-    Player();
+    Player(){_player_name = "" ; _max_control_time=0; _now_control_time=0;};
     Player(string player_name, int _now_control_time,int _max_control_time);
 
     //setter
@@ -44,11 +44,6 @@ public :
     void MoveOrAttack_unit(string from, string to);
     void fight(string from_area, string to_area);
     void move(string from_area, string to_area);
-    void calculate_Unit(int sum_HP, string Unit_tendency, string area);
     void upgradeArea(string area);
+    void conquerArea(string areaName);
 };
-
-// 추가요청
-// player.get_myPlace(); // return : [0,1,0,0,0,1,0...
-// player.get_maxControlCnt();
-// player.get_nowControlCnt();
