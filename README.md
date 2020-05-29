@@ -4,8 +4,18 @@ Civilization at Han River<br>
 
 <br>
 
-- Sejong University Problem And Solving C++ (prof. 안용학) <br>
-- 최종 팀 프로젝트 <br>
+## Team
+
+[표]
+
+<br>
+
+- Sejong University Problem And Solving C++ (prof. 안용학)
+- 최종 팀 프로젝트
+
+<br>
+
+[프로젝트 제안서 / 중간 보고서 link]() <br>
 
 <br>
 
