@@ -38,11 +38,50 @@ void Resource::set_resource_water(int water)
 //	}*/
 //}
 
+//unit의 병종과 수를 받아서 필요한 자원을 계산
 Resource Resource::calculate_produce_unit(string tendency, int cnt)
 {
 	Resource troop;
-	if (tendency=="Navy") {
-		troop.set_resource_food(get_);
+	if (tendency=="Infantry")
+	{
+		troop.set_resource_gold(cnt * 10);
+		troop.set_resource_water(cnt * 10);
+		troop.set_resource_food(cnt * 10);
+	}
+	else if (tendency == "Archer")
+	{
+		troop.set_resource_gold(cnt * 10);
+		troop.set_resource_water(cnt * 5);
+		troop.set_resource_food(cnt * 5);
+	}
+	else if (tendency == "Cavalry")
+	{
+		troop.set_resource_gold(cnt * 20);
+		troop.set_resource_water(cnt * 10);
+		troop.set_resource_food(cnt * 10);
+	}
+	else if (tendency == "Navy")
+	{
+		troop.set_resource_gold(cnt * 10);
+		troop.set_resource_water(cnt * 20);
+		troop.set_resource_food(cnt * 20);
+	}
+	return troop;
+}
+
+
+//player의 자원과 필요한 자원을 비교하여 행동이 수행되는지 확인
+bool Resource::check_resource(Resource *player, Resource *need) 
+{
+	int i=0;
+	if (player->get_resource_food >= need->get_resource_food) i++;
+	if (player->get_resource_water >= need->get_resource_water) i++;
+	if (player->get_resource_gold >= need->get_resource_gold) i++;
+	if (i == 3) return true;
+	else
+	{
+		cout << "자원이 부족합니다!" << endl;
+		return false;
 	}
 }
 
