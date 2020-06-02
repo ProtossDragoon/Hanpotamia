@@ -13,36 +13,36 @@ areainformation Map::findArea(string areaname) {
 }
 
 void Map::set_areaInformation(areainformation area[]) {
-	area[0] = { "°­³²±¸",0,"À°Áö",1 };
-	area[1] = { "¿ë»ê±¸",1,"À°Áö",1 };
-	area[2] = { "¼­ÃÊ±¸",2,"À°Áö",1 };
-	area[3] = { "¼ÛÆÄ±¸",3,"À°Áö",1 };
-	area[4] = { "¸¶Æ÷±¸",4,"À°Áö",1 };
-	area[5] = { "¼ºµ¿±¸",5,"À°Áö",1 };
-	area[6] = { "µ¿ÀÛ±¸",6,"À°Áö",1 };
-	area[7] = { "¿µµîÆ÷±¸",7,"À°Áö",1 };
-	area[8] = { "±¤Áø±¸",8,"À°Áö",1 };
-	area[9] = { "Á¾·Î±¸",9,"À°Áö",1 };
-	area[10] = { "Áß±¸",10,"À°Áö",1 };
-	area[11] = { "°­µ¿±¸",11,"À°Áö",1 };
-	area[12] = { "¾çÃµ±¸",12,"À°Áö",1 };
-	area[13] = { "µ¿´ë¹®±¸",13,"À°Áö",1 };
-	area[14] = { "¼­´ë¹®±¸",14,"À°Áö",1 };
-	area[15] = { "°­¼­±¸",15,"À°Áö",1 };
-	area[16] = { "°ü¾Ç±¸",16,"À°Áö",1 };
-	area[17] = { "¼ººÏ±¸",17,"À°Áö",1 };
-	area[18] = { "ÀºÆò±¸",18,"À°Áö",1 };
-	area[19] = { "³ë¿ø±¸",19,"À°Áö",1 };
-	area[20] = { "±¸·Î±¸",20,"À°Áö",1 };
-	area[21] = { "Áß¶û±¸",21,"À°Áö",1 };
-	area[22] = { "±İÃµ±¸",22,"À°Áö",1 };
-	area[23] = { "°­ºÏ±¸",23,"À°Áö",1 };
-	area[24] = { "µµºÀ±¸",24,"À°Áö",1 };
-	area[25] = { "°­1",25,"°­",1 };
-	area[26] = { "°­2",26,"°­",1 };
-	area[27] = { "°­3",27,"°­",1 };
-	area[28] = { "°­4",28,"°­",1 };
-	area[29] = { "°­5",29,"°­",1 };
+	area[0] = { "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",0,"ï¿½ï¿½ï¿½ï¿½",1 };
+	area[1] = { "ï¿½ï¿½ê±¸",1,"ï¿½ï¿½ï¿½ï¿½",1 };
+	area[2] = { "ï¿½ï¿½ï¿½Ê±ï¿½",2,"ï¿½ï¿½ï¿½ï¿½",1 };
+	area[3] = { "ï¿½ï¿½ï¿½Ä±ï¿½",3,"ï¿½ï¿½ï¿½ï¿½",1 };
+	area[4] = { "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",4,"ï¿½ï¿½ï¿½ï¿½",1 };
+	area[5] = { "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",5,"ï¿½ï¿½ï¿½ï¿½",1 };
+	area[6] = { "ï¿½ï¿½ï¿½Û±ï¿½",6,"ï¿½ï¿½ï¿½ï¿½",1 };
+	area[7] = { "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",7,"ï¿½ï¿½ï¿½ï¿½",1 };
+	area[8] = { "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",8,"ï¿½ï¿½ï¿½ï¿½",1 };
+	area[9] = { "ï¿½ï¿½ï¿½Î±ï¿½",9,"ï¿½ï¿½ï¿½ï¿½",1 };
+	area[10] = { "ï¿½ß±ï¿½",10,"ï¿½ï¿½ï¿½ï¿½",1 };
+	area[11] = { "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",11,"ï¿½ï¿½ï¿½ï¿½",1 };
+	area[12] = { "ï¿½ï¿½Ãµï¿½ï¿½",12,"ï¿½ï¿½ï¿½ï¿½",1 };
+	area[13] = { "ï¿½ï¿½ï¿½ë¹®ï¿½ï¿½",13,"ï¿½ï¿½ï¿½ï¿½",1 };
+	area[14] = { "ï¿½ï¿½ï¿½ë¹®ï¿½ï¿½",14,"ï¿½ï¿½ï¿½ï¿½",1 };
+	area[15] = { "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",15,"ï¿½ï¿½ï¿½ï¿½",1 };
+	area[16] = { "ï¿½ï¿½ï¿½Ç±ï¿½",16,"ï¿½ï¿½ï¿½ï¿½",1 };
+	area[17] = { "ï¿½ï¿½ï¿½Ï±ï¿½",17,"ï¿½ï¿½ï¿½ï¿½",1 };
+	area[18] = { "ï¿½ï¿½ï¿½ï¿½",18,"ï¿½ï¿½ï¿½ï¿½",1 };
+	area[19] = { "ï¿½ï¿½ï¿½ï¿½ï¿½",19,"ï¿½ï¿½ï¿½ï¿½",1 };
+	area[20] = { "ï¿½ï¿½ï¿½Î±ï¿½",20,"ï¿½ï¿½ï¿½ï¿½",1 };
+	area[21] = { "ï¿½ß¶ï¿½ï¿½ï¿½",21,"ï¿½ï¿½ï¿½ï¿½",1 };
+	area[22] = { "ï¿½ï¿½Ãµï¿½ï¿½",22,"ï¿½ï¿½ï¿½ï¿½",1 };
+	area[23] = { "ï¿½ï¿½ï¿½Ï±ï¿½",23,"ï¿½ï¿½ï¿½ï¿½",1 };
+	area[24] = { "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",24,"ï¿½ï¿½ï¿½ï¿½",1 };
+	area[25] = { "ï¿½ï¿½1",25,"ï¿½ï¿½",1 };
+	area[26] = { "ï¿½ï¿½2",26,"ï¿½ï¿½",1 };
+	area[27] = { "ï¿½ï¿½3",27,"ï¿½ï¿½",1 };
+	area[28] = { "ï¿½ï¿½4",28,"ï¿½ï¿½",1 };
+	area[29] = { "ï¿½ï¿½5",29,"ï¿½ï¿½",1 };
 }
 
 Map::~Map() {
@@ -120,7 +120,7 @@ void Map::get_acquirableResource(string areaname) {
 int Map::set_acquirableFood(string areaname) {
 	areainformation temp;
 	temp = findArea(areaname);
-	if (temp.areatype == "À°Áö") {
+	if (temp.areatype == "ï¿½ï¿½ï¿½ï¿½") {
 		temp.arearesource->set_resource_food = 100;
 	}
 	else {
@@ -131,7 +131,7 @@ int Map::set_acquirableFood(string areaname) {
 int Map::set_acquirableGold(string areaname) {
 	areainformation temp;
 	temp = findArea(areaname);
-	if (temp.areatype == "À°Áö") {
+	if (temp.areatype == "ï¿½ï¿½ï¿½ï¿½") {
 		temp.arearesource->set_resource_gold = 100;
 	}
 	else {
@@ -142,7 +142,7 @@ int Map::set_acquirableGold(string areaname) {
 int Map::set_acquirableWater(string areaname) {
 	areainformation temp;
 	temp = findArea(areaname);
-	if (temp.areatype == "À°Áö") {
+	if (temp.areatype == "ï¿½ï¿½ï¿½ï¿½") {
 		temp.arearesource->set_resource_water = 30;
 	}
 	else {
@@ -169,10 +169,10 @@ Army Map::get_unit(string areaname, Player* _host_player) {
 		cnt++;
 	}
 	else {
-		cout << temp.areaname << "´Â" << areaname << "ÀÇ ¼ÒÀ¯ÁÖ°¡ ¾Æ´Õ´Ï´Ù." << endl;
+		cout << temp.areaname << "ï¿½ï¿½" << areaname << "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö°ï¿½ ï¿½Æ´Õ´Ï´ï¿½." << endl;
 	}	
 	if (cnt == 0) {
-		cout << areaname << "ÀÌ¶õ ¶¥Àº ¾ø½À´Ï´Ù." << endl;
+		cout << areaname << "ï¿½Ì¶ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½." << endl;
 	}
 }
 
@@ -193,7 +193,7 @@ Army Map::get_unitWhole(Player* _host_player) {
 	}
 	return temp;
 	if (cnt == 0) {
-		cout << host << "°¡ °¡Áø ¶¥Àº ¾ø½À´Ï´Ù." << endl;
+		cout << host << "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½." << endl;
 	}
 }
 
@@ -201,7 +201,7 @@ string Map::get_occupationPlayer(string areaname) {
 	areainformation temp;
 	temp = findArea(areaname);
 	if (temp.areahost.empty) {
-		cout << areaname << "ÀÇ ¼ÒÀ¯ÁÖ´Â ¾ÆÁ÷ ¾ø½À´Ï´Ù." << endl;
+		cout << areaname << "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½." << endl;
 		return NULL;
 	}
 	else {
@@ -212,7 +212,7 @@ string Map::get_occupationPlayer(string areaname) {
 void Map::set_occupationCost(string areaname) {
 	areainformation temp;
 	temp = findArea(areaname);
-	if (temp.areatype == "À°Áö") {
+	if (temp.areatype == "ï¿½ï¿½ï¿½ï¿½") {
 		temp.occupationcost->set_resource_food = 100;
 		temp.occupationcost->set_resource_gold = 100;
 		temp.occupationcost->set_resource_water = 100;
@@ -227,7 +227,7 @@ void Map::set_occupationCost(string areaname) {
 void Map::get_occupationCost(string areaname) {
 	areainformation temp;
 	temp = findArea(areaname);
-	if (temp.areatype == "À°Áö") {
+	if (temp.areatype == "ï¿½ï¿½ï¿½ï¿½") {
 		temp.occupationcost->set_resource_food = 100;
 		temp.occupationcost->set_resource_gold = 100;
 		temp.occupationcost->set_resource_water = 100;
@@ -251,7 +251,7 @@ areainformation Map::get_areaInformation(string areaname) {
 	return temp;
 }
 
-void Map::set_areaLevelUpgrade(string areaname) {
+void Map::set_areaLevelUpgrade(string areaname) { ////í•¨ìˆ˜ ì´ë¦„ê³¼ í•¨ìˆ˜ ì„±ê²©ì´ ì•ˆë§ëŠ”ê²ƒê°™ì€ .??
 	areainformation temp;
 	temp = findArea(areaname);
 	temp.arealevel++;

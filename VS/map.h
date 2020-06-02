@@ -17,7 +17,7 @@ typedef struct Army {
 }Army;
 
 
-typedef struct {
+typedef struct Areainfor{
 	string areaname;
 	int areanum;
 	string areatype;
