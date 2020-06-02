@@ -12,10 +12,6 @@ areainformation Map::findArea(string areaname) {
 	}
 }
 
-void initArea(areainformation area) {
-	area.areaunit.Archer.
-}
-
 void Map::set_areaInformation(areainformation area[]) {
 	area[0] = { "강남구",0,"육지",1 };
 	area[1] = { "용산구",1,"육지",1 };
@@ -180,17 +176,22 @@ Army Map::get_unit(string areaname, Player* _host_player) {
 	}
 }
 
-int Map::get_unitWhole(Player* _host_player) {
+Army Map::get_unitWhole(Player* _host_player) {
 	string host;
+	Army temp;
 	int i;
 	int cnt = 0;
 	host = _host_player->get_player_name;
 	for (i = 0; i < 30; i++) {
 		if (host == area[i].areahost) {
-			return 
+			temp.Archercount += area[i].areaunit.Archercount;
+			temp.Navycount += area[i].areaunit.Navycount;
+			temp.Cabalrycount += area[i].areaunit.Cabalrycount;
+			temp.Infantrycount += area[i].areaunit.Infantrycount;
 			cnt++;
 		}
 	}
+	return temp;
 	if (cnt == 0) {
 		cout << host << "가 가진 땅은 없습니다." << endl;
 	}
@@ -248,4 +249,10 @@ areainformation Map::get_areaInformation(string areaname) {
 	areainformation temp;
 	temp = findArea(areaname);
 	return temp;
+}
+
+void Map::set_areaLevelUpgrade(string areaname) {
+	areainformation temp;
+	temp = findArea(areaname);
+	temp.arealevel++;
 }
