@@ -10,6 +10,10 @@ typedef struct Army {
 	Unit* Navy;
 	Unit* cabalry;
 	Unit* Archer;
+	int Infantrycount;
+	int Navycount;
+	int Cabalrycount;
+	int Archercount;
 }Army;
 
 
@@ -46,10 +50,10 @@ public:
 	void get_upgradeCost(string areaname);
 	int get_movableArea(string areaname, int start);
 	Army get_unit(string areaname, Player* _host_player);
-	int get_unitWhole(Player* _host_player);
+	Army get_unitWhole(Player* _host_player);
 	areainformation get_areaInformation(string areaname);
 
-	void set_areaLevelUpgrade(int level);
+	void set_areaLevelUpgrade(string areaname);
 	void set_occupationCost(string areaname);
 	void set_areaInformation(areainformation area[]);
 	void set_areaHost(Player* _host_player, string areaname);
@@ -58,5 +62,4 @@ public:
 	int set_acquirableWater(string areaname);
 
 	areainformation findArea(string areaname);
-	void initArea(areainformation area);
 };
