@@ -4,6 +4,14 @@
 #include <string.h>
 #include <memory.h>
 
+areainformation Map::findArea(string areaname) {
+	for (int i = 0; i < 30; i++) {
+		if (area[i].areaname == areaname) {
+			return area[i];
+		}
+	}
+}
+
 void Map::set_areaInformation(areainformation area[]) {
 	area[0] = { "강남구",0,"육지",1 };
 	area[1] = { "용산구",1,"육지",1 };
@@ -31,10 +39,13 @@ void Map::set_areaInformation(areainformation area[]) {
 	area[23] = { "강북구",23,"육지",1 };
 	area[24] = { "도봉구",24,"육지",1 };
 	area[25] = { "강1",25,"강",1 };
-	area[26] = { "강2",26,"깅",1 };
+	area[26] = { "강2",26,"강",1 };
 	area[27] = { "강3",27,"강",1 };
 	area[28] = { "강4",28,"강",1 };
 	area[29] = { "강5",29,"강",1 };
+}
+
+Map::~Map() {
 }
 
 Map::Map(int _max_area):_max_area(_max_area) {
@@ -104,111 +115,144 @@ void Map::get_acquirableResource(string areaname) {
 	set_acquirableFood(areaname);
 	set_acquirableGold(areaname);
 	set_acquirableWater(areaname);
-}//(?)
+}
 
 int Map::set_acquirableFood(string areaname) {
-	string temp;
-	temp = areaname;
-	for (int i = 0; i < 30; i++) {
-		if (area[i].areaname == temp) {
-			if (area[i].areatype == "육지") {
-				area[i].areafood = 100;
-			}
-			else {
-				area[i].areafood = 50;
-			}
-		}
-		return area[i].areafood;
+	areainformation temp;
+	temp = findArea(areaname);
+	if (temp.areatype == "육지") {
+		temp.arearesource->set_resource_food = 100;
+	}
+	else {
+		temp.arearesource->set_resource_food = 50;
 	}
 }
 
 int Map::set_acquirableGold(string areaname) {
-	string temp;
-	temp = areaname;
-	for (int i = 0; i < 30; i++) {
-		if (area[i].areaname == temp) {
-			if (area[i].areatype == "육지") {
-				area[i].areagold = 100;
-			}
-			else {
-				area[i].areagold = 10;
-			}
-		}
-		return area[i].areagold;
+	areainformation temp;
+	temp = findArea(areaname);
+	if (temp.areatype == "육지") {
+		temp.arearesource->set_resource_gold = 100;
+	}
+	else {
+		temp.arearesource->set_resource_gold = 10;
 	}
 }
 
 int Map::set_acquirableWater(string areaname) {
-	string temp;
-	temp = areaname;
-	for (int i = 0; i < 30; i++) {
-		if (area[i].areaname == temp) {
-			if (area[i].areatype == "육지") {
-				area[i].areawater = 30;
-			}
-			else {
-				area[i].areawater = 100;
-			}
-		}
-		return area[i].areawater;
+	areainformation temp;
+	temp = findArea(areaname);
+	if (temp.areatype == "육지") {
+		temp.arearesource->set_resource_water = 30;
+	}
+	else {
+		temp.arearesource->set_resource_water = 100;
 	}
 }
 
 void Map::set_areaHost(Player* _host_player, string areaname) {
-	string temp;
-	temp = _host_player->get_player_name;
-	for (int i = 0; i < 30; i++) {
-		if (areaname == area[i].areaname) {
-			area[i].areahost = temp;
-		}
-	}
+	areainformation temp;
+	string host;
+	temp = findArea(areaname);
+	host = _host_player->get_player_name;
+	temp.areahost = host;
 }
 
-int Map::get_unit(string areaname, Player* _host_player) {
-	string temp;
-	int i;
+Army Map::get_unit(string areaname, Player* _host_player) {
+	areainformation temp;
+	string host;
 	int cnt = 0;
-	temp = _host_player->get_player_name;
-	for (i = 0; i < 30; i++) {
-		if (areaname == area[i].areaname) {
-			if (temp == area[i].areahost) {
-				return area[i].areaunit;
-				cnt++;
-			}
-			else {
-				cout << temp << "는" << areaname << "의 소유주가 아닙니다." << endl;
-			}
-		}
-		
+	host = _host_player->get_player_name;
+	temp = findArea(areaname);
+	if (host == temp.areahost) {
+		return temp.areaunit;
+		cnt++;
 	}
+	else {
+		cout << temp.areaname << "는" << areaname << "의 소유주가 아닙니다." << endl;
+	}	
 	if (cnt == 0) {
 		cout << areaname << "이란 땅은 없습니다." << endl;
 	}
 }
 
-int Map::get_unitWhole(Player* _host_player) {
-	string temp;
+Army Map::get_unitWhole(Player* _host_player) {
+	string host;
+	Army temp;
 	int i;
 	int cnt = 0;
-	temp = _host_player->get_player_name;
+	host = _host_player->get_player_name;
 	for (i = 0; i < 30; i++) {
-		if (temp == area[i].areahost) {
-			cout << temp << "의" << area[i].areaname << "의 배치되어 있는 병력" << area[i].areaunit << endl;
+		if (host == area[i].areahost) {
+			temp.Archercount += area[i].areaunit.Archercount;
+			temp.Navycount += area[i].areaunit.Navycount;
+			temp.Cabalrycount += area[i].areaunit.Cabalrycount;
+			temp.Infantrycount += area[i].areaunit.Infantrycount;
 			cnt++;
 		}
 	}
+	return temp;
 	if (cnt == 0) {
-		cout << temp << "가 가진 땅은 없습니다." << endl;
+		cout << host << "가 가진 땅은 없습니다." << endl;
 	}
 }
 
 string Map::get_occupationPlayer(string areaname) {
-	string temp;
-	temp = areaname;
-	for (int i = 0; i < 30; i++) {
-		if (area[i].areaname == temp) {
-			return area[i].areahost;
-		}
+	areainformation temp;
+	temp = findArea(areaname);
+	if (temp.areahost.empty) {
+		cout << areaname << "의 소유주는 아직 없습니다." << endl;
+		return NULL;
 	}
-	cout << areaname << "의 소유주는 아직 없습니다." << endl;
+	else {
+		return temp.areahost;
+	}
+}
+
+void Map::set_occupationCost(string areaname) {
+	areainformation temp;
+	temp = findArea(areaname);
+	if (temp.areatype == "육지") {
+		temp.occupationcost->set_resource_food = 100;
+		temp.occupationcost->set_resource_gold = 100;
+		temp.occupationcost->set_resource_water = 100;
+	}
+	else {
+		temp.occupationcost->set_resource_food = 100;
+		temp.occupationcost->set_resource_gold = 100;
+		temp.occupationcost->set_resource_water = 100;
+	}
+}
+
+void Map::get_occupationCost(string areaname) {
+	areainformation temp;
+	temp = findArea(areaname);
+	if (temp.areatype == "육지") {
+		temp.occupationcost->set_resource_food = 100;
+		temp.occupationcost->set_resource_gold = 100;
+		temp.occupationcost->set_resource_water = 100;
+	}
+	else {
+		temp.occupationcost->set_resource_food = 100;
+		temp.occupationcost->set_resource_gold = 100;
+		temp.occupationcost->set_resource_water = 100;
+	}
+}
+
+void Map::get_upgradeCost(string areaname) {
+	areainformation temp;
+	temp = findArea(areaname);
+
+}
+
+areainformation Map::get_areaInformation(string areaname) {
+	areainformation temp;
+	temp = findArea(areaname);
+	return temp;
+}
+
+void Map::set_areaLevelUpgrade(string areaname) {
+	areainformation temp;
+	temp = findArea(areaname);
+	temp.arealevel++;
 }

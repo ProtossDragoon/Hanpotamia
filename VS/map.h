@@ -2,7 +2,20 @@
 #include <iostream>
 #include"player.h"
 #include"resource.h"
+#include "unit.h"
 using namespace std;
+
+typedef struct Army {
+	Unit* Infantry;
+	Unit* Navy;
+	Unit* cabalry;
+	Unit* Archer;
+	int Infantrycount;
+	int Navycount;
+	int Cabalrycount;
+	int Archercount;
+}Army;
+
 
 typedef struct {
 	string areaname;
@@ -11,10 +24,9 @@ typedef struct {
 	int arealevel;
 	string neighborarea[30];
 	string areahost;
-	int areaunit;
-	int areafood;
-	int areawater;
-	int areagold;
+	Army areaunit;
+	Resource* arearesource;
+	Resource* occupationcost;
 }areainformation;
 
 class Map
@@ -22,12 +34,6 @@ class Map
 private:
 	char _area;
 	Player* _host_player;
-	Resource _occupation_acquirable_resource;
-	Resource _occupation_cost;
-	int _area_level;
-	int _area_number;
-	string _area_name;
-	string _area_type;
 	int _acquirable_resource_water;
 	int _acquirable_resource_gold;
 	int _acquirable_resource_food;
@@ -37,18 +43,23 @@ private:
 
 public:
 	Map(int _max_area);
+	~Map();
 	string get_occupationPlayer(string areaname);
-	void get_occupationCost();
+	void get_occupationCost(string areaname);
 	void get_acquirableResource(string areaname);
-	void get_upgradeCost();
+	void get_upgradeCost(string areaname);
 	int get_movableArea(string areaname, int start);
-	int get_unit(string areaname, Player* _host_player);
-	int get_unitWhole(Player* _host_player);
+	Army get_unit(string areaname, Player* _host_player);
+	Army get_unitWhole(Player* _host_player);
+	areainformation get_areaInformation(string areaname);
 
-	void set_occupationCost();
+	void set_areaLevelUpgrade(string areaname);
+	void set_occupationCost(string areaname);
 	void set_areaInformation(areainformation area[]);
 	void set_areaHost(Player* _host_player, string areaname);
 	int set_acquirableFood(string areaname);
 	int set_acquirableGold(string areaname);
 	int set_acquirableWater(string areaname);
+
+	areainformation findArea(string areaname);
 };

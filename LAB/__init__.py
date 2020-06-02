@@ -17,7 +17,7 @@ CITY_LOCATION = {
     'Dobong' : (666, 85),
     'Nowon' : (764, 148),
     'gangbook' : (616, 173),
-    'Seongbuk-gu' : (616, 272),
+    'Seongbuk' : (616, 272),
     'Dongdaemun' : (716,322),
     'Jungnang' : (800,272),
     'Seongdong' : (680,400),

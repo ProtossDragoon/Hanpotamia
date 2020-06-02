@@ -9,7 +9,7 @@ from pygame import gfxdraw
 # 붙인 후 screen 객체를 update (update)
 
 class Console():
-    def __init__(self, screen):
+    def __init__(self, screen, textprinting_topmargin_for_dashboard = 0):
         screensize = screen.get_size()
         self.screen = screen
         
@@ -27,9 +27,13 @@ class Console():
         
         self.consolefontsize = 14
         self.consolefont = pygame.font.SysFont("Consolas", self.consolefontsize)
-        self.textsurfacepaddingxy = (15,15)
+        self.textprinting_topmargin_for_dashboard = textprinting_topmargin_for_dashboard
+        self.textsurfacepaddingxy = (15,35)
         self.printingdata = [] # printingdata should be a list
 
+    def set_textprinting_topmargin_for_dashboard(self, margin):
+        self.textprinting_topmargin_for_dashboard = margin
+        
     def update(self):
         self.rect = self.screen.blit(self.consolesurface, self.consolexy)
         
@@ -39,7 +43,7 @@ class Console():
         if len(self.printingdata) != 0 and type(self.printingdata) is list:
             buffersurface = []
             buffer_text_surface_x = self.consolexy[0]+self.textsurfacepaddingxy[0]
-            buffer_text_surface_y = self.consolexy[1]+self.textsurfacepaddingxy[1]
+            buffer_text_surface_y = self.consolexy[1]+self.textsurfacepaddingxy[1]+self.textprinting_topmargin_for_dashboard
             buffer_text_surface_y_adder = self.consolefontsize + int(self.consolefontsize * 0.2)
             for data in self.printingdata:                
                 buffersurface.append(
@@ -90,11 +94,23 @@ class City():
                          CITY_LOCATION[self.areaname][0], CITY_LOCATION[self.areaname][1], 
                          CITY_SCALE_LIST[self.citysize], self.color)
 
-    def setSettings(self, player, cityscale=0):
+    def setSettings(self, player, cityscale=None):
         # setplayer function does not update.
         self.color = COLOR[player]
-        self.citysize = cityscale
-        
+        if cityscale == None :
+            self.citysize = self.citysize
+        elif cityscale == +1 :
+            self.citysize = self.citysize+1
+        else :
+            self.citysize = cityscale
+    
+    def temporaryAttention(self):
+        print('attention')
+        temp = self.citysize
+        self.citysize = 4
+        self.update()
+        self.citysize = temp
+    
     
 class BackgroundMap():
     def __init__(self, screen, console_width, img='imgsrc/Seoul.png'):
@@ -201,6 +217,3 @@ class Explaination():
 class Minimap():
     pass
 
-
-class Dashboard():
-    pass
