@@ -12,10 +12,6 @@ areainformation Map::findArea(string areaname) {
 	}
 }
 
-void Map::initArea() {
-	
-}
-
 void Map::set_areaInformation(areainformation area[]) {
 	int i, j;
 	area[0] = { "강남구",0,"육지",1 };
@@ -120,6 +116,41 @@ Map::Map(int _max_area):_max_area(_max_area) {
 	_route[26][27] = 1;
 	_route[27][28] = 1;
 	_route[28][29] = 1;
+}
+
+int Map::floyd(int from, int to) {
+	int MAX, i, temp;
+	int** graph;
+	int** before;
+	MAX = _max_area;
+	graph = (int**)malloc(MAX * sizeof(int*));
+	for (i = 0; i < MAX; i++) {
+		graph[i] = (int*)malloc(MAX * sizeof(int));
+	}
+	before = (int**)malloc(MAX * sizeof(int*));
+	for (i = 0; i < MAX; i++) {
+		before[i] = (int*)malloc(MAX * sizeof(int));
+	}
+	for (int i = 0; i < MAX; i++) {
+		for (int j = 0; j < MAX; j++) {
+			graph[i][j] = MAX;
+			if (i == j) {
+				graph[i][j] = 0;
+			}
+			before[i][j] = -1;
+		}
+	}
+	for (int mid = 0; mid < MAX; mid++) {
+		for (int start = 0; start < MAX; start++) {
+			for (int end = 0; end < MAX; end++) {
+				if (graph[start][end] > graph[start][mid] + graph[mid][end]) {
+					graph[start][end] = graph[start][mid] + graph[mid][end];
+					before[start][end] = before[mid][end];
+				}
+			}
+		}
+	}
+	return graph[from][to];
 }
 
 string Map::get_movableArea(string areaname) {
@@ -276,7 +307,7 @@ areainformation Map::get_areaInformation(string areaname) {
 	return temp;
 }
 
-void Map::set_areaLevelUpgrade(string areaname) {
+void Map::upgrade_Area(string areaname) {
 	areainformation temp;
 	temp = findArea(areaname);
 	temp.arealevel++;
@@ -285,19 +316,18 @@ void Map::set_areaLevelUpgrade(string areaname) {
 void Map::set_unit(string areaname, string tendency, int count) {
 	areainformation temp;
 	temp = findArea(areaname);
-	if (tendency == "보병") {
+	if (tendency == "Infantry") {
 		temp.areaunit.Infantrycount += count;
 	}
-	else if (tendency == "수군") {
+	else if (tendency == "Navy") {
 		temp.areaunit.Navycount += count;
 	}
-	else if (tendency == "기병") {
+	else if (tendency == "Cavalry") {
 		temp.areaunit.Cabalrycount += count;
 	}
 	else {
 		temp.areaunit.Archercount += count;
 	}
-	
 }
 
 void Map::showAreaInformation(string areaname) {

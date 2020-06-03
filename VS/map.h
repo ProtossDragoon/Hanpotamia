@@ -54,7 +54,6 @@ public:
 	areainformation get_areaInformation(string areaname);
 	int* get_wholeArea(Player* _host_player);
 
-	void set_areaLevelUpgrade(string areaname);
 	void set_occupationCost(string areaname);
 	void set_areaInformation(areainformation area[]);
 	void set_areaHost(Player* _host_player, string areaname);
@@ -63,8 +62,8 @@ public:
 	int set_acquirableWater(string areaname);
 	void set_unit(string areaname, string tendency, int count);
 
+	void upgrade_Area(string areaname);
 	areainformation findArea(string areaname);
 	void showAreaInformation(string areaname);
-	void initArea();
-	int* 
+	int floyd(int from, int to);
 };
