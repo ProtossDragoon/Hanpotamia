@@ -6,7 +6,6 @@ using namespace std;
 
 class Resource
 {
-	//�� �� �ķ�
 private:
 	int _resource_gold;
 	int _resource_water;
@@ -25,7 +24,7 @@ public:
 	int get_resource_food() { return _resource_food; };
 	int get_resource_water() { return _resource_water; };
 
-	//setter �����ҵ�
+	//setter
 	void set_resource_gold(int gold);
 	void set_resource_food(int food);
 	void set_resource_water(int water);
@@ -44,5 +43,5 @@ public:
 
 
 	Resource calculate_produce_unit(string tendency, int cnt);
-	//calculate_upgrade_area();
+	Resource calculate_upgrade_area();
 };

@@ -17,7 +17,7 @@ protected:
 	int _troop_production;//한턴생산병력 infantry(보병)=50, Archer(궁수)=3, Cavalry(기병)=2, Navy(수군)=2
 	int _moving_range;//한턴이동범위 infantry(보병)=2, Archer(궁수)=1, Cavalry(기병)=3, Navy(수군)=2
 	int _moving_area_type;//이동할 수 있는 지역 특성	--수정필요--	땅=0, 물=1, 땅+물=2		infantry(보병)=0(수정사항-upgrade to 2), Archer(궁수)=0, Cavalry(기병)=0, Navy(수군)=2
-	int _attack_range;//공격가능범위 infantry(보병)=0, Archer(궁수)=1, Cavalry(기병)=0, Navy(수군)=2
+	int _attack_range;//공격가능범위 infantry(보병)=1, Archer(궁수)=2, Cavalry(기병)=1, Navy(수군)=3
 	int _unit_cnt;//유닛수
 
 public:
@@ -58,15 +58,13 @@ public:
 
 	//함수
 
-	//병종과 수를 받아서 map에 함수추가
-	void UnitProduct(string tendency, int product_count);
 
 
 	//Unit객체들이 합쳤을 때 함수
-	void AddUnit();
+	//void AddUnit();
 
 	//전투결과반영함수 총체력, 공격유닛, 지역이름
-	void calcualte_unit();
+	void calcualte_unit(string to, string undetattack_tendency, string attack_tendency, int cnt);
 
 };
 

@@ -1,6 +1,8 @@
+#include <iostream>
 #include "unit.h"
 #include "player.h"
 #include "string.h""
+#include "map.h"
 
 
 //constructor
@@ -32,7 +34,7 @@ Unit_Infantry::Unit_Infantry() : Unit()
 	_troop_production = 5;
 	_moving_range = 2;
 	_moving_area_type = 0;//수정
-	_attack_range = 0;
+	_attack_range = 1;
 	_unit_cnt = 0;
 }
 
@@ -49,7 +51,7 @@ Unit_Archer::Unit_Archer() : Unit()
 	_troop_production = 3;
 	_moving_range = 1;
 	_moving_area_type = 0;//수정
-	_attack_range = 1;
+	_attack_range = 2;
 	_unit_cnt = 0;
 }
 
@@ -66,7 +68,7 @@ Unit_Cavalry::Unit_Cavalry() : Unit()
 	_troop_production = 5;
 	_moving_range = 2;
 	_moving_area_type = 0;//수정
-	_attack_range = 0;
+	_attack_range = 1;
 	_unit_cnt = 0;
 }
 
@@ -83,7 +85,7 @@ Unit_Navy::Unit_Navy() : Unit()
 	_troop_production = 2;
 	_moving_range = 2;
 	_moving_area_type = 2;//수정
-	_attack_range = 2;
+	_attack_range = 3;
 	_unit_cnt = 0;
 }
 
@@ -137,14 +139,68 @@ void Unit::set_unit_cnt(int cnt)
 
 //func
 
-void AddUnit()
+void Unit::calcualte_unit(string to, string underattack_tendency, string attack_tendency, int cnt)
 {
-	
-}
+	Map* searching;
+	int totalattackdamage;
+	int totalhp;
+	int leftcnt;
+	Army army = searching->get_areaInformation(to).areaunit;//to의병력정보
 
-void UnitProduct(string *tendency, int product_count)
-{
-	if (tendency=="Cavalry") {
-		
+
+	//공격대상의 총 공격력
+	if (attack_tendency == "Archer")
+	{
+		Unit_Archer a;
+		totalattackdamage = a.get_attack_damage * cnt;
+	}
+	else if (attack_tendency == "Infantry")
+	{
+		Unit_Infantry a;
+		totalattackdamage = a.get_attack_damage * cnt;
+	}
+	else if (attack_tendency == "Cavalry")
+	{
+		Unit_Cavalry a;
+		totalattackdamage = a.get_attack_damage * cnt;
+	}
+	else if (attack_tendency == "Navy")
+	{
+		Unit_Navy a;
+		totalattackdamage = a.get_attack_damage * cnt;
+	}
+
+	//공격받는 대상의 체력 + calculate
+	if (underattack_tendency == "Archer")
+	{
+		Unit_Archer archer;
+		totalhp = (archer.get_hit_point) * army.Archer->get_unit_cnt;
+		totalhp -= totalattackdamage;
+		leftcnt = totalhp / army.Archer->get_unit_cnt;
+		set_Unit(to, underattack_tendency, leftcnt);
+	}
+	else if (underattack_tendency == "Cavalry")
+	{
+		Unit_Cavalry cavalry;
+		totalhp = (cavalry.get_hit_point) * army.cavalry->get_unit_cnt;
+		totalhp -= totalattackdamage;
+		leftcnt = totalhp / army.cavalry->get_unit_cnt;
+		set_Unit(to, underattack_tendency, leftcnt);
+	}
+	else if (underattack_tendency == "Infantry")
+	{
+		Unit_Infantry infantry;
+		totalhp = (infantry.get_hit_point) * army.Infantry->get_unit_cnt;
+		totalhp -= totalattackdamage;
+		leftcnt = totalhp / army.Infantry->get_unit_cnt;
+		set_Unit(to, underattack_tendency, leftcnt);
+	}
+	else if (underattack_tendency == "Navy")
+	{
+		Unit_Navy navy;
+		totalhp = (navy.get_hit_point) * army.Navy->get_unit_cnt;
+		totalhp -= totalattackdamage;
+		leftcnt = totalhp / army.Navy->get_unit_cnt;
+		set_Unit(to, underattack_tendency, leftcnt);
 	}
 }
