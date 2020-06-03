@@ -3,6 +3,7 @@
 #include "unit.h"
 #include "map.h"
 
+
 #pragma once
 
 using namespace std;
@@ -10,13 +11,13 @@ using namespace std;
 class Player
 {
 private:
-    string player_name;
+    string _player_name;
     int _max_control_time;
     int _now_control_time;
     Resource _my_resource;
 
 public :
-    Player();
+    Player(){_player_name = "입력필요" ; _max_control_time=0; _now_control_time=0;};
     Player(string player_name, int _now_control_time,int _max_control_time);
 
     //setter
@@ -28,9 +29,9 @@ public :
 
     //getter
     //Output 각 클래스별 배열 ( 배열의 첫 번쨰 주소 Return)
-    int *get_my_place();
-    Resource *get_my_resource();
-    Unit *get_my_unit();
+    int *get_myPlace();
+    Resource *get_myResource();
+    Unit *get_myUnit();
     string get_player_name();
     //Turn getter
     int get_maxControlCnt();
@@ -40,14 +41,10 @@ public :
     //병과, 생산 수 인자로 넘김
     void selectAction();
     static Unit produce_unit(string tendency, int product_count,string area, string playername);
-    void MoveOrAttack_unit(string from, string to);
-    void fight(string from_area, string to_area);
-    void move(string from_area, string to_area);
-    void calculate_Unit(int sum_HP, string Unit_tendency, string area);
-    void upgradeArea(string area);
+    static void MoveOrAttack_unit(string from, string to);
+    static void fight(string from_area, string to_area);
+    static void move(string from_area, string to_area);
+    static void upgradeArea(string area);
+    void conquerArea(string areaName);
+    void display_movableArea();
 };
-
-// 추가요청
-// player.get_myPlace(); // return : [0,1,0,0,0,1,0...
-// player.get_maxControlCnt();
-// player.get_nowControlCnt();

@@ -9,7 +9,7 @@ from pygame import gfxdraw
 # 붙인 후 screen 객체를 update (update)
 
 class Console():
-    def __init__(self, screen):
+    def __init__(self, screen, textprinting_topmargin_for_dashboard = 0):
         screensize = screen.get_size()
         self.screen = screen
         
@@ -27,10 +27,13 @@ class Console():
         
         self.consolefontsize = 14
         self.consolefont = pygame.font.SysFont("Consolas", self.consolefontsize)
-        self.textsurfacepaddingxy = (15,15)
+        self.textprinting_topmargin_for_dashboard = textprinting_topmargin_for_dashboard
+        self.textsurfacepaddingxy = (15,35)
         self.printingdata = [] # printingdata should be a list
-        pygame.display.update()
 
+    def set_textprinting_topmargin_for_dashboard(self, margin):
+        self.textprinting_topmargin_for_dashboard = margin
+        
     def update(self):
         self.rect = self.screen.blit(self.consolesurface, self.consolexy)
         
@@ -40,7 +43,7 @@ class Console():
         if len(self.printingdata) != 0 and type(self.printingdata) is list:
             buffersurface = []
             buffer_text_surface_x = self.consolexy[0]+self.textsurfacepaddingxy[0]
-            buffer_text_surface_y = self.consolexy[1]+self.textsurfacepaddingxy[1]
+            buffer_text_surface_y = self.consolexy[1]+self.textsurfacepaddingxy[1]+self.textprinting_topmargin_for_dashboard
             buffer_text_surface_y_adder = self.consolefontsize + int(self.consolefontsize * 0.2)
             for data in self.printingdata:                
                 buffersurface.append(
@@ -54,7 +57,6 @@ class Console():
         for i in range(len(buffersurface)):
             self.screen.blit(buffersurface[i], (buffer_text_surface_x, 
                                                 buffer_text_surface_y + i * buffer_text_surface_y_adder))
-        pygame.display.update()
 
     def insertData(self, data):
         self.newdata = data
@@ -67,7 +69,7 @@ class City():
         self.screen = screen
         self.areaname = areaname
         self.citysize = cityscale
-        self.color = COLOR[2]
+        self.color = COLOR[0]
         
         # In order to draw antialiased filled shapes with pygame, use the module gfxdraw
         # "To draw an anti aliased and filled shape, 
@@ -91,13 +93,24 @@ class City():
         gfxdraw.filled_circle(self.screen,
                          CITY_LOCATION[self.areaname][0], CITY_LOCATION[self.areaname][1], 
                          CITY_SCALE_LIST[self.citysize], self.color)
-        pygame.display.update()
 
-    def setSettings(self, player, citysize=0):
+    def setSettings(self, player, cityscale=None):
         # setplayer function does not update.
         self.color = COLOR[player]
-        self.citysize = citysize
-        
+        if cityscale == None :
+            self.citysize = self.citysize
+        elif cityscale == +1 :
+            self.citysize = self.citysize+1
+        else :
+            self.citysize = cityscale
+    
+    def temporaryAttention(self):
+        print('attention')
+        temp = self.citysize
+        self.citysize = 4
+        self.update()
+        self.citysize = temp
+    
     
 class BackgroundMap():
     def __init__(self, screen, console_width, img='imgsrc/Seoul.png'):
@@ -124,7 +137,6 @@ class BackgroundMap():
         self.screen.blit(self.image, (0,0))
         for key in self.city:
             self.city[key].update()
-        pygame.display.update()
         print('update background and image')        
 
 
@@ -137,10 +149,9 @@ class Charactor():
     def drawCharactor(self):
         pass
 
-    def update(self):
-        self.charactorxy = (50, 50)
+    def update(self, charactorxy):
+        self.charactorxy = charactorxy
         self.rect = self.screen.blit(self.image, self.charactorxy)
-        pygame.display.update()
 
 
 class Explaination():
@@ -159,7 +170,6 @@ class Explaination():
         self.textsurfacepaddingxy = (15,15)
         self.printingdata = [] # printingdata should be a list
         self.hidesignal = 0
-        pygame.display.update()
 
     def update(self, show_or_hide, recovorysurface = None):
         if show_or_hide == 'show':
@@ -192,11 +202,9 @@ class Explaination():
         else :
             print('error! parameter should be show or hide')
 
-        pygame.display.update()
-
     def insertData(self, data):
         self.newdata = data
-        self.printingdata = self.newdata 
+        self.printingdata = self.newdata
 
     def showDiscription(self, discription):
         self.insertData(discription)
@@ -209,6 +217,3 @@ class Explaination():
 class Minimap():
     pass
 
-
-class Dashboard():
-    pass

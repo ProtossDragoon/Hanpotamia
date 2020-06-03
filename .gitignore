@@ -1,14 +1,15 @@
 #ignore File
 *.suo
 *.vscode
+VS/.vs
+/.vs/*
 /vs/*.CMakeLists.txt
-
+/vs/cmake-build-debug
+/vs/.DS_Store
+/vs/.idea
 
 #ignore Directory
 __pycache__
 .idea
-/vs/cmake-build-debug
-/vs/.DS_Store
-/vs/.idea
 .DS_Store
 VS/.vs

@@ -6,7 +6,7 @@ using namespace std;
 
 class Resource
 {
-	//¹° ±Ý ½Ä·®
+	//ï¿½ï¿½ ï¿½ï¿½ ï¿½Ä·ï¿½
 private:
 	int _resource_gold;
 	int _resource_water;
@@ -25,7 +25,7 @@ public:
 	int get_resource_food() { return _resource_food; };
 	int get_resource_water() { return _resource_water; };
 
-	//setter »ç¿ë¾ÈÇÒµí
+	//setter ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½
 	void set_resource_gold(int gold);
 	void set_resource_food(int food);
 	void set_resource_water(int water);
@@ -37,8 +37,8 @@ public:
 
 	//func 
 
-	//boolÅ¸ÀÔÀ¸·Î
-	//Áö¿ª ¾÷±Û
+	//boolÅ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	//bool CheckArea_Upgrade();
 	bool check_resource(Resource *player, Resource *need);
 
@@ -46,8 +46,3 @@ public:
 	Resource calculate_produce_unit(string tendency, int cnt);
 	//calculate_upgrade_area();
 };
-//
-//Áö¿ª¾÷±Û 
-//
-//À¯´Ö»ý»ê 
-//player  resource ÀÎ¿ø
