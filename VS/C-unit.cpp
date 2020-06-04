@@ -1,5 +1,6 @@
 #include "unit.h"
 #include "player.h"
+#include "string.h""
 
 
 //constructor
@@ -143,7 +144,7 @@ void AddUnit()
 
 void UnitProduct(string *tendency, int product_count)
 {
-	if (strcmp(tendency, "Cavalry")) {
+	if (tendency=="Cavalry") {
 		
 	}
 }

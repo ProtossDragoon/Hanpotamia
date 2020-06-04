@@ -39,8 +39,15 @@ public:
 
 	//boolŸ������
 	//���� ����
-	bool CheckArea_Upgrade();
+	//bool CheckArea_Upgrade();
+	bool check_resource(Resource *player, Resource *need);
+
 
 	Resource calculate_produce_unit(string tendency, int cnt);
 	//calculate_upgrade_area();
 };
+//
+//�������� 
+//
+//���ֻ��� 
+//player  resource �ο�

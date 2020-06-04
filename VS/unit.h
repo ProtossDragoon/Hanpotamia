@@ -1,4 +1,5 @@
 #include "resource.h"
+#include <iostream>
 //#include "player.h"
 #pragma once
 using namespace std;
@@ -56,11 +57,16 @@ public:
 	int get_unit_cnt() { return _unit_cnt; };
 
 	//함수
-	void UnitProduct(tendency, product_count);//병과, 생산 개수 인자로->palyer정보 조회해서 생산가능한지 검사
+
+	//병종과 수를 받아서 map에 함수추가
+	void UnitProduct(string tendency, int product_count);
 
 
 	//Unit객체들이 합쳤을 때 함수
 	void AddUnit();
+
+	//전투결과반영함수 총체력, 공격유닛, 지역이름
+	void calcualte_unit();
 
 };
 
