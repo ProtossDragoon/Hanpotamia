@@ -19,7 +19,7 @@ int main()
 			if (game_master.playerTrunStart(player))
 			{
 				int action_available = 0;
-				while (action_available = player->get_nowControlCnt())
+				while (action_available = player->get_currentControlCnt())
 				{
 					game_master.playerActionStart(player);
 					game_master.playerActionEnd(player);
@@ -28,6 +28,7 @@ int main()
 			game_master.playerTurnEnd(game_master.get_player(i));
 		}
 		game_master.turnCycleEnd();
+		////system("cls"); << 콘솔 클리어 명령어 이거 맞나 ("clear") 이건가 쨌든 있으면 좋을 듯 ㅇㅇ
 	}
 
 	game_master.gameEnd();
