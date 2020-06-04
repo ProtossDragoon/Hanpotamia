@@ -134,7 +134,7 @@ void Master::playerActionEnd(Player *player)
 	// -- python 에 보내줘야 할지도 모르니까...
 
 	// -- 특정 플레이어의 남은 실행 횟수를 차감
-	player->set_nowControlCnt(player->get_nowControlCnt()-1);
+	player->set_currentControlCnt(player->get_currentControlCnt()-1);
 
 	// -- 지역마다 소유 정보 점검하여 최대 턴 수 조정	
 	// 모든 플레이어의 자신의 최대 실행횟수 다시 연산하도록 명령
@@ -191,7 +191,7 @@ void Master::showGameDiscription()
 void Master::readMaxCommandCntAndResetCommandCnt(Player *player)
 {
 	int max_command_cnt = player->get_maxControlCnt();
-	player->set_nowControlCnt(max_command_cnt);
+	player->set_currentControlCnt(max_command_cnt);
 }
 
 
