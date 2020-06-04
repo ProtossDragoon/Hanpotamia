@@ -13,6 +13,7 @@ areainformation Map::findArea(string areaname) {
 }
 
 void Map::set_areaInformation(areainformation area[]) {
+	int i, j;
 	area[0] = { "������",0,"����",1 };
 	area[1] = { "��걸",1,"����",1 };
 	area[2] = { "���ʱ�",2,"����",1 };
@@ -43,6 +44,22 @@ void Map::set_areaInformation(areainformation area[]) {
 	area[27] = { "��3",27,"��",1 };
 	area[28] = { "��4",28,"��",1 };
 	area[29] = { "��5",29,"��",1 };
+	for (i = 0; i < 30; i++) {
+		for (j = 0; j < 30; j++) {
+			area[i].neighborarea[j] = '\0';
+		}
+		area[i].areahost = '\0';
+		area[i].areaunit.Archercount = 0;
+		area[i].areaunit.Cabalrycount = 0;
+		area[i].areaunit.Infantrycount = 0;
+		area[i].areaunit.Navycount = 0;
+		area[i].arearesource->set_resource_food = 0;
+		area[i].arearesource->set_resource_water = 0;
+		area[i].arearesource->set_resource_gold = 0;
+		area[i].occupationcost->set_resource_food = 0;
+		area[i].occupationcost->set_resource_gold = 0;
+		area[i].occupationcost->set_resource_water = 0;
+	}
 }
 
 Map::~Map() {
@@ -101,11 +118,50 @@ Map::Map(int _max_area):_max_area(_max_area) {
 	_route[28][29] = 1;
 }
 
-int Map::get_movableArea(string areaname, int start) {
+int Map::floyd(int from, int to) {
+	int MAX, i, temp;
+	int** graph;
+	int** before;
+	MAX = _max_area;
+	graph = (int**)malloc(MAX * sizeof(int*));
+	for (i = 0; i < MAX; i++) {
+		graph[i] = (int*)malloc(MAX * sizeof(int));
+	}
+	before = (int**)malloc(MAX * sizeof(int*));
+	for (i = 0; i < MAX; i++) {
+		before[i] = (int*)malloc(MAX * sizeof(int));
+	}
+	for (int i = 0; i < MAX; i++) {
+		for (int j = 0; j < MAX; j++) {
+			graph[i][j] = MAX;
+			if (i == j) {
+				graph[i][j] = 0;
+			}
+			before[i][j] = -1;
+		}
+	}
+	for (int mid = 0; mid < MAX; mid++) {
+		for (int start = 0; start < MAX; start++) {
+			for (int end = 0; end < MAX; end++) {
+				if (graph[start][end] > graph[start][mid] + graph[mid][end]) {
+					graph[start][end] = graph[start][mid] + graph[mid][end];
+					before[start][end] = before[mid][end];
+				}
+			}
+		}
+	}
+	return graph[from][to];
+}
+
+string Map::get_movableArea(string areaname) {
+	areainformation temp;
+	int tempnum = 0;
 	int j = 0;
+	temp = findArea(areaname);
+	tempnum = temp.areanum;
 	for (int i = 0; i < _max_area; i++) {
-		if (_route[start][i] == 1) {
-			area[start].neighborarea[j] = area[i].areaname;
+		if (_route[tempnum][i] == 1) {
+			temp.neighborarea[j] = area[i].areaname;
 			j++;
 		}
 	}
@@ -251,8 +307,71 @@ areainformation Map::get_areaInformation(string areaname) {
 	return temp;
 }
 
-void Map::set_areaLevelUpgrade(string areaname) { ////함수 이름과 함수 성격이 안맞는것같은 .??
+void Map::upgrade_Area(string areaname) {
 	areainformation temp;
 	temp = findArea(areaname);
 	temp.arealevel++;
+}
+
+void Map::set_unit(string areaname, string tendency, int count) {
+	areainformation temp;
+	temp = findArea(areaname);
+	if (tendency == "Infantry") {
+		temp.areaunit.Infantrycount += count;
+	}
+	else if (tendency == "Navy") {
+		temp.areaunit.Navycount += count;
+	}
+	else if (tendency == "Cavalry") {
+		temp.areaunit.Cabalrycount += count;
+	}
+	else {
+		temp.areaunit.Archercount += count;
+	}
+}
+
+void Map::showAreaInformation(string areaname) {
+	areainformation temp;
+	int tempResource = 0;
+	int tempCost = 0;
+	temp = findArea(areaname);
+	cout << "�����̸� :" << temp.areaname << endl;
+	cout << "������ȣ :" << temp.areanum << endl;
+	cout << "�����Ӽ� :" << temp.areatype << endl;
+	cout << "---�̵������� ������---" << endl;
+	for (int i = 0; temp.neighborarea[i].size != 0; i++) {
+		cout << temp.neighborarea[i] << endl;
+	}
+	cout << "���������� :" << temp.areahost << endl;
+	cout << "---��������---" << endl;
+	cout << "�ú� :" << temp.areaunit.Archercount << endl;
+	cout << "�⺴ :" << temp.areaunit.Cabalrycount << endl;
+	cout << "���� :" << temp.areaunit.Infantrycount << endl;
+	cout << "���� :" << temp.areaunit.Navycount << endl;
+	cout << "---�������� ���� �� �ִ� �ڿ�---" << endl;
+	tempResource = temp.arearesource->get_resource_food;
+	cout << "�ķ� :" << tempResource << endl;
+	tempResource = temp.arearesource->get_resource_gold;
+	cout << "�� :" << tempResource << endl;
+	tempResource = temp.arearesource->get_resource_water;
+	cout << "�� :" << tempResource << endl;
+	cout << "---���� ���� ���---" << endl;
+	tempCost = temp.occupationcost->get_resource_food;
+	cout << "���� :" << tempCost << endl;
+	tempCost = temp.occupationcost->get_resource_gold;
+	cout << "�� :" << tempCost << endl;
+	tempCost = temp.occupationcost->get_resource_water;
+	cout << "�� :" << tempCost << endl;
+}
+
+int* Map::get_wholeArea(Player* _host_player) {
+	string temp;
+	temp = _host_player->get_player_name;
+	int wholeArea[30] = { 0 };
+	for (int i = 0; i < 30; i++) {
+		if (temp == area[i].areahost) {
+			wholeArea[i] = 1;
+		}
+	}
+	return wholeArea;
 }
