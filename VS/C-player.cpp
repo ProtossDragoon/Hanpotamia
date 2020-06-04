@@ -3,9 +3,9 @@
 
 ///Creator
 
-Player::Player(string player_name, int _now_control_time, int _max_control_time) {
+Player::Player(string player_name, int _current_control_time, int _max_control_time) {
     player_name=player_name;
-    _now_control_time=_now_control_time;
+    _current_control_time=_current_control_time;
     _max_control_time=_max_control_time;
 }
 ////setter
@@ -14,19 +14,19 @@ void Player::set_maxControlCnt(int user_max_control_cnt) {
     _max_control_time=user_max_control_cnt;
 }
 
-void Player::set_nowControlCnt(int user_now_control_cnt) {
-    _now_control_time=user_now_control_cnt;
+void Player::set_currentControlCnt(int user_current_control_cnt) {
+    _current_control_time=user_current_control_cnt;
 }
 
 void Player::set_player_name(string name) {
     _player_name=name;
 }
 
-void Player::discount_nowControlCnt() {
-    if(_now_control_time>0)
-        _now_control_time--;
+void Player::discount_currentControlCnt() {
+    if(_current_control_time>0)
+        _current_control_time--;
 
-    if(_now_control_time<=0)
+    if(_current_control_time<=0)
         cout << "조작 가능 횟수를 초과했습니다." << endl;
 }
 
@@ -49,8 +49,8 @@ int Player::get_maxControlCnt() {
     return _max_control_time;
 }
 
-int Player::get_nowControlCnt() {
-    return _now_control_time;
+int Player::get_currentControlCnt() {
+    return _current_control_time;
 }
 
 string  Player::get_player_name() {
@@ -102,6 +102,7 @@ void Player::selectAction() {
     if(command == 2 ){
         //이동 가능 지역 Display 해주자 !!
         cout << " 이동 가능 지역 " << endl;
+        display_movableArea();
 
         cout << " 병력을 이동 시킬 지역을 입력하세요 " << endl;
         cout << " From : " ;
@@ -183,13 +184,10 @@ Unit Player::produce_unit(string tendency, int product_count, string area,string
 
 void Player::MoveOrAttack_unit(string from, string to) {
     Map searching=NULL;
-    //모든 클래스에서 get_player_name 이 존재해야할 것 같다.
-    //Player name 을 인자로 모든 지역의 병력 조회 가능해야 함
-    ////Player name , area name  을 인자로 해당 지역의 병력 조회(어떤 병사가 있는지, 몇 명 있는지) 가능해야함
+
     //to 지역의 Player 정보(병력 정보 , 지역 레벨 ) 조회 => 다른 Player 가 존재하면 공격
     if(searching.get_occupationPlayer(to).empty())
         fight(from,to);
-
     //싸우지 않았다면 해당 지역에서 병력 차감하고, 다른 지역에 병력 추가
     else
         move(from,to);
@@ -201,26 +199,29 @@ void Player::fight(string from_area, string to_area) {
     string attack_Unit, under_attack_Unit;
     //공격하려는 Unit 과 공격당하는 Unit 의 공격력을 더해서 서로 차감하고
     //해당 체력에 관해 modulo 연산으로 남은 유닛을 반영한다.
+
+    ////이동시킬 병력선택 -> 이동. 공격 가능 지역 보여주기
     while(attack_Unit.data()&& under_attack_Unit.data()) { //string 함수중 Data , c_str Data 함수 사용 오류나면 c_str 함수 사용해보자
-        cout << "공격 할 병과를 입력하세요" << endl;
+        cout << "자신의 공격 할 병과를 입력하세요" << endl;
         cin >> attack_Unit;
+
         cout << "공격 할 병력의 수를 입력하세요 " << endl;
         cin >> count_attacker;
 
-        cout << "해당 지역의 공격 대상을 입력하세요" << endl;
-        cin >> under_attack_Unit;
+        ////공격가능한 대상
+
+        if(is_attackableArea(attack_Unit,from_area)) {
+            cout << "해당 지역의 공격 대상을 입력하세요" << endl;
+            cin >> under_attack_Unit;
+            //calculate_Unit(to,under_attack_Unit,to_area);
+            ////유닛함수에서 작성하기로 햇음. -> set_Unit 까지.
+        }
+        else
+            cout << "선택한 유닛은 해당 지역을 공격할 수 없습니다. (이동거리 or 사거리 부족 )" << endl;
     }
     //player name 과 area name, Unit_tendency, Unit_count 가 모두 필요함.
-    //sum_HP 만 fight 함수에서 계산해서 넘겨준다. //
     ////*------------------------------------------------------------*/////
 
-    //sum_HP = 공격하는 유닛 총 체력 - 공격 당하는 유닛 총 공격력
-    //Map 함수에서 해당 지역이 소유하고 있는 병력 정보 get 가능해야 함.
-    //Map 에서 병력 정보에 관한 데이터 필요 함.
-    //calculate_Unit(10000,attack_Unit,from_area);
-    ////유닛함수에서 작성하기로 햇음.
-    //sum_HP = 공격당하는 유닛 총 체력 - 공격하는 유닛 총 공격력
-    //calculate_Unit(10000,under_attack_Unit,to_area);
 }
 
 void Player::move(string from, string to) {
@@ -233,6 +234,9 @@ void Player::move(string from, string to) {
     //움직일 병력의 수를 입력하세요
     cin >> count;
 
+    if(is_attackableArea(tendency,from)){
+
+    } else cout << "선택한 유닛은 해당 지역으로 움직일 수 없습니다. (이동 거리 부족 )" << endl;
     ////searching.set_Unit(from, tendency , 원래있던 병과의 수 - count);
     ////searching.set_Unit(to, tendency , count);
 }
@@ -262,9 +266,60 @@ void Player::conquerArea(string areaName) {
     cout << areaName << "지역을 " << this->get_player_name() << "님이 소유 합니다." << endl;
 }
 
-void display_movableArea(){
+
+void Player::display_movableArea() {
     Map searching=NULL;
-    ////searching.get_movableArea() ??
+    string area;
+    string *movableArea=nullptr;
+
     //while 문으로 보여주기
+    cout << "이동가능한 지역을 조회 할 지역을 입력하세요  :";
+    cin >> area;
+
+    if(searching.get_occupationPlayer(area)!=this->_player_name)
+        cout << "자신의 지역이 아닙니다. " << endl;
+
+    else {
+        movableArea = searching.get_movableArea(area);
+        if (movableArea != nullptr) {
+            cout << *movableArea << endl;
+            movableArea++;
+        }
+    }
 }
+
+bool Player::is_yourArea(string area) {
+    Map *searching;
+    if(searching->get_occupationPlayer(area)!=this->_player_name) {
+        cout << "자신의 지역이 아닙니다. " << endl;
+        return false;
+    }
+    return true;
+}
+
+////attackableArea(string attack_unit , string attack_area); 이런식으로 해야할 것 같은데
+////attack_area 에서 attack_unit 으로 공격할 수 있는 지역 Display. 사거리 n 으로.
+////이동함수에서도 작성 가능 함.
+
+bool Player::is_attackableArea(string attack_Unit, string attacker_area) {
+    Map *searching;
+    if(attack_Unit == "Archer" /*Unit_Archer*/)
+    {
+        Unit_Archer infor;
+        /*
+        if(infor.get_attack_range()>=searching.aretheyattackable(attacker_area))
+
+            return true;
+        else
+            return false
+            */
+    }
+    else if(attack_Unit == "Navy") /*Unit_Navy*/;
+    else if(attack_Unit == "Cavalry")/*Unit_Cavalry)*/;
+    else if(attack_Unit == "Infantry")/*Unit_Infantry)*/;
+    return false;
+}
+
+
+
 
