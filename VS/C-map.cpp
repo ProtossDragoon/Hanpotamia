@@ -63,7 +63,7 @@ void Map::set_areaInformation(areainformation area[]) {
 	}
 =======
 	area[0] = { "������",0,"����",1 };
-	area[1] = { "��걸",1,"����",1 };
+	area[1] = { "���?,1,"����",1 };
 	area[2] = { "���ʱ�",2,"����",1 };
 	area[3] = { "���ı�",3,"����",1 };
 	area[4] = { "������",4,"����",1 };
@@ -81,7 +81,7 @@ void Map::set_areaInformation(areainformation area[]) {
 	area[16] = { "���Ǳ�",16,"����",1 };
 	area[17] = { "���ϱ�",17,"����",1 };
 	area[18] = { "����",18,"����",1 };
-	area[19] = { "�����",19,"����",1 };
+	area[19] = { "�����?,19,"����",1 };
 	area[20] = { "���α�",20,"����",1 };
 	area[21] = { "�߶���",21,"����",1 };
 	area[22] = { "��õ��",22,"����",1 };
@@ -154,15 +154,10 @@ Map::Map(int _max_area):_max_area(_max_area) {
 int Map::floyd(int from, int to) {
 	int MAX, i, temp;
 	int** graph;
-	int** before;
 	MAX = _max_area;
 	graph = (int**)malloc(MAX * sizeof(int*));
 	for (i = 0; i < MAX; i++) {
 		graph[i] = (int*)malloc(MAX * sizeof(int));
-	}
-	before = (int**)malloc(MAX * sizeof(int*));
-	for (i = 0; i < MAX; i++) {
-		before[i] = (int*)malloc(MAX * sizeof(int));
 	}
 	for (int i = 0; i < MAX; i++) {
 		for (int j = 0; j < MAX; j++) {
@@ -173,12 +168,18 @@ int Map::floyd(int from, int to) {
 			before[i][j] = -1;
 		}
 	}
+	for (int i = 0; i < MAX; i++) {
+		for (int j = 0; j < MAX; j++) {
+			if (_route[i][j] == 1) {
+				graph[i][j] = 1;
+			}
+		}
+	}
 	for (int mid = 0; mid < MAX; mid++) {
 		for (int start = 0; start < MAX; start++) {
 			for (int end = 0; end < MAX; end++) {
 				if (graph[start][end] > graph[start][mid] + graph[mid][end]) {
 					graph[start][end] = graph[start][mid] + graph[mid][end];
-					before[start][end] = before[mid][end];
 				}
 			}
 		}
@@ -343,7 +344,7 @@ areainformation Map::get_areaInformation(string areaname) {
 <<<<<<< HEAD
 void Map::upgrade_Area(string areaname) {
 =======
-void Map::set_areaLevelUpgrade(string areaname) { ////함수 이름과 함수 성격이 안맞는것같은 .??
+void Map::set_areaLevelUpgrade(string areaname) { ////?�수 ?�름�??�수 ?�격???�맞?�것같�? .??
 >>>>>>> master
 	areainformation temp;
 	temp = findArea(areaname);
