@@ -13,6 +13,7 @@ areainformation Map::findArea(string areaname) {
 }
 
 void Map::set_areaInformation(areainformation area[]) {
+<<<<<<< HEAD
 	int i, j;
 	area[0] = { "������",0,"����",1 };
 	area[1] = { "��걸",1,"����",1 };
@@ -60,6 +61,38 @@ void Map::set_areaInformation(areainformation area[]) {
 		area[i].occupationcost->set_resource_gold = 0;
 		area[i].occupationcost->set_resource_water = 0;
 	}
+=======
+	area[0] = { "������",0,"����",1 };
+	area[1] = { "���?,1,"����",1 };
+	area[2] = { "���ʱ�",2,"����",1 };
+	area[3] = { "���ı�",3,"����",1 };
+	area[4] = { "������",4,"����",1 };
+	area[5] = { "������",5,"����",1 };
+	area[6] = { "���۱�",6,"����",1 };
+	area[7] = { "��������",7,"����",1 };
+	area[8] = { "������",8,"����",1 };
+	area[9] = { "���α�",9,"����",1 };
+	area[10] = { "�߱�",10,"����",1 };
+	area[11] = { "������",11,"����",1 };
+	area[12] = { "��õ��",12,"����",1 };
+	area[13] = { "���빮��",13,"����",1 };
+	area[14] = { "���빮��",14,"����",1 };
+	area[15] = { "������",15,"����",1 };
+	area[16] = { "���Ǳ�",16,"����",1 };
+	area[17] = { "���ϱ�",17,"����",1 };
+	area[18] = { "����",18,"����",1 };
+	area[19] = { "�����?,19,"����",1 };
+	area[20] = { "���α�",20,"����",1 };
+	area[21] = { "�߶���",21,"����",1 };
+	area[22] = { "��õ��",22,"����",1 };
+	area[23] = { "���ϱ�",23,"����",1 };
+	area[24] = { "������",24,"����",1 };
+	area[25] = { "��1",25,"��",1 };
+	area[26] = { "��2",26,"��",1 };
+	area[27] = { "��3",27,"��",1 };
+	area[28] = { "��4",28,"��",1 };
+	area[29] = { "��5",29,"��",1 };
+>>>>>>> master
 }
 
 Map::~Map() {
@@ -121,15 +154,10 @@ Map::Map(int _max_area):_max_area(_max_area) {
 int Map::floyd(int from, int to) {
 	int MAX, i, temp;
 	int** graph;
-	int** before;
 	MAX = _max_area;
 	graph = (int**)malloc(MAX * sizeof(int*));
 	for (i = 0; i < MAX; i++) {
 		graph[i] = (int*)malloc(MAX * sizeof(int));
-	}
-	before = (int**)malloc(MAX * sizeof(int*));
-	for (i = 0; i < MAX; i++) {
-		before[i] = (int*)malloc(MAX * sizeof(int));
 	}
 	for (int i = 0; i < MAX; i++) {
 		for (int j = 0; j < MAX; j++) {
@@ -140,12 +168,18 @@ int Map::floyd(int from, int to) {
 			before[i][j] = -1;
 		}
 	}
+	for (int i = 0; i < MAX; i++) {
+		for (int j = 0; j < MAX; j++) {
+			if (_route[i][j] == 1) {
+				graph[i][j] = 1;
+			}
+		}
+	}
 	for (int mid = 0; mid < MAX; mid++) {
 		for (int start = 0; start < MAX; start++) {
 			for (int end = 0; end < MAX; end++) {
 				if (graph[start][end] > graph[start][mid] + graph[mid][end]) {
 					graph[start][end] = graph[start][mid] + graph[mid][end];
-					before[start][end] = before[mid][end];
 				}
 			}
 		}
@@ -307,7 +341,11 @@ areainformation Map::get_areaInformation(string areaname) {
 	return temp;
 }
 
+<<<<<<< HEAD
 void Map::upgrade_Area(string areaname) {
+=======
+void Map::set_areaLevelUpgrade(string areaname) { ////?�수 ?�름�??�수 ?�격???�맞?�것같�? .??
+>>>>>>> master
 	areainformation temp;
 	temp = findArea(areaname);
 	temp.arealevel++;
