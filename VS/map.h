@@ -17,7 +17,7 @@ typedef struct Army {
 }Army;
 
 
-typedef struct Areainfor{
+typedef struct areainformation{
 	string areaname;
 	int areanum;
 	string areatype;
@@ -48,18 +48,22 @@ public:
 	void get_occupationCost(string areaname);
 	void get_acquirableResource(string areaname);
 	void get_upgradeCost(string areaname);
-	int get_movableArea(string areaname, int start);
+	string get_movableArea(string areaname);
 	Army get_unit(string areaname, Player* _host_player);
 	Army get_unitWhole(Player* _host_player);
 	areainformation get_areaInformation(string areaname);
+	int* get_wholeArea(Player* _host_player);
 
-	void set_areaLevelUpgrade(string areaname);
 	void set_occupationCost(string areaname);
 	void set_areaInformation(areainformation area[]);
 	void set_areaHost(Player* _host_player, string areaname);
 	int set_acquirableFood(string areaname);
 	int set_acquirableGold(string areaname);
 	int set_acquirableWater(string areaname);
+	void set_unit(string areaname, string tendency, int count);
 
+	void upgrade_Area(string areaname);
 	areainformation findArea(string areaname);
+	void showAreaInformation(string areaname);
+	int floyd(int from, int to);
 };
