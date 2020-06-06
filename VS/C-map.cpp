@@ -13,7 +13,6 @@ areainformation Map::findArea(string areaname) {
 }
 
 void Map::set_areaInformation(areainformation area[]) {
-<<<<<<< HEAD
 	int i, j;
 	area[0] = { "������",0,"����",1 };
 	area[1] = { "��걸",1,"����",1 };
@@ -61,38 +60,6 @@ void Map::set_areaInformation(areainformation area[]) {
 		area[i].occupationcost->set_resource_gold = 0;
 		area[i].occupationcost->set_resource_water = 0;
 	}
-=======
-	area[0] = { "������",0,"����",1 };
-	area[1] = { "���?,1,"����",1 };
-	area[2] = { "���ʱ�",2,"����",1 };
-	area[3] = { "���ı�",3,"����",1 };
-	area[4] = { "������",4,"����",1 };
-	area[5] = { "������",5,"����",1 };
-	area[6] = { "���۱�",6,"����",1 };
-	area[7] = { "��������",7,"����",1 };
-	area[8] = { "������",8,"����",1 };
-	area[9] = { "���α�",9,"����",1 };
-	area[10] = { "�߱�",10,"����",1 };
-	area[11] = { "������",11,"����",1 };
-	area[12] = { "��õ��",12,"����",1 };
-	area[13] = { "���빮��",13,"����",1 };
-	area[14] = { "���빮��",14,"����",1 };
-	area[15] = { "������",15,"����",1 };
-	area[16] = { "���Ǳ�",16,"����",1 };
-	area[17] = { "���ϱ�",17,"����",1 };
-	area[18] = { "����",18,"����",1 };
-	area[19] = { "�����?,19,"����",1 };
-	area[20] = { "���α�",20,"����",1 };
-	area[21] = { "�߶���",21,"����",1 };
-	area[22] = { "��õ��",22,"����",1 };
-	area[23] = { "���ϱ�",23,"����",1 };
-	area[24] = { "������",24,"����",1 };
-	area[25] = { "��1",25,"��",1 };
-	area[26] = { "��2",26,"��",1 };
-	area[27] = { "��3",27,"��",1 };
-	area[28] = { "��4",28,"��",1 };
-	area[29] = { "��5",29,"��",1 };
->>>>>>> master
 }
 
 Map::~Map() {
@@ -244,7 +211,7 @@ void Map::set_areaHost(Player* _host_player, string areaname) {
 	areainformation temp;
 	string host;
 	temp = findArea(areaname);
-	host = _host_player->get_player_name;
+	host = _host_player->get_player_name();
 	temp.areahost = host;
 }
 
@@ -252,7 +219,7 @@ Army Map::get_unit(string areaname, Player* _host_player) {
 	areainformation temp;
 	string host;
 	int cnt = 0;
-	host = _host_player->get_player_name;
+	host = _host_player->get_player_name();
 	temp = findArea(areaname);
 	if (host == temp.areahost) {
 		return temp.areaunit;
@@ -271,7 +238,7 @@ Army Map::get_unitWhole(Player* _host_player) {
 	Army temp;
 	int i;
 	int cnt = 0;
-	host = _host_player->get_player_name;
+	host = _host_player->get_player_name();
 	for (i = 0; i < 30; i++) {
 		if (host == area[i].areahost) {
 			temp.Archercount += area[i].areaunit.Archercount;
@@ -290,7 +257,7 @@ Army Map::get_unitWhole(Player* _host_player) {
 string Map::get_occupationPlayer(string areaname) {
 	areainformation temp;
 	temp = findArea(areaname);
-	if (temp.areahost.empty) {
+	if (temp.areahost.empty()) {
 		cout << areaname << "�� �����ִ� ���� �����ϴ�." << endl;
 		return NULL;
 	}
