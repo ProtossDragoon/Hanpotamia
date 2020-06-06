@@ -41,7 +41,7 @@ public:
 	//���� ����
 	//bool CheckArea_Upgrade();
 	bool check_resource(Resource *player, Resource *need);
-
+    ////항목별로 필요합니다.
 
 	Resource calculate_produce_unit(string tendency, int cnt);
 	//calculate_upgrade_area();

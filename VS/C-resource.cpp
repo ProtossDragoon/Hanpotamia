@@ -38,7 +38,7 @@ void Resource::set_resource_water(int water)
 //	}*/
 //}
 
-//unitÀÇ º´Á¾°ú ¼ö¸¦ ¹Ş¾Æ¼­ ÇÊ¿äÇÑ ÀÚ¿øÀ» °è»ê
+//unitï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ş¾Æ¼ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 Resource Resource::calculate_produce_unit(string tendency, int cnt)
 {
 	Resource troop;
@@ -70,17 +70,17 @@ Resource Resource::calculate_produce_unit(string tendency, int cnt)
 }
 
 
-//playerÀÇ ÀÚ¿ø°ú ÇÊ¿äÇÑ ÀÚ¿øÀ» ºñ±³ÇÏ¿© Çàµ¿ÀÌ ¼öÇàµÇ´ÂÁö È®ÀÎ
+//playerï¿½ï¿½ ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½àµ¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 bool Resource::check_resource(Resource *player, Resource *need) 
 {
 	int i=0;
-	if (player->get_resource_food >= need->get_resource_food) i++;
-	if (player->get_resource_water >= need->get_resource_water) i++;
-	if (player->get_resource_gold >= need->get_resource_gold) i++;
+	if (player->get_resource_food() >= need->get_resource_food) i++;
+	if (player->get_resource_water() >= need->get_resource_water) i++;
+	if (player->get_resource_gold() >= need->get_resource_gold) i++;
 	if (i == 3) return true;
 	else
 	{
-		cout << "ÀÚ¿øÀÌ ºÎÁ·ÇÕ´Ï´Ù!" << endl;
+		cout << "ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½!" << endl;
 		return false;
 	}
 }
