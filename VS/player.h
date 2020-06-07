@@ -30,8 +30,10 @@ public :
     //getter
     //Output 각 클래스별 배열 ( 배열의 첫 번쨰 주소 Return)
     int *get_myPlace();
-    Resource *get_myResource();
+    void show_myWholePlace(int *place);
 
+    Resource *get_myResource();
+    void show_myResource();
     string get_player_name();
     //Turn getter
     int get_maxControlCnt();
@@ -41,9 +43,9 @@ public :
     //병과, 생산 수 인자로 넘김
     void selectAction();
     Unit produce_unit(string tendency, int product_count,string area);
-    static void MoveOrAttack_unit(string from, string to);
-    static void fight(string from_area, string to_area);
-    static void move(string from_area, string to_area);
+    void MoveOrAttack_unit(string from, string to);
+    bool fight(string from_area, string to_area);
+    void move(string from_area, string to_area);
     static void upgradeArea(string area);
     void conquerArea(string areaName);
     void display_movableArea();
