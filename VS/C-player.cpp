@@ -23,7 +23,7 @@ void Player::set_player_name(string name) {
 }
 
 void Player::discount_currentControlCnt() {
-    if(_current_control_time>0)
+    if(get_currentControlCnt()>0)
         _current_control_time--;
 
     if(_current_control_time<=0)
@@ -42,7 +42,9 @@ Resource* Player::get_myResource() {
 }
 
 int * Player::get_myPlace() {
-    Map *searching;
+    Map *searching=NULL;
+    int *myPlace=searching->get_wholeArea(this);
+    return myPlace;
 }
 
 int Player::get_maxControlCnt() {
@@ -59,7 +61,7 @@ string  Player::get_player_name() {
 
 //// game function
 void Player::selectAction() {
-    Map *searching;
+    Map *searching=NULL;
     Resource *research;
     //// produce_unit
     string tendency; int product_count; string area;
@@ -118,6 +120,7 @@ void Player::selectAction() {
         cout << "업그레이드 할 지역을 입력하세요 " << endl;
         cin >> area;
         upgradeArea(area);
+        discount_currentControlCnt();
     }
 
     if(command== 4 ){
@@ -125,21 +128,18 @@ void Player::selectAction() {
         cout << " 1. 전체 지역 정보 조회    2. 단일 지역 정보 조회 " <<endl;
         cin >> command;
         if(command == 1 ){
-            searching.
+            show_myWholePlace(searching->get_wholeArea(this));
         }
         if(command == 2){
             cout << "지역이름을 입력하세요 :" ;
             cin >> area;
-            areainfor=searching->get_areaInformation(area);
-            ////searching.show_areainformation();
+            searching->showAreaInformation(area);
         }
     }
 
     if(command == 5){
         cout << "보유하고 있는 자원 " <<endl;
-        cout << " 물 : " << get_myResource()->get_resource_water()  <<endl ;
-        cout << " 금 : " << get_myResource()->get_resource_gold() <<endl ;
-        cout << "음식 : " << get_myResource()->get_resource_food() <<endl;
+        show_myResource();
     }
 
     if(command == 6){
@@ -196,20 +196,22 @@ Unit Player::produce_unit(string tendency, int product_count, string area) {
             if (tendency == "Archer")
                 setting->set_unit(area, tendency, set_product.areaunit.Archercount + product_count);
 
-            success_procedure("유닛생산");
+            success_procedure("유닛생산완료");
+            discount_currentControlCnt();
         }
     }
 }
 
 void Player::MoveOrAttack_unit(string from, string to) {
     Map searching=NULL;
-    if(searching.get_occupationPlayer(to).empty())
-        fight(from,to);
-    else
-        move(from,to);
+
+    if(!searching.get_occupationPlayer(to).empty()) {
+        if(!fight(from, to))
+            discount_currentControlCnt();
+    } else move(from,to);
 }
 
-void Player::fight(string from_area, string to_area) {
+bool Player::fight(string from_area, string to_area) {
     int sum_HP;
     int count_attacker;
     string attack_Unit, under_attack_Unit;
@@ -227,11 +229,12 @@ void Player::fight(string from_area, string to_area) {
             cin >> under_attack_Unit;
             //calculate_Unit(to,under_attack_Unit,to_area);
             ////유닛함수에서 작성하기로 햇음. -> set_Unit 까지.
+            return true;
         }
         else
             cout << "선택한 유닛은 해당 지역을 공격할 수 없습니다. (이동거리 or 사거리 부족 )" << endl;
     }
-
+    return false;
 }
 
 void Player::move(string from, string to) {
@@ -248,6 +251,7 @@ void Player::move(string from, string to) {
         searching.set_unit(to,tendency,count);
         cout << count << " 명의 " << tendency << " (이)가 " << to << " 지역에 주둔합니다. " << endl;
         cout << "===========지역의 소유권을 얻기 위해서 Conquer 하십시오.=============" <<endl;
+        discount_currentControlCnt();
     } else cout << "선택한 유닛은 해당 지역으로 움직일 수 없습니다. (이동 거리 부족 )" << endl;
 
 }
@@ -265,12 +269,20 @@ void Player::conquerArea(string areaName) {
     Map *searching=NULL;
     areainformation setting;
     //areaName 으로 단일 지역에 대해 this 포인터로 지역 소유권 확립
-    ////자원확인
-    setting=searching->get_areaInformation(areaName);
-    setting.areahost=this->get_player_name();
-    cout << "이제부터 "<< areaName << " 지역을 " << this->get_player_name() << "님이 소유 합니다." << endl;
-    
-    ////자원획득
+
+    if(is_yourArea(areaName)) {
+        ////자원확인
+        setting = searching->get_areaInformation(areaName);
+        setting.areahost = this->get_player_name();
+        cout << "이제부터 " << areaName << " 지역을 " << this->get_player_name() << "님이 소유 합니다." << endl;
+        discount_currentControlCnt();
+        ////자원획득
+        this->set_my_resource( this->get_myResource()->get_resource_food()+setting.arearesource->get_resource_food(),
+                               this->get_myResource()->get_resource_gold()+setting.arearesource->get_resource_gold(),
+                               this->get_myResource()->get_resource_water()+setting.arearesource->get_resource_water());
+        show_myResource();
+    }
+
 }
 
 
@@ -331,4 +343,18 @@ void Player::success_procedure(string type) {
     cout << type << " 작업을 성공적으로 수행 했습니다." << endl;
 }
 
+void Player::show_myResource() {
+    cout << " 물 : " << get_myResource()->get_resource_water()  <<endl ;
+    cout << " 금 : " << get_myResource()->get_resource_gold() <<endl ;
+    cout << "음식 : " << get_myResource()->get_resource_food() <<endl;
+}
 
+void Player::show_myWholePlace(int *place) {
+    Map *searching=NULL;
+    cout << this->get_player_name() << "가 소유하는 지역을 조회합니다...." << endl;
+    cout << this->get_player_name() << " 님이 소유하는 지역 " << endl;
+    for(int i=0; i<30; i++){
+        if(place[i]!=-1)
+           cout <<  searching->findArea(place[i]).areaname << endl;
+    }
+}

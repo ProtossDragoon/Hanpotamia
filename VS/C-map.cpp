@@ -372,7 +372,7 @@ void Map::showAreaInformation(string areaname) {
 int* Map::get_wholeArea(Player* _host_player) {
 	string temp;
 	temp = _host_player->get_player_name;
-	int wholeArea[30] = { 0 };
+	int wholeArea[30] = { -1 };
 	for (int i = 0; i < 30; i++) {
 		if (temp == area[i].areahost) {
 			wholeArea[i] = 1;
@@ -380,3 +380,15 @@ int* Map::get_wholeArea(Player* _host_player) {
 	}
 	return wholeArea;
 }
+
+
+////박태정 작성 Overloading 함수
+areainformation Map::findArea(int areaNum){
+    areainformation *find = get_wholeMap();
+    return find[areaNum];
+}
+
+areainformation* Map::get_wholeMap() {
+    return area;
+}
+////삭제 니니
