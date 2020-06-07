@@ -67,7 +67,6 @@ public:
 	void showAreaInformation(string areaname);
 	int floyd(int from, int to);
 
-
 	////제가 작성하나 했습니다. overloading
     areainformation findArea(int areaNum);
     areainformation *get_wholeMap();
