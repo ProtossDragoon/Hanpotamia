@@ -59,14 +59,14 @@ Resource *Resource::calculate_produce_unit(string tendency, int cnt)
 bool Resource::check_resource(Resource *player, Resource *need)
 {
     int i=0;
-    if (player->get_resource_food() >= need->get_resource_food) i++;
-    if (player->get_resource_water() >= need->get_resource_water) i++;
-    if (player->get_resource_gold() >= need->get_resource_gold) i++;
+    if (player->get_resource_food() >= need->get_resource_food()) i++;
+    if (player->get_resource_water() >= need->get_resource_water()) i++;
+    if (player->get_resource_gold() >= need->get_resource_gold()) i++;
     if (i == 3) 
     {
-        player->set_resource_food(player->get_resource_food - need->get_resource_food);
-        player->set_resource_gold(player->get_resource_gold - need->get_resource_gold);
-        player->set_resource_water(player->get_resource_water - need->get_resource_water);
+        player->set_resource_food(player->get_resource_food() - need->get_resource_food());
+        player->set_resource_gold(player->get_resource_gold() - need->get_resource_gold());
+        player->set_resource_water(player->get_resource_water() - need->get_resource_water());
         return true;
     }
     else
