@@ -201,7 +201,7 @@ void Unit::calculate_unit(string to, string underattack_tendency, string attack_
     else if (underattack_tendency == "Navy")
     {
         Unit_Navy navy;
-        totalhp = (navy.get_hit_point) * army.Navy->get_unit_cnt();
+        totalhp = (navy.get_hit_point()) * army.Navy->get_unit_cnt();
         totalhp -= totalattackdamage;
         leftcnt = totalhp / army.Navy->get_unit_cnt();
         searching->set_unit(to, underattack_tendency, leftcnt);
