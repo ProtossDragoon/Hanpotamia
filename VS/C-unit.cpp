@@ -1,90 +1,92 @@
+#include <iostream>
 #include "unit.h"
 #include "player.h"
 #include "string.h""
+#include "map.h"
 
 
 //constructor
 Unit::Unit()
 {
-	_unit_type = 0;
-	_attack_damage = 0;
-	_hit_point = 0;
-	_resource_gold = 0;
-	_resource_water = 0;
-	_resource_food = 0;
-	_troop_production = 0;
-	_moving_range = 0;
-	_moving_area_type = 0;
-	_attack_range = 0;
-	_unit_cnt = 0;
+    _unit_type = 0;
+    _attack_damage = 0;
+    _hit_point = 0;
+    _resource_gold = 0;
+    _resource_water = 0;
+    _resource_food = 0;
+    _troop_production = 0;
+    _moving_range = 0;
+    _moving_area_type = 0;
+    _attack_range = 0;
+    _unit_cnt = 0;
 }
 
 Unit::~Unit() {}
 
 Unit_Infantry::Unit_Infantry() : Unit()
 {
-	_unit_type = 0;
-	_attack_damage = 10;
-	_hit_point = 50;
-	_resource_gold = 10;
-	_resource_water = 10;
-	_resource_food = 10;
-	_troop_production = 5;
-	_moving_range = 2;
-	_moving_area_type = 0;//¼öÁ¤
-	_attack_range = 0;
-	_unit_cnt = 0;
+    _unit_type = 0;
+    _attack_damage = 10;
+    _hit_point = 50;
+    _resource_gold = 10;
+    _resource_water = 10;
+    _resource_food = 10;
+    _troop_production = 5;
+    _moving_range = 2;
+    _moving_area_type = 0;//ìˆ˜ì •
+    _attack_range = 1;
+    _unit_cnt = 0;
 }
 
 Unit_Infantry::~Unit_Infantry() {}
 
-Unit_Archer::Unit_Archer() : Unit() 
+Unit_Archer::Unit_Archer() : Unit()
 {
-	_unit_type = 1;
-	_attack_damage = 10;
-	_hit_point = 30;
-	_resource_gold = 10;
-	_resource_water = 5;
-	_resource_food = 5;
-	_troop_production = 3;
-	_moving_range = 1;
-	_moving_area_type = 0;//¼öÁ¤
-	_attack_range = 1;
-	_unit_cnt = 0;
+    _unit_type = 1;
+    _attack_damage = 10;
+    _hit_point = 30;
+    _resource_gold = 10;
+    _resource_water = 5;
+    _resource_food = 5;
+    _troop_production = 3;
+    _moving_range = 1;
+    _moving_area_type = 0;//ìˆ˜ì •
+    _attack_range = 2;
+    _unit_cnt = 0;
 }
 
 Unit_Archer::~Unit_Archer() {}
 
-Unit_Cavalry::Unit_Cavalry() : Unit() 
+Unit_Cavalry::Unit_Cavalry() : Unit()
 {
-	_unit_type = 2;
-	_attack_damage = 10;
-	_hit_point = 50;
-	_resource_gold = 10;
-	_resource_water = 10;
-	_resource_food = 10;
-	_troop_production = 5;
-	_moving_range = 2;
-	_moving_area_type = 0;//¼öÁ¤
-	_attack_range = 0;
-	_unit_cnt = 0;
+    _unit_type = 2;
+    _attack_damage = 10;
+    _hit_point = 50;
+    _resource_gold = 10;
+    _resource_water = 10;
+    _resource_food = 10;
+    _troop_production = 5;
+    _moving_range = 2;
+    _moving_area_type = 0;//ìˆ˜ì •
+    _attack_range = 1;
+    _unit_cnt = 0;
 }
 
 Unit_Cavalry::~Unit_Cavalry() {}
 
-Unit_Navy::Unit_Navy() : Unit() 
+Unit_Navy::Unit_Navy() : Unit()
 {
-	_unit_type = 3;
-	_attack_damage = 20;
-	_hit_point = 20;
-	_resource_gold = 10;
-	_resource_water = 20;
-	_resource_food = 20;
-	_troop_production = 2;
-	_moving_range = 2;
-	_moving_area_type = 2;//¼öÁ¤
-	_attack_range = 2;
-	_unit_cnt = 0;
+    _unit_type = 3;
+    _attack_damage = 20;
+    _hit_point = 20;
+    _resource_gold = 10;
+    _resource_water = 20;
+    _resource_food = 20;
+    _troop_production = 2;
+    _moving_range = 2;
+    _moving_area_type = 2;//ìˆ˜ì •
+    _attack_range = 3;
+    _unit_cnt = 0;
 }
 
 Unit_Navy::~Unit_Navy() {}
@@ -92,59 +94,113 @@ Unit_Navy::~Unit_Navy() {}
 //Unit setter
 void Unit::set_unit_type(int type)
 {
-	_unit_type = type;
+    _unit_type = type;
 }
 void Unit::set_attack_damage(int attackdamage)
 {
-	_attack_damage = attackdamage;
+    _attack_damage = attackdamage;
 }
-void Unit::set_hit_point(int hp) 
+void Unit::set_hit_point(int hp)
 {
-	_hit_point = hp;
+    _hit_point = hp;
 }
-void Unit::set_resource_gold(int gold) 
+void Unit::set_resource_gold(int gold)
 {
-	_resource_gold = gold;
+    _resource_gold = gold;
 }
-void Unit::set_resource_water(int water) 
+void Unit::set_resource_water(int water)
 {
-	_resource_water = water;
+    _resource_water = water;
 }
 void Unit::set_resource_food(int food)
 {
-	_resource_food = food;
+    _resource_food = food;
 }
-void Unit::set_troop_production(int troopproduction) 
+void Unit::set_troop_production(int troopproduction)
 {
-	_troop_production = troopproduction;
+    _troop_production = troopproduction;
 }
-void Unit::set_moving_range(int movingrange) 
+void Unit::set_moving_range(int movingrange)
 {
-	_moving_range = movingrange;
+    _moving_range = movingrange;
 }
-void Unit::set_moving_area_type(int movingareatype)//º¸º´ÀÌ ¹°¿¡¼­ ´Ù´Ò¼ö ÀÖ°Ô ÇÑ´Ù¸é »ç¿ë
+void Unit::set_moving_area_type(int movingareatype)//ë³´ë³‘ì´ ë¬¼ì—ì„œ ë‹¤ë‹ìˆ˜ ìˆê²Œ í•œë‹¤ë©´ ì‚¬ìš©
 {
-	_moving_area_type = movingareatype;
+    _moving_area_type = movingareatype;
 }
-void Unit::set_attack_range(int attackrange) 
+void Unit::set_attack_range(int attackrange)
 {
-	_attack_range = attackrange;
+    _attack_range = attackrange;
 }
-void Unit::set_unit_cnt(int cnt) 
+void Unit::set_unit_cnt(int cnt)
 {
-	_unit_cnt = cnt;
+    _unit_cnt = cnt;
 }
 
 //func
 
-void AddUnit()
+void Unit::calcualte_unit(string to, string underattack_tendency, string attack_tendency, int cnt)
 {
-	
-}
+    Map* searching;
+    int totalattackdamage;
+    int totalhp;
+    int leftcnt;
+    Army army = searching->get_areaInformation(to).areaunit;//toì˜ë³‘ë ¥ì •ë³´
 
-void UnitProduct(string *tendency, int product_count)
-{
-	if (tendency=="Cavalry") {
-		
-	}
+
+    //ê³µê²©ëŒ€ìƒì˜ ì´ ê³µê²©ë ¥
+    if (attack_tendency == "Archer")
+    {
+        Unit_Archer a;
+        totalattackdamage = a.get_attack_damage * cnt;
+    }
+    else if (attack_tendency == "Infantry")
+    {
+        Unit_Infantry a;
+        totalattackdamage = a.get_attack_damage * cnt;
+    }
+    else if (attack_tendency == "Cavalry")
+    {
+        Unit_Cavalry a;
+        totalattackdamage = a.get_attack_damage * cnt;
+    }
+    else if (attack_tendency == "Navy")
+    {
+        Unit_Navy a;
+        totalattackdamage = a.get_attack_damage * cnt;
+    }
+
+    //ê³µê²©ë°›ëŠ” ëŒ€ìƒì˜ ì²´ë ¥ + calculate
+    if (underattack_tendency == "Archer")
+    {
+        Unit_Archer archer;
+        totalhp = (archer.get_hit_point) * army.Archer->get_unit_cnt;
+        totalhp -= totalattackdamage;
+        leftcnt = totalhp / army.Archer->get_unit_cnt;
+        set_Unit(to, underattack_tendency, leftcnt);
+    }
+    else if (underattack_tendency == "Cavalry")
+    {
+        Unit_Cavalry cavalry;
+        totalhp = (cavalry.get_hit_point) * army.cavalry->get_unit_cnt;
+        totalhp -= totalattackdamage;
+        leftcnt = totalhp / army.cavalry->get_unit_cnt;
+        set_Unit(to, underattack_tendency, leftcnt);
+    }
+    else if (underattack_tendency == "Infantry")
+    {
+        Unit_Infantry infantry;
+        totalhp = (infantry.get_hit_point) * army.Infantry->get_unit_cnt;
+        totalhp -= totalattackdamage;
+        leftcnt = totalhp / army.Infantry->get_unit_cnt;
+        set_Unit(to, underattack_tendency, leftcnt);
+    }
+    else if (underattack_tendency == "Navy")
+    {
+        Unit_Navy navy;
+        totalhp = (navy.get_hit_point) * army.Navy->get_unit_cnt;
+        totalhp -= totalattackdamage;
+        leftcnt = totalhp / army.Navy->get_unit_cnt;
+        set_Unit(to, underattack_tendency, leftcnt);
+    }
 }

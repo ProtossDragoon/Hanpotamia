@@ -2,8 +2,6 @@
 #include "resource.h"
 #include "unit.h"
 #include "map.h"
-
-
 #pragma once
 
 using namespace std;
@@ -46,7 +44,7 @@ public :
     void MoveOrAttack_unit(string from, string to);
     bool fight(string from_area, string to_area);
     void move(string from_area, string to_area);
-    static void upgradeArea(string area);
+    void upgradeArea(string area);
     void conquerArea(string areaName);
     void display_movableArea();
     bool is_yourArea(string area);

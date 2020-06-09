@@ -297,6 +297,7 @@ void Map::set_occupationCost(string areaname) {
 void Map::get_occupationCost(string areaname) {
 	areainformation temp;
 	temp = findArea(areaname);
+
 	if (temp.areatype == "����") {
 		temp.occupationcost->set_resource_food = 100;
 		temp.occupationcost->set_resource_gold = 100;
