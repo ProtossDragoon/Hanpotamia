@@ -2,9 +2,12 @@
 #include "string.h"
 
 ////construtor
-//Resource::Resource() {
-//
-//}
+Resource::Resource() {
+    _resource_gold = 0;
+    _resource_water = 0;
+    _resource_food = 0;
+}
+Resource::~Resource() {}
 
 void Resource::set_resource_gold(int gold)
 {
@@ -18,6 +21,8 @@ void Resource::set_resource_water(int water)
 {
     _resource_water = water;
 }
+
+
 
 Resource *Resource::calculate_produce_unit(string tendency, int cnt)
 {
