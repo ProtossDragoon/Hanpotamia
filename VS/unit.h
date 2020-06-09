@@ -58,13 +58,10 @@ public:
 
     //함수
 
-
-
-    //Unit객체들이 합쳤을 때 함수
-    //void AddUnit();
+ 
 
     //전투결과반영함수 총체력, 공격유닛, 지역이름
-    void calcualte_unit(string to, string undetattack_tendency, string attack_tendency, int cnt);
+    void calculate_unit(string to, string undetattack_tendency, string attack_tendency, int cnt);
 
 };
 
