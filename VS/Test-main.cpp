@@ -1,7 +1,8 @@
-#include"master.h"
+﻿#include"master.h"
 #include"player.h"
 //#include<Windows.h>
 #include<iostream>
+
 
 static Master game_master = Master();
 

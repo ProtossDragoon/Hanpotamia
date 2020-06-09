@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <iostream>
 #include"player.h"
 #include"resource.h"
@@ -54,9 +54,9 @@ public:
 
 	void set_areaInformation(areainformation area[]);
 	void set_areaHost(Player* _host_player, string areaname);
-	int set_acquirableFood(string areaname);
-	int set_acquirableGold(string areaname);
-	int set_acquirableWater(string areaname);
+	void set_acquirableFood(string areaname);
+	void set_acquirableGold(string areaname);
+	void set_acquirableWater(string areaname);
 	void set_unit(string areaname, string tendency, int count);
 
 	areainformation findArea(int areaNum);

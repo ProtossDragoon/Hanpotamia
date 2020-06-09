@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include"map.h"
 #include"player.h"
 #include"resource.h"

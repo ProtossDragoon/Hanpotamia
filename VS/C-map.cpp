@@ -1,4 +1,4 @@
-#include "map.h"
+﻿#include "map.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -172,7 +172,7 @@ void Map::get_acquirableResource(string areaname) {
 	set_acquirableWater(areaname);
 }
 
-int Map::set_acquirableFood(string areaname) {
+void Map::set_acquirableFood(string areaname) {
 	areainformation temp;
 	temp = findArea(areaname);
 	if (temp.areatype == "육지") {
@@ -183,7 +183,7 @@ int Map::set_acquirableFood(string areaname) {
 	}
 }
 
-int Map::set_acquirableGold(string areaname) {
+void Map::set_acquirableGold(string areaname) {
 	areainformation temp;
 	temp = findArea(areaname);
 	if (temp.areatype == "육지") {
@@ -194,7 +194,7 @@ int Map::set_acquirableGold(string areaname) {
 	}
 }
 
-int Map::set_acquirableWater(string areaname) {
+void Map::set_acquirableWater(string areaname) {
 	areainformation temp;
 	temp = findArea(areaname);
 	if (temp.areatype == "육지") {
@@ -233,20 +233,20 @@ Army Map::get_unit(string areaname, Player* _host_player) {
 
 Army Map::get_unitWhole(Player* _host_player) {
 	string host;
-	Army temp;
+	Army *temp=(Army *)malloc(sizeof(Army));
 	int i;
 	int cnt = 0;
 	host = _host_player->get_player_name();
 	for (i = 0; i < 30; i++) {
 		if (host == area[i].areahost) {
-			temp.Archercount += area[i].areaunit.Archercount;
-			temp.Navycount += area[i].areaunit.Navycount;
-			temp.Cavalrycount += area[i].areaunit.Cavalrycount;
-			temp.Infantrycount += area[i].areaunit.Infantrycount;
+			temp->Archercount += area[i].areaunit.Archercount;
+			temp->Navycount += area[i].areaunit.Navycount;
+			temp->Cavalrycount += area[i].areaunit.Cavalrycount;
+			temp->Infantrycount += area[i].areaunit.Infantrycount;
 			cnt++;
 		}
 	}
-	return temp;
+	return *temp;
 	if (cnt == 0) {
 		cout << host << "주인이 아닙니다." << endl;
 	}
@@ -265,11 +265,12 @@ string Map::get_occupationPlayer(string areaname) {
 }
 
 Resource *Map::get_occupationCost(string areaname) {
-	Resource *temp;
-	temp->set_resource_food(100);
-	temp->set_resource_gold(100);
-	temp->set_resource_water(100);
-	return temp;
+	Resource hi;
+	
+	hi.set_resource_food(100);
+	hi.set_resource_gold(100);
+	hi.set_resource_water(100);
+	return &hi;
 }
 
 areainformation Map::get_areaInformation(string areaname) {
