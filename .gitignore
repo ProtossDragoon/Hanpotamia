@@ -12,4 +12,9 @@ VS/.vs
 __pycache__
 .idea
 .DS_Store
+<<<<<<< HEAD
+=======
+/x64/*
+
+>>>>>>> master
 VS/.vs
