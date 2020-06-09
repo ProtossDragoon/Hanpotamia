@@ -1,14 +1,17 @@
 #include <iostream>
+#include "master.h"
 #include "unit.h"
 #include "player.h"
 #include "string.h""
 #include "map.h"
 
+// extern master
+extern Master game_master;
 
 //constructor
 Unit::Unit()
 {
-    _unit_type = 0;
+    _unit_type = " ";
     _attack_damage = 0;
     _hit_point = 0;
     _resource_gold = 0;
@@ -178,7 +181,6 @@ void Unit::calculate_unit(string to, string underattack_tendency, string attack_
         totalhp -= totalattackdamage;
         leftcnt = totalhp / army.Archer->get_unit_cnt;
         set_unit(to, underattack_tendency, leftcnt);
-        set_unit
     }
     else if (underattack_tendency == "Cavalry")
     {
