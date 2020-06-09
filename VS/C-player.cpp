@@ -38,13 +38,13 @@ void Player::set_my_resource(int Food, int Gold, int Water) {
 
 ////getter
 Resource* Player::get_myResource() {
-  return &_my_resource;
+    return &_my_resource;
 }
 
 int * Player::get_myPlace() {
     Map *searching=NULL;
     int *myPlace=searching->get_wholeArea(this);
-    return myPlace;
+    return myPlace; ////int 형 배열로 자신이 소유하는 전체 지역 반환
 }
 
 int Player::get_maxControlCnt() {
@@ -89,7 +89,6 @@ void Player::selectAction() {
     if(command == 0 ) {
         cout << " 점령 할 지역을 선택하세요 " << endl;
         cin >> area;
-
         conquerArea(area);
     }
 
@@ -107,7 +106,6 @@ void Player::selectAction() {
         //이동 가능 지역 Display 해주자 !!
         cout << " 이동 가능 지역 " << endl;
         display_movableArea();
-
         cout << " 병력을 이동 시킬 지역을 입력하세요 " << endl;
         cout << " From : " ;
         cin >> from;
@@ -120,7 +118,6 @@ void Player::selectAction() {
         cout << "업그레이드 할 지역을 입력하세요 " << endl;
         cin >> area;
         upgradeArea(area);
-        discount_currentControlCnt();
     }
 
     if(command== 4 ){
@@ -143,7 +140,7 @@ void Player::selectAction() {
     }
 
     if(command == 6){
-        Map *searching;
+        Map *searching=NULL;
         Army army;
         cout << "1. 전체 보유 병력 조회     2. 단일 지역 병력 조회" <<endl;
         cin >> command ;
@@ -181,7 +178,7 @@ Unit Player::produce_unit(string tendency, int product_count, string area) {
     pro.UnitProduct(tendency,product_count);
     set_product=setting->get_areaInformation(area);
 
-      ////자원확인
+    ////자원확인
     if(research->check_resource(this->get_myResource(),this->get_myResource())) {
         if (this->is_yourArea(area)) {
             if (tendency == "Navy")
@@ -206,8 +203,7 @@ void Player::MoveOrAttack_unit(string from, string to) {
     Map searching=NULL;
 
     if(!searching.get_occupationPlayer(to).empty()) {
-        if(!fight(from, to))
-            discount_currentControlCnt();
+        fight(from, to);
     } else move(from,to);
 }
 
@@ -229,6 +225,7 @@ bool Player::fight(string from_area, string to_area) {
             cin >> under_attack_Unit;
             //calculate_Unit(to,under_attack_Unit,to_area);
             ////유닛함수에서 작성하기로 햇음. -> set_Unit 까지.
+            discount_currentControlCnt();
             return true;
         }
         else
@@ -262,6 +259,7 @@ void Player::upgradeArea(string area) {
     Map upgrading_target=NULL;
     ////자원확인
     upgrading_target.upgrade_Area(area);
+    discount_currentControlCnt();
 }
 
 
@@ -300,7 +298,7 @@ void Player::display_movableArea() {
 
     else {
         movableArea = searching.get_movableArea(area);
-        if (movableArea != nullptr) {
+        if (movableArea) {
             cout << *movableArea << endl;
             movableArea++;
         }
@@ -355,6 +353,6 @@ void Player::show_myWholePlace(int *place) {
     cout << this->get_player_name() << " 님이 소유하는 지역 " << endl;
     for(int i=0; i<30; i++){
         if(place[i]!=-1)
-           cout <<  searching->findArea(place[i]).areaname << endl;
+            cout <<  searching->findArea(place[i]).areaname << endl;
     }
 }

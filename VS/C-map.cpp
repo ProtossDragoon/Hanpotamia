@@ -4,6 +4,19 @@
 #include <string.h>
 #include <memory.h>
 
+
+////박태정 작성 Overloading 함수
+areainformation Map::findArea(int areaNum){
+    areainformation *find = get_wholeMap();
+    return find[areaNum];
+}
+
+areainformation* Map::get_wholeMap() {
+    return area;
+}
+////삭제 니니
+
+
 areainformation Map::findArea(string areaname) {
 	for (int i = 0; i < 30; i++) {
 		if (area[i].areaname == areaname) {
@@ -284,6 +297,7 @@ void Map::set_occupationCost(string areaname) {
 void Map::get_occupationCost(string areaname) {
 	areainformation temp;
 	temp = findArea(areaname);
+
 	if (temp.areatype == "����") {
 		temp.occupationcost->set_resource_food = 100;
 		temp.occupationcost->set_resource_gold = 100;
@@ -308,11 +322,7 @@ areainformation Map::get_areaInformation(string areaname) {
 	return temp;
 }
 
-<<<<<<< HEAD
-void Map::upgrade_Area(string areaname) {
-=======
-void Map::set_areaLevelUpgrade(string areaname) { ////?�수 ?�름�??�수 ?�격???�맞?�것같�? .??
->>>>>>> master
+void Map::upgrade_Area(string areaname) { ////?�수 ?�름�??�수 ?�격???�맞?�것같�? .??
 	areainformation temp;
 	temp = findArea(areaname);
 	temp.arealevel++;
@@ -371,7 +381,7 @@ void Map::showAreaInformation(string areaname) {
 
 int* Map::get_wholeArea(Player* _host_player) {
 	string temp;
-	temp = _host_player->get_player_name;
+	temp = _host_player->get_player_name();
 	int wholeArea[30] = { -1 };
 	for (int i = 0; i < 30; i++) {
 		if (temp == area[i].areahost) {
@@ -380,15 +390,3 @@ int* Map::get_wholeArea(Player* _host_player) {
 	}
 	return wholeArea;
 }
-
-
-////박태정 작성 Overloading 함수
-areainformation Map::findArea(int areaNum){
-    areainformation *find = get_wholeMap();
-    return find[areaNum];
-}
-
-areainformation* Map::get_wholeMap() {
-    return area;
-}
-////삭제 니니

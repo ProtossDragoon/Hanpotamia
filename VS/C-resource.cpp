@@ -8,15 +8,15 @@
 
 void Resource::set_resource_gold(int gold)
 {
-	_resource_gold = gold;
+    _resource_gold = gold;
 }
 void Resource::set_resource_food(int food)
 {
-	_resource_food = food;
+    _resource_food = food;
 }
 void Resource::set_resource_water(int water)
 {
-	_resource_water = water;
+    _resource_water = water;
 }
 
 //void Resource::set_resource_gold(int areatype, int gold)
@@ -38,54 +38,54 @@ void Resource::set_resource_water(int water)
 //	}*/
 //}
 
-//unit�� ������ ���� �޾Ƽ� �ʿ��� �ڿ��� ���
+//unit                ޾Ƽ   ʿ     ڿ
 Resource Resource::calculate_produce_unit(string tendency, int cnt)
 {
-	Resource troop;
-	if (tendency=="Infantry")
-	{
-		troop.set_resource_gold(cnt * 10);
-		troop.set_resource_water(cnt * 10);
-		troop.set_resource_food(cnt * 10);
-	}
-	else if (tendency == "Archer")
-	{
-		troop.set_resource_gold(cnt * 10);
-		troop.set_resource_water(cnt * 5);
-		troop.set_resource_food(cnt * 5);
-	}
-	else if (tendency == "Cavalry")
-	{
-		troop.set_resource_gold(cnt * 20);
-		troop.set_resource_water(cnt * 10);
-		troop.set_resource_food(cnt * 10);
-	}
-	else if (tendency == "Navy")
-	{
-		troop.set_resource_gold(cnt * 10);
-		troop.set_resource_water(cnt * 20);
-		troop.set_resource_food(cnt * 20);
-	}
-	return troop;
+    Resource troop;
+    if (tendency=="Infantry")
+    {
+        troop.set_resource_gold(cnt * 10);
+        troop.set_resource_water(cnt * 10);
+        troop.set_resource_food(cnt * 10);
+    }
+    else if (tendency == "Archer")
+    {
+        troop.set_resource_gold(cnt * 10);
+        troop.set_resource_water(cnt * 5);
+        troop.set_resource_food(cnt * 5);
+    }
+    else if (tendency == "Cavalry")
+    {
+        troop.set_resource_gold(cnt * 20);
+        troop.set_resource_water(cnt * 10);
+        troop.set_resource_food(cnt * 10);
+    }
+    else if (tendency == "Navy")
+    {
+        troop.set_resource_gold(cnt * 10);
+        troop.set_resource_water(cnt * 20);
+        troop.set_resource_food(cnt * 20);
+    }
+    return troop;
 }
 
 
-//player�� �ڿ��� �ʿ��� �ڿ��� ���Ͽ� �ൿ�� ����Ǵ��� Ȯ��
-bool Resource::check_resource(Resource *player, Resource *need) 
+//player    ڿ     ʿ     ڿ       Ͽ   ൿ       Ǵ    Ȯ
+bool Resource::check_resource(Resource *player, Resource *need)
 {
-	int i=0;
-	if (player->get_resource_food() >= need->get_resource_food) i++;
-	if (player->get_resource_water() >= need->get_resource_water) i++;
-	if (player->get_resource_gold() >= need->get_resource_gold) i++;
-	if (i == 3) return true;
-	else
-	{
-		cout << "�ڿ��� �����մϴ�!" << endl;
-		return false;
-	}
+    int i=0;
+    if (player->get_resource_food() >= need->get_resource_food) i++;
+    if (player->get_resource_water() >= need->get_resource_water) i++;
+    if (player->get_resource_gold() >= need->get_resource_gold) i++;
+    if (i == 3) return true;
+    else
+    {
+        cout << " ڿ         մϴ !" << endl;
+        return false;
+    }
 }
 
-void Resource::calculate_upgrade_area() 
+void Resource::calculate_upgrade_area()
 {
 
 }
