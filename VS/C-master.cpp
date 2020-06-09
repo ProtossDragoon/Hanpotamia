@@ -94,7 +94,7 @@ void Master::gameReady(int initial_player_cnt)
 	}
 
 	// -- 맵 생성
-	gamemap = new Map(30);
+	_gamemap = new Map(30);
 	showGameDiscription();
 }
 
@@ -171,7 +171,7 @@ void Master::turnCycleEnd()
 	// -- 플레이어의 멸망을 체크
 	checkAllPlayersAlive();
 
-	// -- 턴 수 조정
+	// -- 마스터가 보유하고 있는 턴 수 조정
 	increase_turnPassed();
 	reduce_turnAvailable();
 }

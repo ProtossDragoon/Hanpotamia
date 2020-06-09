@@ -5,6 +5,10 @@
 #include <string.h>
 #include <memory.h>
 
+// extern master
+extern Master game_master;
+
+
 areainformation Map::findArea(string areaname) {
 	for (int i = 0; i < 30; i++) {
 		if (area[i].areaname == areaname) {
@@ -134,7 +138,13 @@ Map::Map(int _max_area):_max_area(_max_area) {
 	_route[28][29] = 1;
 }
 
-int Map::attackAble(int from, int to) {
+int Map::attackable(string startarea, string endarea) {
+	areainformation temp;
+	int from, to;
+	temp = findArea(startarea);
+	from = temp.areanum;
+	temp = findArea(endarea);
+	to = temp.areanum;
 	if (_route[from][to] == 1) {
 		return 1;
 	}
