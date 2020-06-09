@@ -1,4 +1,4 @@
-#include "resource.h"
+﻿#include "resource.h"
 #include "string.h"
 
 ////construtor
@@ -26,7 +26,7 @@ void Resource::set_resource_water(int water)
 
 Resource *Resource::calculate_produce_unit(string tendency, int cnt)
 {
-    Resource *troop;
+    Resource *troop=NULL;
     if (tendency=="Infantry")
     {
         troop->set_resource_gold(cnt * 10);

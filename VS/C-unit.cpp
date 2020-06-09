@@ -1,8 +1,8 @@
-#include <iostream>
+﻿#include <iostream>
 #include "master.h"
 #include "unit.h"
 #include "player.h"
-#include "string.h""
+#include "string.h"
 #include "map.h"
 
 // extern master
@@ -144,7 +144,7 @@ void Unit::set_unit_cnt(int cnt)
 
 void Unit::calculate_unit(string to, string underattack_tendency, string attack_tendency, int cnt)
 {
-    Map* searching;
+    Map* searching=NULL;
     int totalattackdamage;
     int totalhp;
     int leftcnt;
@@ -201,7 +201,7 @@ void Unit::calculate_unit(string to, string underattack_tendency, string attack_
     else if (underattack_tendency == "Navy")
     {
         Unit_Navy navy;
-        totalhp = (navy.get_hit_point) * army.Navy->get_unit_cnt();
+        totalhp = (navy.get_hit_point()) * army.Navy->get_unit_cnt();
         totalhp -= totalattackdamage;
         leftcnt = totalhp / army.Navy->get_unit_cnt();
         searching->set_unit(to, underattack_tendency, leftcnt);

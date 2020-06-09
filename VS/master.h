@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"map.h"
 #include"player.h"
 #include"resource.h"
@@ -13,14 +13,14 @@ private:
 	Map *_gamemap;	
 	string _game_state;
 	int _player_cnt;
-	Player *_player[5];  //< ÇÃ·¹ÀÌ¾î ¼ö ÃÖ´ë : 4 (1~4), [0] Àº ÄÄÇ»ÅÍ
+	Player *_player[5];  //< ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ : 4 (1~4), [0] ï¿½ï¿½ ï¿½ï¿½Ç»ï¿½ï¿½
 	bool _is_player_alive[5];
 	int _turn_passed;
 	int _turn_available;
 
 protected:
 
-	/* protected ¸â¹ö°¡ Á¸ÀçÇÏÁö ¾ÊÀ½. */
+	/* protected ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. */
 
 public:
 	
@@ -29,7 +29,7 @@ public:
 	~Master()
 	{
 		delete _gamemap;
-		delete[] _player; 	
+		delete *_player;
 	};
 
 	//// Getter & Setter

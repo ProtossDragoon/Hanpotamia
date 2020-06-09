@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <iostream>
 #include"player.h"
 #include"resource.h"
@@ -39,26 +39,24 @@ private:
 	int _acquirable_resource_food;
 	const int _max_area = 30;
 	int** _route;
-	areainformation area[30] = { NULL };
+	areainformation area[30] = {};
 public:
 	Map(int _max_area);
 	~Map();
 	string get_occupationPlayer(string areaname);
-	Resource get_occupationCost(string areaname);
+	Resource *get_occupationCost(string areaname);
 	void get_acquirableResource(string areaname);
-	void get_upgradeCost(string areaname);
 	string* get_movableArea(string areaname);
 	Army get_unit(string areaname, Player* _host_player);
 	Army get_unitWhole(Player* _host_player);
 	areainformation get_areaInformation(string areaname);
 	int* get_wholeArea(Player* _host_player);
 
-	Resource set_occupationCost(string areaname);
-	void set_areaInformation(areainformation area[]);
+	void set_areaInformation();
 	void set_areaHost(Player* _host_player, string areaname);
-	int set_acquirableFood(string areaname);
-	int set_acquirableGold(string areaname);
-	int set_acquirableWater(string areaname);
+	void set_acquirableFood(string areaname);
+	void set_acquirableGold(string areaname);
+	void set_acquirableWater(string areaname);
 	void set_unit(string areaname, string tendency, int count);
 
 	areainformation findArea(int areaNum);

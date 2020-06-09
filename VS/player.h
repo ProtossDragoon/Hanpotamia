@@ -16,7 +16,7 @@ private:
 
 public :
     Player(){_player_name = "입력필요" ; _max_control_time=0; _current_control_time=0;};
-    Player(string player_name, int _current_control_time,int _max_control_time);
+    Player(string player_name, int current_control_time,int max_control_time);
 
     //setter
     void set_player_name(string name);
@@ -40,7 +40,7 @@ public :
     //Control Function
     //병과, 생산 수 인자로 넘김
     void selectAction();
-    Unit produce_unit(string tendency, int product_count,string area);
+    void produce_unit(string tendency, int product_count,string area);
     void MoveOrAttack_unit(string from, string to);
     bool fight(string from_area, string to_area);
     void move(string from_area, string to_area);

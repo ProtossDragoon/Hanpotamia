@@ -1,4 +1,4 @@
-#include "master.h"
+﻿#include "master.h"
 #include "player.h"
 
 // extern master
@@ -6,10 +6,10 @@ extern Master game_master;
 
 ///Creator
 
-Player::Player(string player_name, int _current_control_time, int _max_control_time) {
-    player_name=player_name;
-    _current_control_time=_current_control_time;
-    _max_control_time=_max_control_time;
+Player::Player(string player_name, int current_control_time, int max_control_time) {
+    _player_name=player_name;
+    _current_control_time=current_control_time;
+    _max_control_time=max_control_time;
 }
 ////setter
 
@@ -172,8 +172,8 @@ void Player::selectAction() {
 }
 
 
-Unit Player::produce_unit(string tendency, int product_count, string area) {
-    Resource *research;
+void Player::produce_unit(string tendency, int product_count, string area) {
+    Resource *research=NULL;
     Map *setting=NULL;
     areainformation set_product;
     set_product=setting->get_areaInformation(area);
@@ -218,13 +218,13 @@ bool Player::fight(string from_area, string to_area) {
     //공격하려는 Unit 과 공격당하는 Unit 의 공격력을 더해서 서로 차감하고
     //해당 체력에 관해 modulo 연산으로 남은 유닛을 반영한다.
 
-    while(attack_Unit.data()&& under_attack_Unit.data()) { //string 함수중 Data , c_str Data 함수 사용 오류나면 c_str 함수 사용해보자
+    while(attack_Unit.data() && under_attack_Unit.data()) { //string 함수중 Data , c_str Data 함수 사용 오류나면 c_str 함수 사용해보자
         cout << "자신의 공격 할 병과를 입력하세요" << endl;
         cin >> attack_Unit;
         cout << "공격 할 병력의 수를 입력하세요 " << endl;
         cin >> count_attacker;
 
-        if(is_attackableArea(attack_Unit,from_area)) {
+        if(is_attackableArea(attack_Unit,from_area,to_area)) {
             cout << "해당 지역의 공격 대상을 입력하세요" << endl;
             cin >> under_attack_Unit;
             fightUnit->calculate_unit(to_area,under_attack_Unit,attack_Unit,count_attacker);
@@ -248,7 +248,7 @@ void Player::move(string from, string to) {
     //움직일 병력의 수를 입력하세요
     cin >> count;
 
-    if(is_movableArea(tendency,from)){
+    if(is_movableArea(tendency,from,to)){
         searching.set_unit(to,tendency,count);
         cout << count << " 명의 " << tendency << " (이)가 " << to << " 지역에 주둔합니다. " << endl;
         cout << "===========>> 지역의 소유권을 얻기 위해서 Conquer 하십시오 <<=============" <<endl;
@@ -298,7 +298,7 @@ void Player::conquerArea(string areaName) {
     
     if(is_yourArea(areaName)) {
         ////자원확인
-        if(research->check_resource(this->get_myResource(),&searching->get_acquirableResource(areaName))) {
+        if(research->check_resource(this->get_myResource(),searching->get_occupationCost(areaName))) {
             setting = searching->get_areaInformation(areaName);
             setting.areahost = this->get_player_name();
             success_procedure("지역 정복");
@@ -337,7 +337,7 @@ void Player::display_movableArea() {
 }
 
 bool Player::is_yourArea(string area) {
-    Map *searching;
+    Map *searching=NULL;
     if(searching->get_occupationPlayer(area)!=this->_player_name) {
         cout << "자신의 지역이 아닙니다. " << endl;
         return false;
@@ -350,12 +350,12 @@ bool Player::is_yourArea(string area) {
 ////이동함수에서도 작성 가능 함.
 
 bool Player::is_attackableArea(string attack_Unit, string from_area, string to_area) {
-    Map *searching;
+    Map *searching=NULL;
     if(attack_Unit == "Archer" /*Unit_Archer*/)
     {
         Unit_Archer infor;
 
-        if(infor.get_attack_range()>=searching->attackAble(from_area,to_area))
+        if(infor.get_attack_range()>=searching->attackable(from_area,to_area))
 
             return true;
         else
@@ -365,7 +365,7 @@ bool Player::is_attackableArea(string attack_Unit, string from_area, string to_a
     else if(attack_Unit == "Navy") /*Unit_Navy*/{
         Unit_Navy infor;
 
-        if(infor.get_attack_range()>=searching->attackAble(from_area,to_area))
+        if(infor.get_attack_range()>=searching->attackable(from_area,to_area))
 
             return true;
         else
@@ -375,7 +375,7 @@ bool Player::is_attackableArea(string attack_Unit, string from_area, string to_a
     else if(attack_Unit == "Cavalry")/*Unit_Cavalry)*/{
         Unit_Cavalry infor;
 
-        if(infor.get_attack_range()>=searching->attackAble(from_area,to_area))
+        if(infor.get_attack_range()>=searching->attackable(from_area,to_area))
 
             return true;
         else
@@ -385,7 +385,7 @@ bool Player::is_attackableArea(string attack_Unit, string from_area, string to_a
     else if(attack_Unit == "Infantry")/*Unit_Infantry)*/{
         Unit_Infantry infor;
 
-        if(infor.get_attack_range()>=searching->attackAble(from_area, to_area))
+        if(infor.get_attack_range()>=searching->attackable(from_area, to_area))
 
             return true;
         else
@@ -416,12 +416,12 @@ void Player::show_myWholePlace(int *place) {
 }
 
 bool Player::is_movableArea(string moving_Unit, string from_area, string to_area) {
-    Map *searching;
+    Map *searching=NULL;
     if(moving_Unit == "Archer" /*Unit_Archer*/)
     {
         Unit_Archer infor;
 
-        if(infor.get_moving_range()>=searching->attackAble(from_area,to_area))
+        if(infor.get_moving_range()>=searching->attackable(from_area,to_area))
 
             return true;
         else
@@ -431,7 +431,7 @@ bool Player::is_movableArea(string moving_Unit, string from_area, string to_area
     else if(moving_Unit == "Navy") /*Unit_Navy*/{
         Unit_Navy infor;
 
-        if(infor.get_moving_range()>=searching->attackAble(from_area,to_area))
+        if(infor.get_moving_range()>=searching->attackable(from_area,to_area))
 
             return true;
         else
@@ -441,7 +441,7 @@ bool Player::is_movableArea(string moving_Unit, string from_area, string to_area
     else if(moving_Unit == "Cavalry")/*Unit_Cavalry)*/{
         Unit_Cavalry infor;
 
-        if(infor.get_moving_range()>=searching->attackAble(from_area,to_area))
+        if(infor.get_moving_range()>=searching->attackable(from_area,to_area))
 
             return true;
         else
@@ -451,7 +451,7 @@ bool Player::is_movableArea(string moving_Unit, string from_area, string to_area
     else if(moving_Unit == "Infantry")/*Unit_Infantry)*/{
         Unit_Infantry infor;
 
-        if(infor.get_moving_range()>=searching->attackAble(from_area,to_area))
+        if(infor.get_moving_range()>=searching->attackable(from_area,to_area))
 
             return true;
         else

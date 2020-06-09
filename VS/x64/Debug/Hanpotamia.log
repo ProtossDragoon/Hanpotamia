@@ -1,0 +1,54 @@
+﻿  C-map.cpp
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\C-map.cpp(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\player.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\resource.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\unit.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\C-map.cpp(32,50): error C2001: 상수에 줄 바꿈 문자가 있습니다.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\C-map.cpp(33,6): error C3688: 잘못된 리터럴 접두사 '占쏙옙占쏙옙'입니다. 리터럴 연산자 또는 리터럴 연산자 템플릿 '연산자 ""占쏙옙占쏙옙'을(를) 찾을 수 없습니다.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\C-map.cpp(33,2): error C2146: 구문 오류: ')'이(가) 'area' 식별자 앞에 없습니다.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\C-map.cpp(33,12): error C2143: 구문 오류: ';'이(가) '{' 앞에 없습니다.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\C-map.cpp(33,63): error C2143: 구문 오류: ';'이(가) '}' 앞에 없습니다.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\C-map.cpp(50,61): error C2001: 상수에 줄 바꿈 문자가 있습니다.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\C-map.cpp(51,6): error C3688: 잘못된 리터럴 접두사 '占쏙옙占쏙옙'입니다. 리터럴 연산자 또는 리터럴 연산자 템플릿 '연산자 ""占쏙옙占쏙옙'을(를) 찾을 수 없습니다.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\C-map.cpp(51,2): error C2146: 구문 오류: ')'이(가) 'area' 식별자 앞에 없습니다.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\C-map.cpp(51,13): error C2143: 구문 오류: ';'이(가) '{' 앞에 없습니다.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\C-map.cpp(51,65): error C2143: 구문 오류: ';'이(가) '}' 앞에 없습니다.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\C-map.cpp(139,18): error C2677: 이항 '[': 'std::string' 형식을 사용하는 전역 연산자가 없거나 허용되는 변환이 없습니다.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\C-map.cpp(140,20): error C2677: 이항 '[': 'std::string' 형식을 사용하는 전역 연산자가 없거나 허용되는 변환이 없습니다.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\C-map.cpp(307,48): error C3867: 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::size': 비표준 구문입니다. '&'를 사용하여 멤버 포인터를 만드세요.
+  C-player.cpp
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\C-player.cpp(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\player.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\resource.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\unit.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\master.h(32,1): warning C4154: 배열 식을 삭제했습니다. 포인터로 변환이 제공됩니다.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\C-player.cpp(68,15): warning C4101: 'research' :참조되지 않은 지역 변수입니다.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\C-player.cpp(222,17): error C2001: 상수에 줄 바꿈 문자가 있습니다.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\C-player.cpp(223,9): error C2146: 구문 오류: ';'이(가) 'cin' 식별자 앞에 없습니다.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\C-player.cpp(228,21): error C2001: 상수에 줄 바꿈 문자가 있습니다.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\C-player.cpp(229,13): error C2146: 구문 오류: ';'이(가) 'cin' 식별자 앞에 없습니다.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\C-player.cpp(276,31): error C2001: 상수에 줄 바꿈 문자가 있습니다.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\C-player.cpp(277,9): error C2143: 구문 오류: ')'이(가) '}' 앞에 없습니다.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\C-player.cpp(277,9): error C2143: 구문 오류: ';'이(가) '}' 앞에 없습니다.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\C-player.cpp(283,31): error C2001: 상수에 줄 바꿈 문자가 있습니다.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\C-player.cpp(284,9): error C2143: 구문 오류: ')'이(가) '}' 앞에 없습니다.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\C-player.cpp(284,9): error C2143: 구문 오류: ';'이(가) '}' 앞에 없습니다.
+  C-resource.cpp
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\resource.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  C-unit.cpp
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\C-unit.cpp(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\player.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\resource.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\unit.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\master.h(32,1): warning C4154: 배열 식을 삭제했습니다. 포인터로 변환이 제공됩니다.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\C-unit.cpp(5,10): warning C4067: 전처리기 지시문 다음에 예기치 않은 토큰이 있습니다. 줄 바꿈 문자가 필요합니다.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\C-unit.cpp(204,67): error C3867: 'Unit::get_hit_point': 비표준 구문입니다. '&'를 사용하여 멤버 포인터를 만드세요.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\C-unit.cpp(204,67): error C2296: '*': 왼쪽 피연산자 형식으로 'int (__cdecl Unit::* )(void)'을(를) 사용할 수 없습니다.
+  Test-main.cpp
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\Test-main.cpp(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\player.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\resource.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\unit.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\master.h(32,1): warning C4154: 배열 식을 삭제했습니다. 포인터로 변환이 제공됩니다.
+  코드를 생성하고 있습니다...
+C:\Users\user\Desktop\programming_PROJECTS\Hanpotamia\VS\C-resource.cpp(32): error C4700: 초기화되지 않은 'troop' 지역 변수를 사용했습니다.
