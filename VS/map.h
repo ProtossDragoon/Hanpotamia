@@ -8,11 +8,11 @@ using namespace std;
 typedef struct Army {
 	Unit* Infantry;
 	Unit* Navy;
-	Unit* cabalry;
+	Unit* cavalry;
 	Unit* Archer;
 	int Infantrycount;
 	int Navycount;
-	int Cabalrycount;
+	int Cavalrycount;
 	int Archercount;
 }Army;
 
@@ -65,5 +65,5 @@ public:
 	void upgrade_Area(string areaname);
 	areainformation findArea(string areaname);
 	void showAreaInformation(string areaname);
-	int floyd(int from, int to);
+	int attackAble(int from, int to);
 };
