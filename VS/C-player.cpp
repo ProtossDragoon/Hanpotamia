@@ -224,7 +224,7 @@ bool Player::fight(string from_area, string to_area) {
         cout << "공격 할 병력의 수를 입력하세요 " << endl;
         cin >> count_attacker;
 
-        if(is_attackableArea(attack_Unit, from_area)) {
+        if(is_attackableArea(attack_Unit,from_area,to_area)) {
             cout << "해당 지역의 공격 대상을 입력하세요" << endl;
             cin >> under_attack_Unit;
             fightUnit->calculate_unit(to_area,under_attack_Unit,attack_Unit,count_attacker);
@@ -248,7 +248,7 @@ void Player::move(string from, string to) {
     //움직일 병력의 수를 입력하세요
     cin >> count;
 
-    if(is_movableArea(tendency,from)){
+    if(is_movableArea(tendency,from,to)){
         searching.set_unit(to,tendency,count);
         cout << count << " 명의 " << tendency << " (이)가 " << to << " 지역에 주둔합니다. " << endl;
         cout << "===========>> 지역의 소유권을 얻기 위해서 Conquer 하십시오 <<=============" <<endl;
@@ -298,7 +298,7 @@ void Player::conquerArea(string areaName) {
     
     if(is_yourArea(areaName)) {
         ////자원확인
-        if(research->check_resource(this->get_myResource(),&searching->get_acquirableResource(areaName))) {
+        if(research->check_resource(this->get_myResource(),&searching->get_occupationCost(areaName))) {
             setting = searching->get_areaInformation(areaName);
             setting.areahost = this->get_player_name();
             success_procedure("지역 정복");
