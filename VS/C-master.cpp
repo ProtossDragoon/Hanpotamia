@@ -68,9 +68,10 @@ void Master::gameReady(int initial_player_cnt)
 		// 중립 플레이어는 죽은 플레이어라고 상정
 		_is_player_alive[0] = false;
 		_player[0] = new Player("natural", 0, 0);
-		for (int i = 1; i < _player_cnt; i++)
+		for (int i = 1; i <= _player_cnt; i++)
 		{
-			string str1 = "insert player 1 name";
+			// -- 플레이어 이름 설정
+			string str1 = "insert player " + to_string(i) + " name";
 			string tempname;
 			consoleSend(str1, false);
 			std::cin >> tempname;
@@ -84,15 +85,7 @@ void Master::gameReady(int initial_player_cnt)
 		consoleSend(str, false);
 	}
 
-	// -- 플레이어 이름 설정
-	string name;
-	for (int i = 1; i <= _player_cnt; i++)
-	{
-		cin >> name;
-		consoleSend("player " + to_string(i) + " name is : ");
-		get_player(i)->set_player_name(name);
-	}
-
+	
 	// -- 맵 생성
 	_gamemap = new Map(30);
 	showGameDiscription();
