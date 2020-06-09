@@ -298,7 +298,7 @@ void Player::conquerArea(string areaName) {
     
     if(is_yourArea(areaName)) {
         ////자원확인
-        if(research->check_resource(this->get_myResource(),searching->get_acquirableResource())) {
+        if(research->check_resource(this->get_myResource(),&searching->get_acquirableResource(areaName))) {
             setting = searching->get_areaInformation(areaName);
             setting.areahost = this->get_player_name();
             success_procedure("지역 정복");
@@ -349,48 +349,48 @@ bool Player::is_yourArea(string area) {
 ////attack_area 에서 attack_unit 으로 공격할 수 있는 지역 Display. 사거리 n 으로.
 ////이동함수에서도 작성 가능 함.
 
-bool Player::is_attackableArea(string attack_Unit, string attacker_area) {
+bool Player::is_attackableArea(string attack_Unit, string from_area, string to_area) {
     Map *searching;
     if(attack_Unit == "Archer" /*Unit_Archer*/)
     {
         Unit_Archer infor;
-        /*
-        if(infor.get_attack_range()>=searching.attackable(attacker_area))
+
+        if(infor.get_attack_range()>=searching->attackAble(from_area,to_area))
 
             return true;
         else
-            return false
-            */
+            return false;
+
     }
     else if(attack_Unit == "Navy") /*Unit_Navy*/{
         Unit_Navy infor;
-        /*
-        if(infor.get_attack_range()>=searching.attackable(attacker_area))
+
+        if(infor.get_attack_range()>=searching->attackAble(from_area,to_area))
 
             return true;
         else
-            return false
-            */
+            return false;
+
     }
     else if(attack_Unit == "Cavalry")/*Unit_Cavalry)*/{
         Unit_Cavalry infor;
-        /*
-        if(infor.get_attack_range()>=searching.attackable(attacker_area))
+
+        if(infor.get_attack_range()>=searching->attackAble(from_area,to_area))
 
             return true;
         else
-            return false
-            */
+            return false;
+
     }
     else if(attack_Unit == "Infantry")/*Unit_Infantry)*/{
         Unit_Infantry infor;
-        /*
-        if(infor.get_attack_range()>=searching.attackable(attacker_area))
+
+        if(infor.get_attack_range()>=searching->attackAble(from_area, to_area))
 
             return true;
         else
-            return false
-            */
+            return false;
+
     }
     return false;
 }
@@ -415,51 +415,49 @@ void Player::show_myWholePlace(int *place) {
     }
 }
 
-bool Player::is_movableArea(string moving_Unit, string area) {
+bool Player::is_movableArea(string moving_Unit, string from_area, string to_area) {
     Map *searching;
     if(moving_Unit == "Archer" /*Unit_Archer*/)
     {
         Unit_Archer infor;
-        /*
-        if(infor.get_moving_range()>=searching.attackable(attacker_area))
+
+        if(infor.get_moving_range()>=searching->attackAble(from_area,to_area))
 
             return true;
         else
-            return false
-          */
+            return false;
+
     }
     else if(moving_Unit == "Navy") /*Unit_Navy*/{
         Unit_Navy infor;
-        /*
-        if(infor.get_moving_range()>=searching.attackable(attacker_area))
+
+        if(infor.get_moving_range()>=searching->attackAble(from_area,to_area))
 
             return true;
         else
-            return false
-            */
+            return false;
+
     }
     else if(moving_Unit == "Cavalry")/*Unit_Cavalry)*/{
         Unit_Cavalry infor;
-        /*
-        if(infor.get_moving_range()>=searching.attackable(attacker_area))
+
+        if(infor.get_moving_range()>=searching->attackAble(from_area,to_area))
 
             return true;
         else
-            return false
-            */
+            return false;
+
     }
     else if(moving_Unit == "Infantry")/*Unit_Infantry)*/{
         Unit_Infantry infor;
-        /*
-        if(infor.get_moving_range()>=searching.attackable(attacker_area))
+
+        if(infor.get_moving_range()>=searching->attackAble(from_area,to_area))
 
             return true;
         else
-            return false
-            */
-    }
-    return false;
+            return false;
 
+    }
     return false;
 }
 
