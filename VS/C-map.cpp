@@ -5,19 +5,6 @@
 #include <memory.h>
 using namespace std;
 
-
-////박태정 작성 Overloading 함수
-areainformation Map::findArea(int areaNum){
-    areainformation *find = get_wholeMap();
-    return find[areaNum];
-}
-
-areainformation* Map::get_wholeMap() {
-    return area;
-}
-////삭제 니니
-
-
 areainformation Map::findArea(string areaname) {
 	for (int i = 0; i < 30; i++) {
 		if (area[i].areaname == areaname) {
