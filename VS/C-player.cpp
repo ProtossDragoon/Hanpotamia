@@ -298,7 +298,7 @@ void Player::conquerArea(string areaName) {
     
     if(is_yourArea(areaName)) {
         ////자원확인
-        if(research->check_resource(this->get_myResource(),&searching->get_occupationCost(areaName))) {
+        if(research->check_resource(this->get_myResource(),searching->get_occupationCost(areaName))) {
             setting = searching->get_areaInformation(areaName);
             setting.areahost = this->get_player_name();
             success_procedure("지역 정복");
