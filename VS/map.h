@@ -47,14 +47,12 @@ public:
 	string get_occupationPlayer(string areaname);
 	Resource get_occupationCost(string areaname);
 	void get_acquirableResource(string areaname);
-	void get_upgradeCost(string areaname);
 	string* get_movableArea(string areaname);
 	Army get_unit(string areaname, Player* _host_player);
 	Army get_unitWhole(Player* _host_player);
 	areainformation get_areaInformation(string areaname);
 	int* get_wholeArea(Player* _host_player);
 
-	Resource set_occupationCost(string areaname);
 	void set_areaInformation(areainformation area[]);
 	void set_areaHost(Player* _host_player, string areaname);
 	int set_acquirableFood(string areaname);
