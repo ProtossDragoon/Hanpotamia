@@ -144,6 +144,9 @@ int Map::attackable(string startarea, string endarea) {
 	from = temp.areanum;
 	temp = findArea(endarea);
 	to = temp.areanum;
+	if (_route[from][to] == 1) {
+		return 1;
+	}
 	for (int i = 0; i < _max_area; i++) {
 		if (_route[from][i] == 1) {
 			if (_route[i][to] == 1) {

@@ -15,7 +15,7 @@ private:
     Resource _my_resource;
 
 public :
-    Player(){_player_name = "입력필요" ; _max_control_time=0; _current_control_time=0;};
+    Player(){_player_name = "?�력?�요" ; _max_control_time=0; _current_control_time=0;};
     Player(string player_name, int current_control_time,int max_control_time);
 
     //setter
@@ -26,7 +26,7 @@ public :
     void discount_currentControlCnt();
 
     //getter
-    //Output 각 클래스별 배열 ( 배열의 첫 번쨰 주소 Return)
+    //Output �??�래?�별 배열 ( 배열??�?번�? 주소 Return)
     int *get_myPlace();
     void show_myWholePlace(int *place);
 
@@ -38,7 +38,7 @@ public :
     int get_currentControlCnt();
 
     //Control Function
-    //병과, 생산 수 인자로 넘김
+    //병과, ?�산 ???�자�??��?
     void selectAction();
     void produce_unit(string tendency, int product_count,string area);
     void MoveOrAttack_unit(string from, string to);
