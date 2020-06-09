@@ -1,4 +1,5 @@
 #include "resource.h"
+#include <iostream>
 //#include "player.h"
 #pragma once
 using namespace std;
@@ -7,112 +8,112 @@ class Unit
 private:
 
 protected:
-	int _unit_type;//º´Á¾ Infantry(º¸º´)=0, Archer(±Ã¼ö)=1, Cavalry(±âº´)=2, Navy(¼ö±º)=3
-	int _attack_damage;//°ø°İ infantry(º¸º´)=10, Archer(±Ã¼ö)=10, Cavalry(±âº´)=20, Navy(¼ö±º)=20
-	int _hit_point;//Ã¼·Â infantry(º¸º´)=50, Archer(±Ã¼ö)=30, Cavalry(±âº´)=100, Navy(¼ö±º)=20
-	int _resource_gold;//±İ infantry(º¸º´)=10, Archer(±Ã¼ö)=10, Cavalry(±âº´)=20, Navy(¼ö±º)=10
-	int _resource_water;//¹° infantry(º¸º´)=10, Archer(±Ã¼ö)=5, Cavalry(±âº´)=10, Navy(¼ö±º)=20
-	int _resource_food;//À½½Ä infantry(º¸º´)=10, Archer(±Ã¼ö)=5, Cavalry(±âº´)=10, Navy(¼ö±º)=20
-	int _troop_production;//ÇÑÅÏ»ı»êº´·Â infantry(º¸º´)=50, Archer(±Ã¼ö)=3, Cavalry(±âº´)=2, Navy(¼ö±º)=2
-	int _moving_range;//ÇÑÅÏÀÌµ¿¹üÀ§ infantry(º¸º´)=2, Archer(±Ã¼ö)=1, Cavalry(±âº´)=3, Navy(¼ö±º)=2
-	int _moving_area_type;//ÀÌµ¿ÇÒ ¼ö ÀÖ´Â Áö¿ª Æ¯¼º	--¼öÁ¤ÇÊ¿ä--	¶¥=0, ¹°=1, ¶¥+¹°=2		infantry(º¸º´)=0(¼öÁ¤»çÇ×-upgrade to 2), Archer(±Ã¼ö)=0, Cavalry(±âº´)=0, Navy(¼ö±º)=2
-	int _attack_range;//°ø°İ°¡´É¹üÀ§ infantry(º¸º´)=0, Archer(±Ã¼ö)=1, Cavalry(±âº´)=0, Navy(¼ö±º)=2
-	int _unit_cnt;//À¯´Ö¼ö
+    string _unit_type;//ë³‘ì¢… Infantry(ë³´ë³‘)=0, Archer(ê¶ìˆ˜)=1, Cavalry(ê¸°ë³‘)=2, Navy(ìˆ˜êµ°)=3
+    int _attack_damage;//ê³µê²© infantry(ë³´ë³‘)=10, Archer(ê¶ìˆ˜)=10, Cavalry(ê¸°ë³‘)=20, Navy(ìˆ˜êµ°)=20
+    int _hit_point;//ì²´ë ¥ infantry(ë³´ë³‘)=50, Archer(ê¶ìˆ˜)=30, Cavalry(ê¸°ë³‘)=100, Navy(ìˆ˜êµ°)=20
+    int _resource_gold;//ê¸ˆ infantry(ë³´ë³‘)=10, Archer(ê¶ìˆ˜)=10, Cavalry(ê¸°ë³‘)=20, Navy(ìˆ˜êµ°)=10
+    int _resource_water;//ë¬¼ infantry(ë³´ë³‘)=10, Archer(ê¶ìˆ˜)=5, Cavalry(ê¸°ë³‘)=10, Navy(ìˆ˜êµ°)=20
+    int _resource_food;//ìŒì‹ infantry(ë³´ë³‘)=10, Archer(ê¶ìˆ˜)=5, Cavalry(ê¸°ë³‘)=10, Navy(ìˆ˜êµ°)=20
+    int _troop_production;//í•œí„´ìƒì‚°ë³‘ë ¥ infantry(ë³´ë³‘)=50, Archer(ê¶ìˆ˜)=3, Cavalry(ê¸°ë³‘)=2, Navy(ìˆ˜êµ°)=2
+    int _moving_range;//í•œí„´ì´ë™ë²”ìœ„ infantry(ë³´ë³‘)=2, Archer(ê¶ìˆ˜)=1, Cavalry(ê¸°ë³‘)=3, Navy(ìˆ˜êµ°)=2
+    int _moving_area_type;//ì´ë™í•  ìˆ˜ ìˆëŠ” ì§€ì—­ íŠ¹ì„±	--ìˆ˜ì •í•„ìš”--	ë•…=0, ë¬¼=1, ë•…+ë¬¼=2		infantry(ë³´ë³‘)=0(ìˆ˜ì •ì‚¬í•­-upgrade to 2), Archer(ê¶ìˆ˜)=0, Cavalry(ê¸°ë³‘)=0, Navy(ìˆ˜êµ°)=2
+    int _attack_range;//ê³µê²©ê°€ëŠ¥ë²”ìœ„ infantry(ë³´ë³‘)=1, Archer(ê¶ìˆ˜)=2, Cavalry(ê¸°ë³‘)=1, Navy(ìˆ˜êµ°)=3
+    int _unit_cnt;//ìœ ë‹›ìˆ˜
 
 public:
-	//constructor
+    //constructor
 
-	Unit();
-	//Unit(int);
+    Unit();
+    //Unit(int);
 
-	//¼Ò¸êÀÚ
-	~Unit();
-
-
-	//setter »ç½Ç»ó ÇÊ¿ä¾øÀ»µí
-	void set_unit_type(int type);
-	void set_attack_damage(int attackdamage);
-	void set_hit_point(int hp);
-	void set_resource_gold(int gold);
-	void set_resource_water(int water);
-	void set_resource_food(int food);
-	void set_troop_production(int troopproduction);
-	void set_moving_range(int movingrange);
-	void set_moving_area_type(int movingareatype);//º¸º´ÀÌ ¹°¿¡¼­ ´Ù´Ò¼ö ÀÖ°Ô ÇÑ´Ù¸é »ç¿ë
-	void set_attack_range(int attackrange);
-	void set_unit_cnt(int cnt);
-
-	//getter
-	int get_unit_type() { return _unit_type; };
-	int get_attack_damage() { return _attack_damage; };
-	int get_hit_point() { return _hit_point; };
-	int get_resource_gold() { return _resource_gold; };
-	int get_resource_water() { return _resource_water; };
-	int get_resource_food() { return _resource_food; };
-	int get_troop_production() { return _troop_production; };
-	int get_moving_range() { return _moving_range; };
-	int get_moving_area_type() { return _moving_area_type; };
-	int get_attack_range() { return _attack_range; };
-	int get_unit_cnt() { return _unit_cnt; };
-
-	//ÇÔ¼ö
-	void UnitProduct(tendency, product_count);//º´°ú, »ı»ê °³¼ö ÀÎÀÚ·Î->palyerÁ¤º¸ Á¶È¸ÇØ¼­ »ı»ê°¡´ÉÇÑÁö °Ë»ç
+    //ì†Œë©¸ì
+    ~Unit();
 
 
-	//Unit°´Ã¼µéÀÌ ÇÕÃÆÀ» ¶§ ÇÔ¼ö
-	void AddUnit();
+    //setter
+    void set_unit_type(string type);
+    void set_attack_damage(int attackdamage);
+    void set_hit_point(int hp);
+    void set_resource_gold(int gold);
+    void set_resource_water(int water);
+    void set_resource_food(int food);
+    void set_troop_production(int troopproduction);
+    void set_moving_range(int movingrange);
+    void set_moving_area_type(int movingareatype);//ë³´ë³‘ì´ ë¬¼ì—ì„œ ë‹¤ë‹ìˆ˜ ìˆê²Œ í•œë‹¤ë©´ ì‚¬ìš©
+    void set_attack_range(int attackrange);
+    void set_unit_cnt(int cnt);
+
+    //getter
+    string get_unit_type() { return _unit_type; };
+    int get_attack_damage() { return _attack_damage; };
+    int get_hit_point() { return _hit_point; };
+    int get_resource_gold() { return _resource_gold; };
+    int get_resource_water() { return _resource_water; };
+    int get_resource_food() { return _resource_food; };
+    int get_troop_production() { return _troop_production; };
+    int get_moving_range() { return _moving_range; };
+    int get_moving_area_type() { return _moving_area_type; };
+    int get_attack_range() { return _attack_range; };
+    int get_unit_cnt() { return _unit_cnt; };
+
+    //í•¨ìˆ˜
+
+ 
+
+    //ì „íˆ¬ê²°ê³¼ë°˜ì˜í•¨ìˆ˜ ì´ì²´ë ¥, ê³µê²©ìœ ë‹›, ì§€ì—­ì´ë¦„
+    void calculate_unit(string to, string undetattack_tendency, string attack_tendency, int cnt);
 
 };
 
 
-//º¸º´
+//ë³´ë³‘
 class Unit_Infantry : public Unit{
 private:
-	
+
 protected:
 
 public:
-	//»ı¼ºÀÚ
-	Unit_Infantry();
-	//¼Ò¸êÀÚ
-	~Unit_Infantry();
+    //ìƒì„±ì
+    Unit_Infantry();
+    //ì†Œë©¸ì
+    ~Unit_Infantry();
 };
 
-//±Ã¼ö
+//ê¶ìˆ˜
 class Unit_Archer : public Unit{
 private:
-	
+
 protected:
 
 public:
-	//»ı¼ºÀÚ
-	Unit_Archer();
-	//¼Ò¸êÀÚ
-	~Unit_Archer();
+    //ìƒì„±ì
+    Unit_Archer();
+    //ì†Œë©¸ì
+    ~Unit_Archer();
 };
 
-//±âº´
+//ê¸°ë³‘
 class Unit_Cavalry : public Unit{
 private:
-	
+
 protected:
 
 public:
-	//»ı¼ºÀÚ
-	Unit_Cavalry();
-	//¼Ò¸êÀÚ
-	~Unit_Cavalry();
+    //ìƒì„±ì
+    Unit_Cavalry();
+    //ì†Œë©¸ì
+    ~Unit_Cavalry();
 };
 
-//¼ö±º
+//ìˆ˜êµ°
 class Unit_Navy : public Unit{
 private:
 
 protected:
 
 public:
-	//»ı¼ºÀÚ
-	Unit_Navy();
-	//¼Ò¸êÀÚ
-	~Unit_Navy();
+    //ìƒì„±ì
+    Unit_Navy();
+    //ì†Œë©¸ì
+    ~Unit_Navy();
 };
