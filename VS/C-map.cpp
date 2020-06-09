@@ -123,7 +123,7 @@ Map::Map(int _max_area):_max_area(_max_area) {
 	_route[28][29] = 1;
 }
 
-int Map::attackAble(int from, int to) {
+int Map::attackable(string from, string to) {
 	for (int i = 0; i < _max_area; i++) {
 		if (_route[from][i] == 1) {
 			if (_route[i][to] == 1) {
