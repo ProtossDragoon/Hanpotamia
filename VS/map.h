@@ -39,7 +39,7 @@ private:
 	int _acquirable_resource_food;
 	const int _max_area = 30;
 	int** _route;
-	areainformation area[30] = { NULL };
+	areainformation area[30] = {};
 public:
 	Map(int _max_area);
 	~Map();
@@ -52,7 +52,7 @@ public:
 	areainformation get_areaInformation(string areaname);
 	int* get_wholeArea(Player* _host_player);
 
-	void set_areaInformation(areainformation area[]);
+	void set_areaInformation();
 	void set_areaHost(Player* _host_player, string areaname);
 	void set_acquirableFood(string areaname);
 	void set_acquirableGold(string areaname);

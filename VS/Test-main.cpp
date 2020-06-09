@@ -23,7 +23,7 @@ int main()
 		{
 			Player *player = game_master.get_player(i);
 			if (game_master.playerTrunStart(player))
-			{
+			{	
 				int action_available = 0;
 				while (action_available = player->get_currentControlCnt())
 				{

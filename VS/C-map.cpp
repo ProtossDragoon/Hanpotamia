@@ -24,7 +24,7 @@ areainformation* Map::get_wholeMap() {
 }
 ////삭제 니니
 
-void Map::set_areaInformation(areainformation area[]) {
+void Map::set_areaInformation() {
 	int i, j;
 	areainformation temp;
 	string tempareaname;
@@ -68,6 +68,8 @@ void Map::set_areaInformation(areainformation area[]) {
 		area[i].areaunit.Cavalrycount = 0;
 		area[i].areaunit.Infantrycount = 0;
 		area[i].areaunit.Navycount = 0;
+
+		// area[i].arearesource = new Resource();
 		area[i].arearesource->set_resource_food(0);
 		area[i].arearesource->set_resource_water(0);
 		area[i].arearesource->set_resource_gold(0);
@@ -132,6 +134,7 @@ Map::Map(int _max_area):_max_area(_max_area) {
 	_route[26][27] = 1;
 	_route[27][28] = 1;
 	_route[28][29] = 1;
+	// set_areaInformation();
 }
 
 int Map::attackable(string startarea, string endarea) {
