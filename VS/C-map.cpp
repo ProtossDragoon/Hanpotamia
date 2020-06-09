@@ -247,41 +247,12 @@ string Map::get_occupationPlayer(string areaname) {
 	}
 }
 
-void Map::set_occupationCost(string areaname) {
-	areainformation temp;
-	temp = findArea(areaname);
-	if (temp.areatype == "����") {
-		temp.occupationcost->set_resource_food = 100;
-		temp.occupationcost->set_resource_gold = 100;
-		temp.occupationcost->set_resource_water = 100;
-	}
-	else {
-		temp.occupationcost->set_resource_food = 100;
-		temp.occupationcost->set_resource_gold = 100;
-		temp.occupationcost->set_resource_water = 100;
-	}
-}
-
-void Map::get_occupationCost(string areaname) {
-	areainformation temp;
-	temp = findArea(areaname);
-
-	if (temp.areatype == "����") {
-		temp.occupationcost->set_resource_food = 100;
-		temp.occupationcost->set_resource_gold = 100;
-		temp.occupationcost->set_resource_water = 100;
-	}
-	else {
-		temp.occupationcost->set_resource_food = 100;
-		temp.occupationcost->set_resource_gold = 100;
-		temp.occupationcost->set_resource_water = 100;
-	}
-}
-
-void Map::get_upgradeCost(string areaname) {
-	areainformation temp;
-	temp = findArea(areaname);
-
+Resource Map::get_occupationCost(string areaname) {
+	Resource temp;
+	temp.set_resource_food(100);
+	temp.set_resource_gold(100);
+	temp.set_resource_water(100);
+	return temp;
 }
 
 areainformation Map::get_areaInformation(string areaname) {
