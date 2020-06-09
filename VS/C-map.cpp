@@ -264,11 +264,11 @@ string Map::get_occupationPlayer(string areaname) {
 	}
 }
 
-Resource Map::get_occupationCost(string areaname) {
-	Resource temp;
-	temp.set_resource_food(100);
-	temp.set_resource_gold(100);
-	temp.set_resource_water(100);
+Resource *Map::get_occupationCost(string areaname) {
+	Resource *temp;
+	temp->set_resource_food(100);
+	temp->set_resource_gold(100);
+	temp->set_resource_water(100);
 	return temp;
 }
 
@@ -310,7 +310,7 @@ void Map::showAreaInformation(string areaname) {
 	cout << "지역번호 :" << temp.areanum << endl;
 	cout << "지역속성 :" << temp.areatype << endl;
 	cout << "---이동 가능한 지역---" << endl;
-	for (int i = 0; temp.neighborarea[i].size != 0; i++) {
+	for (int i = 0; temp.neighborarea[i].size() != 0; i++) {
 		cout << temp.neighborarea[i] << endl;
 	}
 	cout << "소유주 :" << temp.areahost << endl;

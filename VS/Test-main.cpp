@@ -1,6 +1,6 @@
 #include"master.h"
 #include"player.h"
-#include<Windows.h>
+//#include<Windows.h>
 #include<iostream>
 
 static Master game_master = Master();
@@ -33,7 +33,7 @@ int main()
 			game_master.playerTurnEnd(game_master.get_player(i));
 		}
 		game_master.turnCycleEnd();
-		system("cls");
+		//system("cls");
 	}
 
 	game_master.gameEnd();

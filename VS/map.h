@@ -44,7 +44,7 @@ public:
 	Map(int _max_area);
 	~Map();
 	string get_occupationPlayer(string areaname);
-	Resource get_occupationCost(string areaname);
+	Resource *get_occupationCost(string areaname);
 	void get_acquirableResource(string areaname);
 	string* get_movableArea(string areaname);
 	Army get_unit(string areaname, Player* _host_player);
