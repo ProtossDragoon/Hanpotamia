@@ -1,5 +1,6 @@
 #include"master.h"
 #include"player.h"
+#include<Windows.h>
 #include<iostream>
 
 static Master game_master = Master();
@@ -32,7 +33,7 @@ int main()
 			game_master.playerTurnEnd(game_master.get_player(i));
 		}
 		game_master.turnCycleEnd();
-		////system("cls"); << 콘솔 클리어 명령어 이거 맞나 ("clear") 이건가 쨌든 있으면 좋을 듯 ㅇㅇ
+		system("cls");
 	}
 
 	game_master.gameEnd();
