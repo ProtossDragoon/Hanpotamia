@@ -218,7 +218,7 @@ bool Player::fight(string from_area, string to_area) {
     //공격하려는 Unit 과 공격당하는 Unit 의 공격력을 더해서 서로 차감하고
     //해당 체력에 관해 modulo 연산으로 남은 유닛을 반영한다.
 
-    while(attack_Unit.data()&& under_attack_Unit.data()) { //string 함수중 Data , c_str Data 함수 사용 오류나면 c_str 함수 사용해보자
+    while(attack_Unit.data() && under_attack_Unit.data()) { //string 함수중 Data , c_str Data 함수 사용 오류나면 c_str 함수 사용해보자
         cout << "자신의 공격 할 병과를 입력하세요" << endl;
         cin >> attack_Unit;
         cout << "공격 할 병력의 수를 입력하세요 " << endl;
