@@ -13,7 +13,7 @@ int main()
 	{
 		game_master.turnCycleStart();
 		// 일부 플레이어가 멸망해도 _player_cnt 는 초깃값에서 변하지 않습니다.
-		for (int i = 0; i < game_master.get_playerCnt(); i++)
+		for (int i = 0; i <= game_master.get_playerCnt(); i++)
 		{
 			Player *player = game_master.get_player(i);
 			if (game_master.playerTrunStart(player))
