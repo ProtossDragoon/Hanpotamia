@@ -1,5 +1,8 @@
+#include "master.h"
 #include "player.h"
 
+// extern master
+extern Master game_master;
 
 ///Creator
 

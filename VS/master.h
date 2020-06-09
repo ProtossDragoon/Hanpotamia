@@ -10,7 +10,7 @@ using namespace std;
 class Master
 {
 private:
-	Map *gamemap;	
+	static Map *gamemap;	
 	string _game_state;
 	int _player_cnt;
 	Player *_player[5];  //< 플레이어 수 최대 : 4 (1~4), [0] 은 컴퓨터
@@ -25,7 +25,7 @@ protected:
 public:
 	
 	//// Constructor & Destructor
-	Master(int initial_player_cnt);
+	Master();
 	~Master()
 	{
 		delete gamemap;
@@ -56,7 +56,7 @@ public:
 	void consoleSend(string, bool);
 
 	//// methods - flow management
-	void gameStart();
+	void gameReady(int initial_player_cnt);
 	void turnCycleStart();
 	int playerTrunStart(Player*);
 	void playerActionStart(Player*);
