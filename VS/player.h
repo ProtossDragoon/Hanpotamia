@@ -16,7 +16,7 @@ private:
 
 public :
     Player(){_player_name = "입력필요" ; _max_control_time=0; _current_control_time=0;};
-    Player(string player_name, int _current_control_time,int _max_control_time);
+    Player(string player_name, int current_control_time ,int max_control_time);
 
     //setter
     void set_player_name(string name);

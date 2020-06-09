@@ -6,10 +6,11 @@ extern Master game_master;
 
 ///Creator
 
-Player::Player(string player_name, int _current_control_time, int _max_control_time) {
-    player_name=player_name;
-    _current_control_time=_current_control_time;
-    _max_control_time=_max_control_time;
+Player::Player(string player_name, int current_control_time, int max_control_time) {
+    _player_name=player_name;
+    _current_control_time=current_control_time;
+    _max_control_time=max_control_time;
+    _my_resource = new Resource();
 }
 ////setter
 
