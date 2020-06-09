@@ -10,7 +10,7 @@ using namespace std;
 class Master
 {
 private:
-	static Map *gamemap;	
+	Map *_gamemap;	
 	string _game_state;
 	int _player_cnt;
 	Player *_player[5];  //< 플레이어 수 최대 : 4 (1~4), [0] 은 컴퓨터
@@ -28,7 +28,7 @@ public:
 	Master();
 	~Master()
 	{
-		delete gamemap;
+		delete _gamemap;
 		delete[] _player; 	
 	};
 
@@ -41,6 +41,7 @@ public:
 	int get_turnAvailable() const {return _turn_available; };
 	bool get_isPlayerAlive(int player) const { return _is_player_alive[player]; };
 	bool get_isPlayerAlive(Player *player);
+	Map* get_gameMap() { return _gamemap; };
 
 	/// Setter
 	// void set_playerCnt(); // do not use

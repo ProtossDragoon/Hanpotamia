@@ -40,21 +40,20 @@ private:
 	const int _max_area = 30;
 	int** _route;
 	areainformation area[30] = { NULL };
-
 public:
 	Map(int _max_area);
 	~Map();
 	string get_occupationPlayer(string areaname);
-	void get_occupationCost(string areaname);
+	Resource get_occupationCost(string areaname);
 	void get_acquirableResource(string areaname);
 	void get_upgradeCost(string areaname);
-	string get_movableArea(string areaname);
+	string* get_movableArea(string areaname);
 	Army get_unit(string areaname, Player* _host_player);
 	Army get_unitWhole(Player* _host_player);
 	areainformation get_areaInformation(string areaname);
 	int* get_wholeArea(Player* _host_player);
 
-	void set_occupationCost(string areaname);
+	Resource set_occupationCost(string areaname);
 	void set_areaInformation(areainformation area[]);
 	void set_areaHost(Player* _host_player, string areaname);
 	int set_acquirableFood(string areaname);
@@ -62,8 +61,10 @@ public:
 	int set_acquirableWater(string areaname);
 	void set_unit(string areaname, string tendency, int count);
 
+	areainformation findArea(int areaNum);
+	areainformation* get_wholeMap();
 	void upgrade_Area(string areaname);
 	areainformation findArea(string areaname);
 	void showAreaInformation(string areaname);
-	int attackAble(int from, int to);
+	int attackable(string startarea, string endarea);
 };
