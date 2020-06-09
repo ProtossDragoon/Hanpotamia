@@ -1,9 +1,12 @@
 #include <iostream>
+#include "master.h"
 #include "unit.h"
 #include "player.h"
 #include "string.h""
 #include "map.h"
 
+// extern master
+extern Master game_master;
 
 //constructor
 Unit::Unit()

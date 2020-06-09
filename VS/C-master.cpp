@@ -1,16 +1,55 @@
 #include"master.h"
-
 #include<iostream>
+#include<string>
 #include<stdlib.h>
 using namespace std;
 
 //// Constructor
-Master::Master(int initial_player_cnt)
+Master::Master()
 {
+	// 여기의 내용물이 다른 곳으로 이전함.
+}
+
+
+//// methods - system & alert
+// string 을 console 에 출력하거나, 연산 결과를 다른 클라이언트로 전송함.
+void Master::consoleSend(string data, bool client = false)
+{
+	cout << data << endl;
+	if (client == true)
+	{
+
+	}
+}
+
+
+//// methods - Getter & Setter
+bool Master::get_isPlayerAlive(Player *player)
+{
+	int i;
+	for (i = 0; i <= get_playerCnt(); i++)
+	{
+		if (get_player(i) == player)
+		{
+			break;
+		}
+	}
+	return get_isPlayerAlive(i);
+}
+
+
+//// methods - flow management
+// 한 판이 시작될 때 수행
+void Master::gameReady(int initial_player_cnt)
+{
+	// 목적 : 턴 초기화, 플레이어, 플레이어 이름 설정, 기본 자원 할당
+	set_gameState("gameReady");
+
 	_player_cnt = initial_player_cnt;
 	_turn_passed = 0;
 	_turn_available = 100;
 
+	// -- 플레이어 할당
 	if (initial_player_cnt <= 0)
 	{
 		string str = "error";
@@ -44,42 +83,15 @@ Master::Master(int initial_player_cnt)
 		string str = "too much player";
 		consoleSend(str, false);
 	}
-}
 
-
-//// methods - system & alert
-// string 을 console 에 출력하거나, 연산 결과를 다른 클라이언트로 전송함.
-void Master::consoleSend(string data, bool client = false)
-{
-	cout << data << endl;
-	if (client == true)
+	// -- 플레이어 이름 설정
+	string name;
+	for (int i = 1; i <= _player_cnt; i++)
 	{
-
+		cin >> name;
+		consoleSend("player " + to_string(i) + " name is : ");
+		get_player(i)->set_player_name(name);
 	}
-}
-
-
-//// methods - Getter & Setter
-bool Master::get_isPlayerAlive(Player *player)
-{
-	int i;
-	for (i = 0; i <= get_playerCnt(); i++)
-	{
-		if (get_player(i) == player)
-		{
-			break;
-		}
-	}
-	return get_isPlayerAlive(i);
-}
-
-
-//// methods - flow management
-// 한 판이 시작될 때 수행
-void Master::gameStart()
-{
-	// 목적 : 턴 초기화, 플레이어 기본 자원 할당
-	set_gameState("gameStart");
 
 	// -- 맵 생성
 	gamemap = new Map(30);
@@ -182,7 +194,10 @@ void Master::showGameDiscription()
 {
 	cout << "플레이어 수 : " << get_playerCnt() << endl;
 	cout << "게임은 총 " << get_turnAvailable() << "턴동안 진행됩니다." << endl;
-
+	for (int i = 1; i <= _player_cnt; i++)
+	{
+		cout << "player " << i << " 이름 : " << endl;
+	}
 }
 
 

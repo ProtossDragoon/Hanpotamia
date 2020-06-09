@@ -1,3 +1,4 @@
+#include "master.h"
 #include "map.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -5,6 +6,8 @@
 #include <memory.h>
 using namespace std;
 
+// extern master
+extern Master game_master;
 
 ////박태정 작성 Overloading 함수
 areainformation Map::findArea(int areaNum){

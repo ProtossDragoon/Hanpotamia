@@ -1,12 +1,12 @@
 #include"master.h"
 #include"player.h"
 
+static Master game_master = Master();
+
 int main()
 {
-	// select player	
-	Master game_master = Master(3);
-
-	game_master.gameStart();
+	// select player
+	game_master.gameReady(3);
 
 	// 게임이 끝났는지 끝나지 않았는지 최대 턴을 보고 판단
 	while (game_master.get_turnAvailable())
