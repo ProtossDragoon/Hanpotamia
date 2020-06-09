@@ -134,7 +134,13 @@ Map::Map(int _max_area):_max_area(_max_area) {
 	_route[28][29] = 1;
 }
 
-int Map::attackable(string from, string to) {
+int Map::attackable(string startarea, string endarea) {
+	int from, to;
+	areainformation temp;
+	temp = findArea(startarea);
+	from = temp.areanum;
+	temp = findArea(endarea);
+	to = temp.areanum;
 	for (int i = 0; i < _max_area; i++) {
 		if (_route[from][i] == 1) {
 			if (_route[i][to] == 1) {
