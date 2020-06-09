@@ -40,7 +40,6 @@ private:
 	const int _max_area = 30;
 	int** _route;
 	areainformation area[30] = { NULL };
-
 public:
 	Map(int _max_area);
 	~Map();
@@ -66,4 +65,5 @@ public:
 	areainformation findArea(string areaname);
 	void showAreaInformation(string areaname);
 	int attackAble(int from, int to);
+
 };

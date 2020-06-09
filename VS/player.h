@@ -49,5 +49,6 @@ public :
     void display_movableArea();
     bool is_yourArea(string area);
     static bool is_attackableArea(string attack_Unit, string attacker_area);
+    static bool is_movableArea(string moving_Unit, string area);
     static void success_procedure(string type);
 };
