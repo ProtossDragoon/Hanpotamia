@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <memory.h>
-using namespace std;
 
 // extern master
 extern Master game_master;
@@ -18,12 +17,23 @@ areainformation Map::findArea(string areaname) {
 	}
 }
 
+////������ �ۼ� Overloading �Լ�
+areainformation Map::findArea(int areaNum) {
+	areainformation* find = get_wholeMap();
+	return find[areaNum];
+}
+
+areainformation* Map::get_wholeMap() {
+	return area;
+}
+////���� �ϴ�
+
 void Map::set_areaInformation(areainformation area[]) {
 	int i, j;
 	areainformation temp;
 	string tempareaname;
 	area[0] = { "������",0,"����",1 };
-	area[1] = { "��걸",1,"����",1 };
+	area[1] = { "���?,1,"����",1 };
 	area[2] = { "���ʱ�",2,"����",1 };
 	area[3] = { "���ı�",3,"����",1 };
 	area[4] = { "������",4,"����",1 };
@@ -41,7 +51,7 @@ void Map::set_areaInformation(areainformation area[]) {
 	area[16] = { "���Ǳ�",16,"����",1 };
 	area[17] = { "���ϱ�",17,"����",1 };
 	area[18] = { "����",18,"����",1 };
-	area[19] = { "�����",19,"����",1 };
+	area[19] = { "�����?,19,"����",1 };
 	area[20] = { "���α�",20,"����",1 };
 	area[21] = { "�߶���",21,"����",1 };
 	area[22] = { "��õ��",22,"����",1 };
@@ -129,17 +139,20 @@ Map::Map(int _max_area):_max_area(_max_area) {
 }
 
 int Map::attackAble(int from, int to) {
+	if (_route[from][to] == 1) {
+		return 1;
+	}
 	for (int i = 0; i < _max_area; i++) {
 		if (_route[from][i] == 1) {
 			if (_route[i][to] == 1) {
-				return 1;
+				return 2;
 			}
 		}
 	}
 	return 0;
 }
 
-string Map::get_movableArea(string areaname) {
+string* Map::get_movableArea(string areaname) {
 	areainformation temp;
 	int tempnum = 0;
 	int j = 0;
@@ -151,7 +164,7 @@ string Map::get_movableArea(string areaname) {
 			j++;
 		}
 	}
-	return temp.neighborarea[30];
+	return temp.neighborarea;
 }
 
 void Map::get_acquirableResource(string areaname) {
@@ -252,7 +265,7 @@ string Map::get_occupationPlayer(string areaname) {
 	}
 }
 
-void Map::set_occupationCost(string areaname) {
+Resource Map::set_occupationCost(string areaname) {
 	areainformation temp;
 	temp = findArea(areaname);
 	if (temp.areatype == "����") {
@@ -267,7 +280,7 @@ void Map::set_occupationCost(string areaname) {
 	}
 }
 
-void Map::get_occupationCost(string areaname) {
+Resource Map::get_occupationCost(string areaname) {
 	areainformation temp;
 	temp = findArea(areaname);
 
@@ -343,7 +356,7 @@ void Map::showAreaInformation(string areaname) {
 	cout << "�� :" << tempResource << endl;
 	tempResource = temp.arearesource->get_resource_water();
 	cout << "�� :" << tempResource << endl;
-	cout << "---���� ���� ���---" << endl;
+	cout << "---���� ���� ���?--" << endl;
 	tempCost = temp.occupationcost->get_resource_food();
 	cout << "���� :" << tempCost << endl;
 	tempCost = temp.occupationcost->get_resource_gold();

@@ -17,32 +17,23 @@ protected:
 
 public:
     ////constructor
-    //Resource();
-    //~Resource();
+    Resource();
+    ~Resource();
 
     //getter
     int get_resource_gold() { return _resource_gold; };
     int get_resource_food() { return _resource_food; };
     int get_resource_water() { return _resource_water; };
 
-    //setter      ҵ
+    //setter
     void set_resource_gold(int gold);
     void set_resource_food(int food);
     void set_resource_water(int water);
-    //setter overloading
-    void set_resource_gold(int areatype, int gold);
-    void set_resource_water(int areatype, int water);
-    void set_resource_food(int areatype, int food);
-
 
     //func
 
-    //boolŸ
-    //
-    //bool CheckArea_Upgrade();
     bool check_resource(Resource* player, Resource* need);
     ////항목별로 필요합니다.
 
     Resource * calculate_produce_unit(string tendency, int cnt);
-    //calculate_upgrade_area();
 };
