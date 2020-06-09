@@ -1,4 +1,4 @@
-#include "master.h"
+﻿#include "master.h"
 #include "player.h"
 
 // extern master
@@ -6,10 +6,10 @@ extern Master game_master;
 
 ///Creator
 
-Player::Player(string player_name, int _current_control_time, int _max_control_time) {
-    player_name=player_name;
-    _current_control_time=_current_control_time;
-    _max_control_time=_max_control_time;
+Player::Player(string player_name, int current_control_time, int max_control_time) {
+    _player_name=player_name;
+    _current_control_time=current_control_time;
+    _max_control_time=max_control_time;
 }
 ////setter
 
@@ -172,8 +172,8 @@ void Player::selectAction() {
 }
 
 
-Unit Player::produce_unit(string tendency, int product_count, string area) {
-    Resource *research;
+void Player::produce_unit(string tendency, int product_count, string area) {
+    Resource *research=NULL;
     Map *setting=NULL;
     areainformation set_product;
     set_product=setting->get_areaInformation(area);
@@ -298,7 +298,7 @@ void Player::conquerArea(string areaName) {
     
     if(is_yourArea(areaName)) {
         ////자원확인
-        if(research->check_resource(this->get_myResource(),&searching->get_occupationCost(areaName))) {
+        if(research->check_resource(this->get_myResource(),searching->get_occupationCost(areaName))) {
             setting = searching->get_areaInformation(areaName);
             setting.areahost = this->get_player_name();
             success_procedure("지역 정복");
@@ -337,7 +337,7 @@ void Player::display_movableArea() {
 }
 
 bool Player::is_yourArea(string area) {
-    Map *searching;
+    Map *searching=NULL;
     if(searching->get_occupationPlayer(area)!=this->_player_name) {
         cout << "자신의 지역이 아닙니다. " << endl;
         return false;
@@ -350,7 +350,7 @@ bool Player::is_yourArea(string area) {
 ////이동함수에서도 작성 가능 함.
 
 bool Player::is_attackableArea(string attack_Unit, string from_area, string to_area) {
-    Map *searching;
+    Map *searching=NULL;
     if(attack_Unit == "Archer" /*Unit_Archer*/)
     {
         Unit_Archer infor;
@@ -416,7 +416,7 @@ void Player::show_myWholePlace(int *place) {
 }
 
 bool Player::is_movableArea(string moving_Unit, string from_area, string to_area) {
-    Map *searching;
+    Map *searching=NULL;
     if(moving_Unit == "Archer" /*Unit_Archer*/)
     {
         Unit_Archer infor;
