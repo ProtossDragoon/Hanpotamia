@@ -28,7 +28,7 @@ Unit::~Unit() {}
 
 Unit_Infantry::Unit_Infantry() : Unit()
 {
-    _unit_type = 0;
+    _unit_type = "Infantry";
     _attack_damage = 10;
     _hit_point = 50;
     _resource_gold = 10;
@@ -45,7 +45,7 @@ Unit_Infantry::~Unit_Infantry() {}
 
 Unit_Archer::Unit_Archer() : Unit()
 {
-    _unit_type = 1;
+    _unit_type = "Archer";
     _attack_damage = 10;
     _hit_point = 30;
     _resource_gold = 10;
@@ -62,7 +62,7 @@ Unit_Archer::~Unit_Archer() {}
 
 Unit_Cavalry::Unit_Cavalry() : Unit()
 {
-    _unit_type = 2;
+    _unit_type = "Cavalry";
     _attack_damage = 10;
     _hit_point = 50;
     _resource_gold = 10;
@@ -79,7 +79,7 @@ Unit_Cavalry::~Unit_Cavalry() {}
 
 Unit_Navy::Unit_Navy() : Unit()
 {
-    _unit_type = 3;
+    _unit_type = "Navy";
     _attack_damage = 20;
     _hit_point = 20;
     _resource_gold = 10;
@@ -95,7 +95,7 @@ Unit_Navy::Unit_Navy() : Unit()
 Unit_Navy::~Unit_Navy() {}
 
 //Unit setter
-void Unit::set_unit_type(int type)
+void Unit::set_unit_type(string type)
 {
     _unit_type = type;
 }

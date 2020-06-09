@@ -8,7 +8,7 @@ class Unit
 private:
 
 protected:
-    int _unit_type;//병종 Infantry(보병)=0, Archer(궁수)=1, Cavalry(기병)=2, Navy(수군)=3
+    string _unit_type;//병종 Infantry(보병)=0, Archer(궁수)=1, Cavalry(기병)=2, Navy(수군)=3
     int _attack_damage;//공격 infantry(보병)=10, Archer(궁수)=10, Cavalry(기병)=20, Navy(수군)=20
     int _hit_point;//체력 infantry(보병)=50, Archer(궁수)=30, Cavalry(기병)=100, Navy(수군)=20
     int _resource_gold;//금 infantry(보병)=10, Archer(궁수)=10, Cavalry(기병)=20, Navy(수군)=10
@@ -30,8 +30,8 @@ public:
     ~Unit();
 
 
-    //setter 사실상 필요없을듯
-    void set_unit_type(int type);
+    //setter
+    void set_unit_type(string type);
     void set_attack_damage(int attackdamage);
     void set_hit_point(int hp);
     void set_resource_gold(int gold);
@@ -44,7 +44,7 @@ public:
     void set_unit_cnt(int cnt);
 
     //getter
-    int get_unit_type() { return _unit_type; };
+    string get_unit_type() { return _unit_type; };
     int get_attack_damage() { return _attack_damage; };
     int get_hit_point() { return _hit_point; };
     int get_resource_gold() { return _resource_gold; };
