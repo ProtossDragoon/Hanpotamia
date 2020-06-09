@@ -177,33 +177,33 @@ void Unit::calculate_unit(string to, string underattack_tendency, string attack_
     if (underattack_tendency == "Archer")
     {
         Unit_Archer archer;
-        totalhp = (archer.get_hit_point) * army.Archer->get_unit_cnt;
+        totalhp = (archer.get_hit_point) * army.Archer->get_unit_cnt();
         totalhp -= totalattackdamage;
         leftcnt = totalhp / army.Archer->get_unit_cnt;
-        set_unit(to, underattack_tendency, leftcnt);
+        searching->set_unit(to, underattack_tendency, leftcnt);
     }
     else if (underattack_tendency == "Cavalry")
     {
         Unit_Cavalry cavalry;
-        totalhp = (cavalry.get_hit_point) * army.cavalry->get_unit_cnt;
+        totalhp = (cavalry.get_hit_point) * army.cavalry->get_unit_cnt();
         totalhp -= totalattackdamage;
         leftcnt = totalhp / army.cavalry->get_unit_cnt;
-        set_unit(to, underattack_tendency, leftcnt);
+        searching->set_unit(to, underattack_tendency, leftcnt);
     }
     else if (underattack_tendency == "Infantry")
     {
         Unit_Infantry infantry;
-        totalhp = (infantry.get_hit_point) * army.Infantry->get_unit_cnt;
+        totalhp = (infantry.get_hit_point) * army.Infantry->get_unit_cnt();
         totalhp -= totalattackdamage;
         leftcnt = totalhp / army.Infantry->get_unit_cnt;
-        set_unit(to, underattack_tendency, leftcnt);
+        searching->set_unit(to, underattack_tendency, leftcnt);
     }
     else if (underattack_tendency == "Navy")
     {
         Unit_Navy navy;
-        totalhp = (navy.get_hit_point) * army.Navy->get_unit_cnt;
+        totalhp = (navy.get_hit_point) * army.Navy->get_unit_cnt();
         totalhp -= totalattackdamage;
         leftcnt = totalhp / army.Navy->get_unit_cnt;
-        set_unit(to, underattack_tendency, leftcnt);
+        searching->set_unit(to, underattack_tendency, leftcnt);
     }
 }

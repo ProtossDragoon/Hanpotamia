@@ -40,7 +40,6 @@ private:
 	const int _max_area = 30;
 	int** _route;
 	areainformation area[30] = { NULL };
-
 public:
 	Map(int _max_area);
 	~Map();

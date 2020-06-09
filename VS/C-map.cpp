@@ -1,24 +1,9 @@
-#include "master.h"
 #include "map.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <memory.h>
-
-// extern master
-extern Master game_master;
-
-////ë°•íƒœ???‘ì„± Overloading ?¨ìˆ˜
-areainformation Map::findArea(int areaNum){
-    areainformation *find = get_wholeMap();
-    return find[areaNum];
-}
-
-areainformation* Map::get_wholeMap() {
-    return area;
-}
-////?? œ ?ˆë‹ˆ
-
+using namespace std;
 
 areainformation Map::findArea(string areaname) {
 	for (int i = 0; i < 30; i++) {
@@ -28,23 +13,12 @@ areainformation Map::findArea(string areaname) {
 	}
 }
 
-////¹ÚÅÂÁ¤ ÀÛ¼º Overloading ÇÔ¼ö
-areainformation Map::findArea(int areaNum) {
-	areainformation* find = get_wholeMap();
-	return find[areaNum];
-}
-
-areainformation* Map::get_wholeMap() {
-	return area;
-}
-////»èÁ¦ ´Ï´Ï
-
 void Map::set_areaInformation(areainformation area[]) {
 	int i, j;
 	areainformation temp;
 	string tempareaname;
 	area[0] = { "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",0,"ï¿½ï¿½ï¿½ï¿½",1 };
-	area[1] = { "ï¿½ï¿½ê±?,1,"ï¿½ï¿½ï¿½ï¿½",1 };
+	area[1] = { "ï¿½ï¿½ê±¸",1,"ï¿½ï¿½ï¿½ï¿½",1 };
 	area[2] = { "ï¿½ï¿½ï¿½Ê±ï¿½",2,"ï¿½ï¿½ï¿½ï¿½",1 };
 	area[3] = { "ï¿½ï¿½ï¿½Ä±ï¿½",3,"ï¿½ï¿½ï¿½ï¿½",1 };
 	area[4] = { "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",4,"ï¿½ï¿½ï¿½ï¿½",1 };
@@ -62,7 +36,7 @@ void Map::set_areaInformation(areainformation area[]) {
 	area[16] = { "ï¿½ï¿½ï¿½Ç±ï¿½",16,"ï¿½ï¿½ï¿½ï¿½",1 };
 	area[17] = { "ï¿½ï¿½ï¿½Ï±ï¿½",17,"ï¿½ï¿½ï¿½ï¿½",1 };
 	area[18] = { "ï¿½ï¿½ï¿½ï¿½",18,"ï¿½ï¿½ï¿½ï¿½",1 };
-	area[19] = { "ï¿½ï¿½ï¿½ï¿½ï¿?,19,"ï¿½ï¿½ï¿½ï¿½",1 };
+	area[19] = { "ï¿½ï¿½ï¿½ï¿½ï¿½",19,"ï¿½ï¿½ï¿½ï¿½",1 };
 	area[20] = { "ï¿½ï¿½ï¿½Î±ï¿½",20,"ï¿½ï¿½ï¿½ï¿½",1 };
 	area[21] = { "ï¿½ß¶ï¿½ï¿½ï¿½",21,"ï¿½ï¿½ï¿½ï¿½",1 };
 	area[22] = { "ï¿½ï¿½Ãµï¿½ï¿½",22,"ï¿½ï¿½ï¿½ï¿½",1 };
@@ -149,27 +123,18 @@ Map::Map(int _max_area):_max_area(_max_area) {
 	_route[28][29] = 1;
 }
 
-int Map::attackable(string startarea, string endarea) {
-	areainformation temp;
-	int from, to;
-	temp = findArea(startarea);
-	from = temp.areanum;
-	temp = findArea(endarea);
-	to = temp.areanum;
-	if (_route[from][to] == 1) {
-		return 1;
-	}
+int Map::attackable(string from, string to) {
 	for (int i = 0; i < _max_area; i++) {
 		if (_route[from][i] == 1) {
 			if (_route[i][to] == 1) {
-				return 2;
+				return 1;
 			}
 		}
 	}
 	return 0;
 }
 
-string* Map::get_movableArea(string areaname) {
+string Map::get_movableArea(string areaname) {
 	areainformation temp;
 	int tempnum = 0;
 	int j = 0;
@@ -181,7 +146,7 @@ string* Map::get_movableArea(string areaname) {
 			j++;
 		}
 	}
-	return temp.neighborarea;
+	return temp.neighborarea[30];
 }
 
 void Map::get_acquirableResource(string areaname) {
@@ -243,7 +208,7 @@ Army Map::get_unit(string areaname, Player* _host_player) {
 	}
 	else {
 		cout << temp.areaname << "ï¿½ï¿½" << areaname << "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö°ï¿½ ï¿½Æ´Õ´Ï´ï¿½." << endl;
-	}	
+	}
 	if (cnt == 0) {
 		cout << areaname << "ï¿½Ì¶ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½." << endl;
 	}
@@ -344,7 +309,7 @@ void Map::showAreaInformation(string areaname) {
 	cout << "ï¿½ï¿½ :" << tempResource << endl;
 	tempResource = temp.arearesource->get_resource_water();
 	cout << "ï¿½ï¿½ :" << tempResource << endl;
-	cout << "---ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿?--" << endl;
+	cout << "---ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½---" << endl;
 	tempCost = temp.occupationcost->get_resource_food();
 	cout << "ï¿½ï¿½ï¿½ï¿½ :" << tempCost << endl;
 	tempCost = temp.occupationcost->get_resource_gold();
