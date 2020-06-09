@@ -67,5 +67,5 @@ public:
 	void upgrade_Area(string areaname);
 	areainformation findArea(string areaname);
 	void showAreaInformation(string areaname);
-	int attackAble(int from, int to);
+	int attackable(string startarea, string endarea);
 };
