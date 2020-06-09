@@ -13,6 +13,17 @@ areainformation Map::findArea(string areaname) {
 	}
 }
 
+////박태정 작성 Overloading 함수
+areainformation Map::findArea(int areaNum) {
+	areainformation* find = get_wholeMap();
+	return find[areaNum];
+}
+
+areainformation* Map::get_wholeMap() {
+	return area;
+}
+////삭제 니니
+
 void Map::set_areaInformation(areainformation area[]) {
 	int i, j;
 	areainformation temp;
@@ -134,7 +145,7 @@ int Map::attackable(string from, string to) {
 	return 0;
 }
 
-string Map::get_movableArea(string areaname) {
+string* Map::get_movableArea(string areaname) {
 	areainformation temp;
 	int tempnum = 0;
 	int j = 0;
@@ -146,7 +157,7 @@ string Map::get_movableArea(string areaname) {
 			j++;
 		}
 	}
-	return temp.neighborarea[30];
+	return temp.neighborarea;
 }
 
 void Map::get_acquirableResource(string areaname) {
