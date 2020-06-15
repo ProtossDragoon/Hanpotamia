@@ -68,6 +68,8 @@ void Master::gameReady(int initial_player_cnt)
 		// 중립 플레이어는 죽은 플레이어라고 상정
 		_is_player_alive[0] = false;
 		_player[0] = new Player("natural", 0, 0);
+		Player tempplayer = Player("temp", 0, 0);
+		tempplayer.set_player_name("temp!!!");
 		for (int i = 1; i <= _player_cnt; i++)
 		{
 			// -- 플레이어 이름 설정
