@@ -10,6 +10,9 @@ Player::Player(string player_name, int current_control_time, int max_control_tim
     _player_name=player_name;
     _current_control_time=current_control_time;
     _max_control_time=max_control_time;
+    _my_resource.set_resource_food(0);
+    _my_resource.set_resource_gold(0);
+    _my_resource.set_resource_water(0);
 }
 ////setter
 
@@ -172,27 +175,26 @@ void Player::selectAction() {
 }
 
 
-void Player::produce_unit(string tendency, int product_count, string area) {
-    Resource *research=NULL;
-    Map *setting=NULL;
+Unit Player::produce_unit(string tendency, int product_count, string area) {
+    Resource *research;
     areainformation set_product;
-    set_product=setting->get_areaInformation(area);
+    set_product=game_master.get_gameMap()->get_areaInformation(area);
 
    if(research->check_resource(this->get_myResource(),research->calculate_produce_unit(tendency,product_count))){
        ////자원확인
        if (research->check_resource(this->get_myResource(), this->get_myResource())) {
            if (this->is_yourArea(area)) {
                if (tendency == "Navy")
-                   setting->set_unit(area, tendency, set_product.areaunit.Navycount + product_count);
+                   game_master.get_gameMap()->set_unit(area, tendency, set_product.areaunit.Navycount + product_count);
 
                if (tendency == "Infantry")
-                   setting->set_unit(area, tendency, set_product.areaunit.Infantrycount + product_count);
+                   game_master.get_gameMap()->set_unit(area, tendency, set_product.areaunit.Infantrycount + product_count);
 
                if (tendency == "cabalry")
-                   setting->set_unit(area, tendency, set_product.areaunit.Cavalrycount + product_count);
+                   game_master.get_gameMap()->set_unit(area, tendency, set_product.areaunit.Cavalrycount + product_count);
 
                if (tendency == "Archer")
-                   setting->set_unit(area, tendency, set_product.areaunit.Archercount + product_count);
+                   game_master.get_gameMap()->set_unit(area, tendency, set_product.areaunit.Archercount + product_count);
 
                success_procedure("유닛생산완료");
                discount_currentControlCnt();
@@ -203,9 +205,7 @@ void Player::produce_unit(string tendency, int product_count, string area) {
 }
 
 void Player::MoveOrAttack_unit(string from, string to) {
-    Map searching=NULL;
-
-    if(!searching.get_occupationPlayer(to).empty()) {
+    if(!game_master.get_gameMap()->get_occupationPlayer(to).empty()) {
         fight(from, to);
     } else move(from,to);
 }
@@ -239,7 +239,6 @@ bool Player::fight(string from_area, string to_area) {
 }
 
 void Player::move(string from, string to) {
-    Map searching=NULL;
     string tendency;
     int count;
 
@@ -249,7 +248,7 @@ void Player::move(string from, string to) {
     cin >> count;
 
     if(is_movableArea(tendency,from,to)){
-        searching.set_unit(to,tendency,count);
+        game_master.get_gameMap()->set_unit(to,tendency,count);
         cout << count << " 명의 " << tendency << " (이)가 " << to << " 지역에 주둔합니다. " << endl;
         cout << "===========>> 지역의 소유권을 얻기 위해서 Conquer 하십시오 <<=============" <<endl;
         discount_currentControlCnt();
@@ -260,9 +259,8 @@ void Player::move(string from, string to) {
 
 void Player::upgradeArea(string area) {
     // 지역업그레이드 함수
-    Map *upgrading_target=NULL;
     Resource upgradecost;
-    areainformation levelTest=upgrading_target->get_areaInformation(area);
+    areainformation levelTest=game_master.get_gameMap()->get_areaInformation(area);
 
     upgradecost.set_resource_water(100);
     upgradecost.set_resource_gold(100);
@@ -271,14 +269,14 @@ void Player::upgradeArea(string area) {
     if(levelTest.arealevel==1) {
         ////자원확인
         if(upgradecost.check_resource(this->get_myResource(),&upgradecost)) {
-            upgrading_target->upgrade_Area(area);
+            game_master.get_gameMap()->upgrade_Area(area);
             discount_currentControlCnt();
             success_procedure("지역 업그레이드");
         }
     }else cout << "업그레이드 실패 . (SYS : 자원 부족 ) " << endl;
     if(levelTest.arealevel==2){
         if(upgradecost.check_resource(this->get_myResource(),&upgradecost)) {
-            upgrading_target->upgrade_Area(area);
+            game_master.get_gameMap()->upgrade_Area(area);
             discount_currentControlCnt();
             success_procedure("지역 업그레이드");
         }
@@ -292,14 +290,13 @@ void Player::upgradeArea(string area) {
 
 void Player::conquerArea(string areaName) {
     Resource *research=NULL;
-    Map *searching=NULL;
     areainformation setting;
     //areaName 으로 단일 지역에 대해 this 포인터로 지역 소유권 확립
     
     if(is_yourArea(areaName)) {
         ////자원확인
-        if(research->check_resource(this->get_myResource(),searching->get_occupationCost(areaName))) {
-            setting = searching->get_areaInformation(areaName);
+        if(research->check_resource(this->get_myResource(),game_master.get_gameMap()->get_occupationCost(areaName))) {
+            setting = game_master.get_gameMap()->get_areaInformation(areaName);
             setting.areahost = this->get_player_name();
             success_procedure("지역 정복");
             cout << "이제부터 " << areaName << " 지역을 " << this->get_player_name() << "님이 소유 합니다." << endl;
@@ -316,7 +313,7 @@ void Player::conquerArea(string areaName) {
 
 
 void Player::display_movableArea() {
-    Map *searching=NULL;
+
     string area;
     string *movableArea=nullptr;
 
@@ -324,11 +321,11 @@ void Player::display_movableArea() {
     cout << "이동가능한 지역을 조회 할 지역을 입력하세요  :";
     cin >> area;
 
-    if(searching->get_occupationPlayer(area)!=this->_player_name)
+    if(game_master.get_gameMap()->get_occupationPlayer(area)!=this->_player_name)
         cout << "자신의 지역이 아닙니다. " << endl;
 
     else {
-        movableArea = searching->get_movableArea(area);
+        movableArea = game_master.get_gameMap()->get_movableArea(area);
         if (movableArea) {
             cout << *movableArea << endl;
             movableArea++;
@@ -337,8 +334,13 @@ void Player::display_movableArea() {
 }
 
 bool Player::is_yourArea(string area) {
-    Map *searching=NULL;
-    if(searching->get_occupationPlayer(area)!=this->_player_name) {
+
+    if(game_master.get_gameMap()->get_occupationPlayer(area)!=this->_player_name) {
+        cout << "자신의 지역이 아닙니다. " << endl;
+        return false;
+    }
+
+    if(game_master.get_gameMap()->get_occupationPlayer(area)!=this->_player_name) {
         cout << "자신의 지역이 아닙니다. " << endl;
         return false;
     }
@@ -350,12 +352,11 @@ bool Player::is_yourArea(string area) {
 ////이동함수에서도 작성 가능 함.
 
 bool Player::is_attackableArea(string attack_Unit, string from_area, string to_area) {
-    Map *searching=NULL;
     if(attack_Unit == "Archer" /*Unit_Archer*/)
     {
         Unit_Archer infor;
 
-        if(infor.get_attack_range()>=searching->attackable(from_area,to_area))
+        if(infor.get_attack_range()>=game_master.get_gameMap()->attackable(from_area,to_area))
 
             return true;
         else
@@ -365,7 +366,7 @@ bool Player::is_attackableArea(string attack_Unit, string from_area, string to_a
     else if(attack_Unit == "Navy") /*Unit_Navy*/{
         Unit_Navy infor;
 
-        if(infor.get_attack_range()>=searching->attackable(from_area,to_area))
+        if(infor.get_attack_range()>=game_master.get_gameMap()->attackable(from_area,to_area))
 
             return true;
         else
@@ -375,7 +376,7 @@ bool Player::is_attackableArea(string attack_Unit, string from_area, string to_a
     else if(attack_Unit == "Cavalry")/*Unit_Cavalry)*/{
         Unit_Cavalry infor;
 
-        if(infor.get_attack_range()>=searching->attackable(from_area,to_area))
+        if(infor.get_attack_range()>=game_master.get_gameMap()->attackable(from_area,to_area))
 
             return true;
         else
@@ -385,7 +386,7 @@ bool Player::is_attackableArea(string attack_Unit, string from_area, string to_a
     else if(attack_Unit == "Infantry")/*Unit_Infantry)*/{
         Unit_Infantry infor;
 
-        if(infor.get_attack_range()>=searching->attackable(from_area, to_area))
+        if(infor.get_attack_range()>=game_master.get_gameMap()->attackable(from_area, to_area))
 
             return true;
         else
@@ -406,22 +407,21 @@ void Player::show_myResource() {
 }
 
 void Player::show_myWholePlace(int *place) {
-    Map *searching=NULL;
+
     cout << this->get_player_name() << "가 소유하는 지역을 조회합니다...." << endl;
     cout << this->get_player_name() << " 님이 소유하는 지역 " << endl;
     for(int i=0; i<30; i++){
         if(place[i]!=-1)
-            cout <<  searching->findArea(place[i]).areaname << endl;
+            cout <<  game_master.get_gameMap()->findArea(place[i]).areaname << endl;
     }
 }
 
 bool Player::is_movableArea(string moving_Unit, string from_area, string to_area) {
-    Map *searching=NULL;
     if(moving_Unit == "Archer" /*Unit_Archer*/)
     {
         Unit_Archer infor;
 
-        if(infor.get_moving_range()>=searching->attackable(from_area,to_area))
+        if(infor.get_moving_range()>=game_master.get_gameMap()->attackable(from_area,to_area))
 
             return true;
         else
@@ -431,7 +431,7 @@ bool Player::is_movableArea(string moving_Unit, string from_area, string to_area
     else if(moving_Unit == "Navy") /*Unit_Navy*/{
         Unit_Navy infor;
 
-        if(infor.get_moving_range()>=searching->attackable(from_area,to_area))
+        if(infor.get_moving_range()>=game_master.get_gameMap()->attackable(from_area,to_area))
 
             return true;
         else
@@ -441,7 +441,7 @@ bool Player::is_movableArea(string moving_Unit, string from_area, string to_area
     else if(moving_Unit == "Cavalry")/*Unit_Cavalry)*/{
         Unit_Cavalry infor;
 
-        if(infor.get_moving_range()>=searching->attackable(from_area,to_area))
+        if(infor.get_moving_range()>=game_master.get_gameMap()->attackable(from_area,to_area))
 
             return true;
         else
@@ -451,7 +451,7 @@ bool Player::is_movableArea(string moving_Unit, string from_area, string to_area
     else if(moving_Unit == "Infantry")/*Unit_Infantry)*/{
         Unit_Infantry infor;
 
-        if(infor.get_moving_range()>=searching->attackable(from_area,to_area))
+        if(infor.get_moving_range()>=game_master.get_gameMap()->attackable(from_area,to_area))
 
             return true;
         else
