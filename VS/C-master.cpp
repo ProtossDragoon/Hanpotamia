@@ -73,9 +73,8 @@ void Master::gameReady(int initial_player_cnt)
 		for (int i = 1; i <= _player_cnt; i++)
 		{
 			// -- 플레이어 이름 설정
-			string str1 = "insert player " + to_string(i) + " name";
 			string tempname;
-			consoleSend(str1, false);
+			cout << "player" + to_string(i) + "name : ";
 			cin >> tempname;
 			_player[i] = new Player(tempname, 2, 2);
 			_is_player_alive[i] = true;
@@ -90,6 +89,7 @@ void Master::gameReady(int initial_player_cnt)
 	
 	// -- 맵 생성
 	_gamemap = new Map(30);
+	system("cls");
 	showGameDiscription();
 }
 
@@ -187,12 +187,14 @@ void Master::gameEnd()
 //// methods - gmae explanation
 void Master::showGameDiscription()
 {
-	cout << "플레이어 수 : " << get_playerCnt() << endl;
-	cout << "게임은 총 " << get_turnAvailable() << "턴동안 진행됩니다." << endl;
+	cout << "■■■■■■■■■■■■■■■■■■■■■■" << endl;
+	cout << "남은 턴  / 총 턴 : " << get_turnAvailable() << "/" << get_turnPassed() + get_turnAvailable() << endl;
 	for (int i = 1; i <= _player_cnt; i++)
 	{
 		cout << "player " << i << " 이름 : " << _player[i]->get_player_name() << endl;
 	}
+	cout << "(총 " << get_playerCnt() << " 명)" << endl;
+	cout << "■■■■■■■■■■■■■■■■■■■■■■" << endl;
 }
 
 

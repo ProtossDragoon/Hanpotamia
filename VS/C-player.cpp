@@ -48,7 +48,7 @@ Resource* Player::get_myResource() {
 }
 
 int * Player::get_myPlace() {
-    Map *searching=NULL;
+    Map *searching = game_master.get_gameMap();
     int *myPlace=searching->get_wholeArea(this);
     return myPlace; ////int 형 배열로 자신이 소유하는 전체 지역 반환
 }
@@ -146,16 +146,16 @@ void Player::selectAction() {
     }
 
     if(command == 6){
-        Map *searching=NULL;
+        Map *searching = game_master.get_gameMap();
         Army army;
         cout << "1. 전체 보유 병력 조회     2. 단일 지역 병력 조회" <<endl;
         cin >> command ;
         if(command ==1 ){
             army=searching->get_unitWhole(this);
-            cout << " 보병 : " <<  army.Infantrycount << endl;
+            cout << " 보병 : " << army.Infantrycount << endl;
             cout << " 수군 : " << army.Navycount << endl;
             cout << " 기병 : " << army.Cavalrycount << endl;
-            cout << " 궁병 : " <<army.Archercount << endl;
+            cout << " 궁병 : " << army.Archercount << endl;
             //unitWhole 에서 병종 구분 필요
         }
 
@@ -290,13 +290,13 @@ void Player::upgradeArea(string area) {
 
 
 void Player::conquerArea(string areaName) {
-    Resource *research=NULL;
+    Resource research= this->_my_resource;
     areainformation setting;
     //areaName 으로 단일 지역에 대해 this 포인터로 지역 소유권 확립
     
     if(is_yourArea(areaName)) {
         ////자원확인
-        if(research->check_resource(this->get_myResource(),game_master.get_gameMap()->get_occupationCost(areaName))) {
+        if(research.check_resource(this->get_myResource(),game_master.get_gameMap()->get_occupationCost(areaName))) {
             setting = game_master.get_gameMap()->get_areaInformation(areaName);
             setting.areahost = this->get_player_name();
             success_procedure("지역 정복");
