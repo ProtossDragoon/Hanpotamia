@@ -4,7 +4,7 @@
 #include<iostream>
 
 
-static Master game_master = Master();
+Master game_master = Master();
 
 int main()
 {

@@ -81,6 +81,7 @@ void Player::selectAction() {
 
     ////searching Unit
 
+    // 보유 성을 기본으로 출력하게 해주세요.
 
     cout << "=========== 동작을 선택하세요 =============" << endl;
     cout << "0. 지역점령 " <<endl;
@@ -175,8 +176,8 @@ void Player::selectAction() {
 }
 
 
-Unit Player::produce_unit(string tendency, int product_count, string area) {
-    Resource *research;
+void Player::produce_unit(string tendency, int product_count, string area) {
+    Resource *research = NULL;
     areainformation set_product;
     set_product=game_master.get_gameMap()->get_areaInformation(area);
 

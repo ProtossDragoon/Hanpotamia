@@ -191,7 +191,7 @@ void Master::showGameDiscription()
 	cout << "게임은 총 " << get_turnAvailable() << "턴동안 진행됩니다." << endl;
 	for (int i = 1; i <= _player_cnt; i++)
 	{
-		cout << "player " << i << " 이름 : " << endl;
+		cout << "player " << i << " 이름 : " << _player[i]->get_player_name() << endl;
 	}
 }
 
