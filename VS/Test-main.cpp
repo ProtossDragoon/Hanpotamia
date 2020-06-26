@@ -8,8 +8,13 @@ Master game_master = Master();
 
 int main()
 {
-	int player_cnt;
-	std::cin >> player_cnt;
+	int player_cnt = 0;
+
+	while (player_cnt < 2 || player_cnt > 4)
+	{
+		std::cout << "player 수 입력 (2~4) : ";
+		std::cin >> player_cnt;
+	}
 
 	// select player
 	game_master.gameReady(player_cnt);

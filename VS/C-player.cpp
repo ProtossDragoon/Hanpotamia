@@ -83,14 +83,15 @@ void Player::selectAction() {
 
     // 보유 성을 기본으로 출력하게 해주세요.
 
+    cout << ">> 남은 동작 횟수 : " << get_currentControlCnt() << "/" << get_maxControlCnt() << endl;
     cout << "=========== 동작을 선택하세요 =============" << endl;
-    cout << "0. 지역점령 " <<endl;
-    cout << " 1. 유닛생산 " <<endl;
-    cout << " 2. 이동 및 공격 "<<endl;
-    cout << " 3. 지역 업그레이드 " <<endl;
-    cout << " 4. 보유 지역 조회 " << endl;
-    cout << " 5. 보유 자원 조회 " << endl;
-    cout << " 6. 보유 병력 조회 " << endl;
+    cout << "0. [turn -1] 지역점령 " <<endl;
+    cout << "1. [turn -1] 유닛생산 " <<endl;
+    cout << "2. [turn -1] 이동 및 공격 "<<endl;
+    cout << "3. [turn -1] 지역 업그레이드 " <<endl;
+    cout << "4. 보유 지역 조회 " << endl;
+    cout << "5. 보유 자원 조회 " << endl;
+    cout << "6. 보유 병력 조회 " << endl;
 
     cin >> command;
     if(command == 0 ) {
