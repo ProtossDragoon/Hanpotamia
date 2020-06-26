@@ -66,7 +66,8 @@ void Map::set_areaInformation() {
 		area[i].areaunit.Infantrycount = 0;
 		area[i].areaunit.Navycount = 0;
 
-		// area[i].arearesource = new Resource();
+		area[i].arearesource = new Resource();
+		area[i].occupationcost = new Resource();
 		area[i].arearesource->set_resource_food(0);
 		area[i].arearesource->set_resource_water(0);
 		area[i].arearesource->set_resource_gold(0);
@@ -344,9 +345,9 @@ int* Map::get_wholeArea(Player* _host_player) {
 	temp = _host_player->get_player_name();
 	int wholeArea[30] = { 0 };
 	for (int i = 0; i < 30; i++) {
-		if (temp == area[i].areahost) {
-			wholeArea[i] = 1;
-		}
-	}
+        if (temp == area[i].areahost) {
+            wholeArea[i] = 1;
+        }
+    }
 	return wholeArea;
 }
