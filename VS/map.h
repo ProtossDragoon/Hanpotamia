@@ -32,11 +32,6 @@ typedef struct areainformation{
 class Map
 {
 private:
-	char _area;
-	Player* _host_player;
-	int _acquirable_resource_water;
-	int _acquirable_resource_gold;
-	int _acquirable_resource_food;
 	const int _max_area = 30;
 	int** _route;
 	areainformation area[30] = {};
@@ -60,9 +55,9 @@ public:
 	void set_unit(string areaname, string tendency, int count);
 
 	areainformation findArea(int areaNum);
+    areainformation findArea(string areaname);
 	areainformation* get_wholeMap();
 	void upgrade_Area(string areaname);
-	areainformation findArea(string areaname);
 	void showAreaInformation(string areaname);
 	int attackable(string startarea, string endarea);
 };
