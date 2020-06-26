@@ -60,7 +60,7 @@ public:
  
 
     //병력이 공격해서 변화하는 상대병력의 수를 계산   
-	virtual void calculate_unit(string to, string undetattack_tendency, string attack_tendency, int cnt);
+	void calculate_unit(string to, string undetattack_tendency, string attack_tendency, int cnt);
 
 };
 
@@ -77,7 +77,7 @@ public:
     //?뚮㈇??    
 	~Unit_Infantry();
     //병력이 공격해서 변화하는 상대병력의 수를 계산   
-    virtual void calculate_unit(string to, string undetattack_tendency, string attack_tendency, int cnt);
+    void calculate_unit(string to, string undetattack_tendency, string attack_tendency, int cnt);
 };
 
 //沅곸닔
@@ -92,7 +92,7 @@ public:
     //?뚮㈇??    
 	~Unit_Archer();
     //병력이 공격해서 변화하는 상대병력의 수를 계산   
-    virtual void calculate_unit(string to, string undetattack_tendency, string attack_tendency, int cnt);
+    void calculate_unit(string to, string undetattack_tendency, string attack_tendency, int cnt);
 };
 
 //湲곕퀝
@@ -107,7 +107,7 @@ public:
     //?뚮㈇??    
 	~Unit_Cavalry();
     //병력이 공격해서 변화하는 상대병력의 수를 계산   
-    virtual void calculate_unit(string to, string undetattack_tendency, string attack_tendency, int cnt);
+    void calculate_unit(string to, string undetattack_tendency, string attack_tendency, int cnt);
 };
 
 //?섍뎔
@@ -122,5 +122,5 @@ public:
     //?뚮㈇??    
 	~Unit_Navy();
     //병력이 공격해서 변화하는 상대병력의 수를 계산   
-    virtual void calculate_unit(string to, string undetattack_tendency, string attack_tendency, int cnt);
+    void calculate_unit(string to, string undetattack_tendency, string attack_tendency, int cnt);
 };
