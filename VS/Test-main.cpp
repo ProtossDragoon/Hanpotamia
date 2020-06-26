@@ -1,14 +1,20 @@
-#include"master.h"
+﻿#include"master.h"
 #include"player.h"
 //#include<Windows.h>
 #include<iostream>
 
-static Master game_master = Master();
+
+Master game_master = Master();
 
 int main()
 {
-	int player_cnt;
-	std::cin >> player_cnt;
+	int player_cnt = 0;
+
+	while (player_cnt < 2 || player_cnt > 4)
+	{
+		std::cout << "player 수 입력 (2~4) : ";
+		std::cin >> player_cnt;
+	}
 
 	// select player
 	game_master.gameReady(player_cnt);
@@ -22,7 +28,7 @@ int main()
 		{
 			Player *player = game_master.get_player(i);
 			if (game_master.playerTrunStart(player))
-			{
+			{	
 				int action_available = 0;
 				while (action_available = player->get_currentControlCnt())
 				{

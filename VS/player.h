@@ -26,7 +26,7 @@ public :
     void discount_currentControlCnt();
 
     //getter
-    //Output 각 클래스별 배열 ( 배열의 첫 번쨰 주소 Return)
+    //Output �??�래?�별 배열 ( 배열??�?번�? 주소 Return)
     int *get_myPlace();
     void show_myWholePlace(int *place);
 
@@ -38,9 +38,9 @@ public :
     int get_currentControlCnt();
 
     //Control Function
-    //병과, 생산 수 인자로 넘김
+    //병과, ?�산 ???�자�??��?
     void selectAction();
-    Unit produce_unit(string tendency, int product_count,string area);
+    void produce_unit(string tendency, int product_count,string area);
     void MoveOrAttack_unit(string from, string to);
     bool fight(string from_area, string to_area);
     void move(string from_area, string to_area);

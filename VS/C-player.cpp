@@ -1,4 +1,4 @@
-#include "master.h"
+﻿#include "master.h"
 #include "player.h"
 
 // extern master
@@ -48,7 +48,7 @@ Resource* Player::get_myResource() {
 }
 
 int * Player::get_myPlace() {
-    Map *searching=NULL;
+    Map *searching = game_master.get_gameMap();
     int *myPlace=searching->get_wholeArea(this);
     return myPlace; ////int 형 배열로 자신이 소유하는 전체 지역 반환
 }
@@ -81,15 +81,17 @@ void Player::selectAction() {
 
     ////searching Unit
 
+    // 보유 성을 기본으로 출력하게 해주세요.
 
+    cout << ">> 남은 동작 횟수 : " << get_currentControlCnt() << "/" << get_maxControlCnt() << endl;
     cout << "=========== 동작을 선택하세요 =============" << endl;
-    cout << "0. 지역점령 " <<endl;
-    cout << " 1. 유닛생산 " <<endl;
-    cout << " 2. 이동 및 공격 "<<endl;
-    cout << " 3. 지역 업그레이드 " <<endl;
-    cout << " 4. 보유 지역 조회 " << endl;
-    cout << " 5. 보유 자원 조회 " << endl;
-    cout << " 6. 보유 병력 조회 " << endl;
+    cout << "0. [turn -1] 지역점령 " <<endl;
+    cout << "1. [turn -1] 유닛생산 " <<endl;
+    cout << "2. [turn -1] 이동 및 공격 "<<endl;
+    cout << "3. [turn -1] 지역 업그레이드 " <<endl;
+    cout << "4. 보유 지역 조회 " << endl;
+    cout << "5. 보유 자원 조회 " << endl;
+    cout << "6. 보유 병력 조회 " << endl;
 
     cin >> command;
     if(command == 0 ) {
@@ -145,16 +147,16 @@ void Player::selectAction() {
     }
 
     if(command == 6){
-        Map *searching=NULL;
+        Map *searching = game_master.get_gameMap();
         Army army;
         cout << "1. 전체 보유 병력 조회     2. 단일 지역 병력 조회" <<endl;
         cin >> command ;
         if(command ==1 ){
             army=searching->get_unitWhole(this);
-            cout << " 보병 : " <<  army.Infantrycount << endl;
+            cout << " 보병 : " << army.Infantrycount << endl;
             cout << " 수군 : " << army.Navycount << endl;
             cout << " 기병 : " << army.Cavalrycount << endl;
-            cout << " 궁병 : " <<army.Archercount << endl;
+            cout << " 궁병 : " << army.Archercount << endl;
             //unitWhole 에서 병종 구분 필요
         }
 
@@ -175,8 +177,8 @@ void Player::selectAction() {
 }
 
 
-Unit Player::produce_unit(string tendency, int product_count, string area) {
-    Resource *research;
+void Player::produce_unit(string tendency, int product_count, string area) {
+    Resource *research = NULL;
     areainformation set_product;
     set_product=game_master.get_gameMap()->get_areaInformation(area);
 
@@ -289,13 +291,13 @@ void Player::upgradeArea(string area) {
 
 
 void Player::conquerArea(string areaName) {
-    Resource *research=NULL;
+    Resource research= this->_my_resource;
     areainformation setting;
     //areaName 으로 단일 지역에 대해 this 포인터로 지역 소유권 확립
     
     if(is_yourArea(areaName)) {
         ////자원확인
-        if(research->check_resource(this->get_myResource(),game_master.get_gameMap()->get_occupationCost(areaName))) {
+        if(research.check_resource(this->get_myResource(),game_master.get_gameMap()->get_occupationCost(areaName))) {
             setting = game_master.get_gameMap()->get_areaInformation(areaName);
             setting.areahost = this->get_player_name();
             success_procedure("지역 정복");

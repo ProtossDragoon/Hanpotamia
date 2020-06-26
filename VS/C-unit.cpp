@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include "master.h"
 #include "unit.h"
 #include "player.h"
@@ -144,7 +144,7 @@ void Unit::set_unit_cnt(int cnt)
 
 void Unit::calculate_unit(string to, string underattack_tendency, string attack_tendency, int cnt)
 {
-    Map* searching;
+    Map* searching=NULL;
     int totalattackdamage;
     int totalhp;
     int leftcnt;

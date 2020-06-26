@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include"map.h"
 #include"player.h"
 #include"resource.h"
@@ -37,7 +37,7 @@ public:
 	string get_gameState() const { return _game_state; };
 	int get_playerCnt() const { return _player_cnt; };
 	Player* get_player(int number) { return _player[number]; };
-	int get_trunPassed() const { return _turn_passed; };
+	int get_turnPassed() const { return _turn_passed; };
 	int get_turnAvailable() const {return _turn_available; };
 	bool get_isPlayerAlive(int player) const { return _is_player_alive[player]; };
 	bool get_isPlayerAlive(Player *player);
