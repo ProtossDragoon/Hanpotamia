@@ -409,12 +409,13 @@ void Player::show_myResource() {
 
 void Player::show_myWholePlace(int *place) {
 
-    cout << this->get_player_name() << "가 소유하는 지역을 조회합니다...." << endl;
+    cout << this->get_player_name() << " 가 소유하는 지역을 조회합니다...." << endl;
     cout << this->get_player_name() << " 님이 소유하는 지역 " << endl;
-    for(int i=0; i<30; i++,place++){
-        if(*place=0)
+    for(int i=0; i<30; i++){
+        if(place[i]==1)
             cout <<  game_master.get_gameMap()->findArea(place[i]).areaname << endl;
     }
+
 }
 
 bool Player::is_movableArea(string moving_Unit, string from_area, string to_area) {
