@@ -57,10 +57,10 @@ void Map::set_areaInformation() {
 	area[29] = { "강5",29,"강",1 };
 	for (i = 0; i < 30; i++) {
 		for (j = 0; j < 30; j++) {
-			area[i].neighborarea[j] = '\0';
+			area[i].neighborarea[j] = "\0";
 		}
 		tempareaname = area[i].areaname;
-		area[i].areahost = '\0';
+		area[i].areahost = "\0";
 		area[i].areaunit.Archercount = 0;
 		area[i].areaunit.Cavalrycount = 0;
 		area[i].areaunit.Infantrycount = 0;
@@ -259,9 +259,9 @@ Army Map::get_unitWhole(Player* _host_player) {
 string Map::get_occupationPlayer(string areaname) {
 	areainformation temp;
 	temp = findArea(areaname);
-	if (temp.areahost.empty()) {
-		cout << areaname << "주인이 없습니다." << endl;
-		return NULL;
+	if (temp.areahost=="\0") {
+		cout << areaname << "의 주인이 없습니다." << endl;
+		return "\0";
 	}
 	else {
 		return temp.areahost;
