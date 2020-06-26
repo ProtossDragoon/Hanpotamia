@@ -92,60 +92,16 @@ void Player::selectAction() {
     cout << "6. 보유 병력 조회 " << endl;
     cout << "9. [동작횟수 -1] 실행 1회 넘기기" << endl;
 
-    cin >> command;
-    if(command == 0 ) {
-        cout << " 점령 할 지역을 선택하세요 " << endl;
-        cin >> area;
-        conquerArea(area);
-    }
-
-    if(command == 1 ) {
-        cout << " 병과를 선택하세요 " << endl ; //예시 보여주기
-        cin >> tendency;
-        cout << " 생산할 병력의 수를 입력하세요 " << endl;
-        cin >> product_count;
-        cout << " 배치 할 지역을 입력하세요 " << endl;
-        cin >> area;
-        produce_unit(tendency, product_count, area);
-    }
-
-    if(command == 2 ){
-        //이동 가능 지역 Display 해주자 !!
-        cout << " 이동 명령 가능 지역 " << endl;
-        display_movableArea();
-        cout << " 병력을 이동 시킬 지역을 입력하세요 " << endl;
-        cout << " From : " ;
-        cin >> from;
-        cout << " To : ";
-        cin >> to;
-        MoveOrAttack_unit(from,to);
-    }
-
-    if(command==3){
-        cout << "업그레이드 할 지역을 입력하세요 " << endl;
-        cin >> area;
-        upgradeArea(area);
-    }
-
-    if(command== 4 ){
-        cout << " 1. 전체 지역 정보 조회    2. 단일 지역 정보 조회 " <<endl;
+    command = -1;
+    while (command == -1) {
         cin >> command;
         if (command == 0) {
-            // fixme : 점령받을 지역을 선택하기 이전에 
-            // 먼저 내가 가지고 있는 병력이 어디있는지부터 확인해야하는 것 아님?
-            // 동작 수정 요청 : 나의 병력이 존재하는 곳들을 확인하고,
-            // 나의 병력이 존재하는 곳들의 지역이 아무의 소유도 되지 않은 지역임을 확인
-            // 아무도 점령하지 않은 지역이면, 해당 지역 목록을 화면에 출력
             cout << " 점령 할 지역을 선택하세요 " << endl;
             cin >> area;
             conquerArea(area);
         }
         else if (command == 1) {
-            // fixme : 내가 가지고 있는 지역에서 병력을 생산할 수 있는 것이니까
-            // 내가 가지고 있는 지역을 먼저 display 하고, 해당 목록에서 번호를 선택해서
-            // 하는 방식이 맞을것같은데, 병력 병과부터 먼저 고르면 안된다고봄.
-
-            cout << " 병과를 선택하세요 " << endl; // 예시 보여주기
+            cout << " 병과를 선택하세요 " << endl; //예시 보여주기
             cin >> tendency;
             cout << " 생산할 병력의 수를 입력하세요 " << endl;
             cin >> product_count;
@@ -154,13 +110,8 @@ void Player::selectAction() {
             produce_unit(tendency, product_count, area);
         }
         else if (command == 2) {
-            // 이동 가능 지역 Display 해주자 !!
-            // fixme : 이것도 마찬가지로, 내가 가지고 있는 병력들이 먼저 떠야할듯
-            // ex. 
-            // 1. [보병 500] : 노원
-            // 2. [궁병 1000] : 마포대교
-            // 그 중에서 이동가능 지역을 선택할 수 있게 해주는 것이 더 옳을듯?
-            cout << " 이동 가능 지역 " << endl;
+            //이동 가능 지역 Display 해주자 !!
+            cout << " 이동 명령 가능 지역 " << endl;
             display_movableArea();
             cout << " 병력을 이동 시킬 지역을 입력하세요 " << endl;
             cout << " From : ";
@@ -170,9 +121,6 @@ void Player::selectAction() {
             MoveOrAttack_unit(from, to);
         }
         else if (command == 3) {
-            // fixme : 업그레이드 할 수 있는 지역 목록을 먼저 보여주고,
-            // 해당 목록에서 업그레이드할 지역을 선택하는 것이 맞을듯.
-
             cout << "업그레이드 할 지역을 입력하세요 " << endl;
             cin >> area;
             upgradeArea(area);
@@ -180,55 +128,75 @@ void Player::selectAction() {
         else if (command == 4) {
             cout << " 1. 전체 지역 정보 조회    2. 단일 지역 정보 조회 " << endl;
             cin >> command;
-            if (command == 1) {
-                show_myWholePlace(game_master.get_gameMap()->get_wholeArea(this));
-            }
-            if (command == 2) {
-                cout << "지역이름을 입력하세요 :";
+            if (command == 0) {
+                // fixme : 점령받을 지역을 선택하기 이전에 
+                // 먼저 내가 가지고 있는 병력이 어디있는지부터 확인해야하는 것 아님?
+                // 동작 수정 요청 : 나의 병력이 존재하는 곳들을 확인하고,
+                // 나의 병력이 존재하는 곳들의 지역이 아무의 소유도 되지 않은 지역임을 확인
+                // 아무도 점령하지 않은 지역이면, 해당 지역 목록을 화면에 출력
+                cout << " 점령 할 지역을 선택하세요 " << endl;
                 cin >> area;
-                game_master.get_gameMap()->showAreaInformation(area);
+                conquerArea(area);
             }
-        }
-        else if (command == 5) {
-            cout << "보유하고 있는 자원 " << endl;
-            show_myResource();
-        }
-        else if (command == 6) {
-            Map* searching = game_master.get_gameMap();
-            Army army;
-            cout << "1. 전체 보유 병력 조회     2. 단일 지역 병력 조회" << endl;
-            cin >> command;
-            if (command == 1) {
-                army = searching->get_unitWhole(this);
-                cout << " 보병 : " << army.Infantrycount << endl;
-                cout << " 수군 : " << army.Navycount << endl;
-                cout << " 기병 : " << army.Cavalrycount << endl;
-                cout << " 궁병 : " << army.Archercount << endl;
-                //unitWhole 에서 병종 구분 필요
-            }
+            else if (command == 1) {
+                // fixme : 내가 가지고 있는 지역에서 병력을 생산할 수 있는 것이니까
+                // 내가 가지고 있는 지역을 먼저 display 하고, 해당 목록에서 번호를 선택해서
+                // 하는 방식이 맞을것같은데, 병력 병과부터 먼저 고르면 안된다고봄.
 
-            if (command == 2) {
+                cout << " 병과를 선택하세요 " << endl; // 예시 보여주기
+                cin >> tendency;
+                cout << " 생산할 병력의 수를 입력하세요 " << endl;
+                cin >> product_count;
+                cout << " 배치 할 지역을 입력하세요 " << endl;
                 cin >> area;
-                //지역이름으로 해당 지역 정보 가져와서 해당 지역 병력 정보 Display
-                if (is_yourArea(area)) {
-                    army = searching->get_unit(area, this);
-                    cout << " 보병 : " << army.Infantrycount << endl;
-                    cout << " 수군 : " << army.Navycount << endl;
-                    cout << " 기병 : " << army.Cavalrycount << endl;
-                    cout << " 궁병 : " << army.Navycount << endl;
-                }
-                else
-                    cout << area << "지역은 " << this->get_player_name() << "가 소유한 땅이 아닙니다." << endl;
+                produce_unit(tendency, product_count, area);
             }
+            else if (command == 2) {
+                // 이동 가능 지역 Display 해주자 !!
+                // fixme : 이것도 마찬가지로, 내가 가지고 있는 병력들이 먼저 떠야할듯
+                // ex. 
+                // 1. [보병 500] : 노원
+                // 2. [궁병 1000] : 마포대교
+                // 그 중에서 이동가능 지역을 선택할 수 있게 해주는 것이 더 옳을듯?
+                cout << " 이동 가능 지역 " << endl;
+                display_movableArea();
+                cout << " 병력을 이동 시킬 지역을 입력하세요 " << endl;
+                cout << " From : ";
+                cin >> from;
+                cout << " To : ";
+                cin >> to;
+                MoveOrAttack_unit(from, to);
+            }
+            else if (command == 3) {
+                // fixme : 업그레이드 할 수 있는 지역 목록을 먼저 보여주고,
+                // 해당 목록에서 업그레이드할 지역을 선택하는 것이 맞을듯.
+
+                cout << "업그레이드 할 지역을 입력하세요 " << endl;
+                cin >> area;
+                upgradeArea(area);
+            }
+            else if (command == 4) {
+                cout << " 1. 전체 지역 정보 조회    2. 단일 지역 정보 조회 " << endl;
+                cin >> command;
+                if (command == 1) {
+                    show_myWholePlace(game_master.get_gameMap()->get_wholeArea(this));
+                }
+                if (command == 2) {
+                    cout << "지역이름을 입력하세요 :";
+                    cin >> area;
+                    game_master.get_gameMap()->showAreaInformation(area);
+                }
+            }
+            cout << "잘못된 입력입니다." << endl;
+            command = -1;
         }
         else if (command == 9)
         {
             cout << "턴 넘기기" << endl;
         }
-        else
-        {
-            cout << "잘못된 입력입니다." << endl;
+        else {
             command = -1;
+            cout << "잘못된 입력입니다." << endl;
         }
     }
 }
