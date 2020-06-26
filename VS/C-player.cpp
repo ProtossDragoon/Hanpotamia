@@ -81,8 +81,7 @@ void Player::selectAction() {
     ////searching Unit
 
     // 보유 성을 기본으로 출력하게 해주세요.
-
-    cout << ">> 남은 동작 횟수 : " << get_currentControlCnt() << "/" << get_maxControlCnt() << endl;
+    cout << this->get_player_name() << " >> 남은 동작 횟수 : " << get_currentControlCnt() << "/" << get_maxControlCnt() << endl;
     cout << "=========== 동작을 선택하세요 =============" << endl;
     cout << "0. [turn -1] 지역점령 " <<endl;
     cout << "1. [turn -1] 유닛생산 " <<endl;
@@ -94,13 +93,22 @@ void Player::selectAction() {
 
     cin >> command;
     if(command == 0 ) {
+        // fixme : 점령받을 지역을 선택하기 이전에 
+        // 먼저 내가 가지고 있는 병력이 어디있는지부터 확인해야하는 것 아님?
+        // 동작 수정 요청 : 나의 병력이 존재하는 곳들을 확인하고,
+        // 나의 병력이 존재하는 곳들의 지역이 아무의 소유도 되지 않은 지역임을 확인
+        // 아무도 점령하지 않은 지역이면, 해당 지역 목록을 화면에 출력
         cout << " 점령 할 지역을 선택하세요 " << endl;
         cin >> area;
         conquerArea(area);
     }
 
     if(command == 1 ) {
-        cout << " 병과를 선택하세요 " << endl ; //예시 보여주기
+        // fixme : 내가 가지고 있는 지역에서 병력을 생산할 수 있는 것이니까
+        // 내가 가지고 있는 지역을 먼저 display 하고, 해당 목록에서 번호를 선택해서
+        // 하는 방식이 맞을것같은데, 병력 병과부터 먼저 고르면 안된다고봄.
+
+        cout << " 병과를 선택하세요 " << endl ; // 예시 보여주기
         cin >> tendency;
         cout << " 생산할 병력의 수를 입력하세요 " << endl;
         cin >> product_count;
@@ -110,7 +118,12 @@ void Player::selectAction() {
     }
 
     if(command == 2 ){
-        //이동 가능 지역 Display 해주자 !!
+        // 이동 가능 지역 Display 해주자 !!
+        // fixme : 이것도 마찬가지로, 내가 가지고 있는 병력들이 먼저 떠야할듯
+        // ex. 
+        // 1. [보병 500] : 노원
+        // 2. [궁병 1000] : 마포대교
+        // 그 중에서 이동가능 지역을 선택할 수 있게 해주는 것이 더 옳을듯?
         cout << " 이동 가능 지역 " << endl;
         display_movableArea();
         cout << " 병력을 이동 시킬 지역을 입력하세요 " << endl;
@@ -122,6 +135,9 @@ void Player::selectAction() {
     }
 
     if(command==3){
+        // fixme : 업그레이드 할 수 있는 지역 목록을 먼저 보여주고,
+        // 해당 목록에서 업그레이드할 지역을 선택하는 것이 맞을듯.
+
         cout << "업그레이드 할 지역을 입력하세요 " << endl;
         cin >> area;
         upgradeArea(area);
@@ -177,13 +193,13 @@ void Player::selectAction() {
 
 
 void Player::produce_unit(string tendency, int product_count, string area) {
-    Resource *research = NULL;
+    Resource research = this->_my_resource;
     areainformation set_product;
     set_product=game_master.get_gameMap()->get_areaInformation(area);
 
-   if(research->check_resource(this->get_myResource(),research->calculate_produce_unit(tendency,product_count))){
+   if(research.check_resource(this->get_myResource(),research.calculate_produce_unit(tendency,product_count))){
        ////자원확인
-       if (research->check_resource(this->get_myResource(), this->get_myResource())) {
+       if (research.check_resource(this->get_myResource(), this->get_myResource())) {
            if (this->is_yourArea(area)) {
                if (tendency == "Navy")
                    game_master.get_gameMap()->set_unit(area, tendency, set_product.areaunit.Navycount + product_count);
@@ -206,7 +222,7 @@ void Player::produce_unit(string tendency, int product_count, string area) {
 }
 
 void Player::MoveOrAttack_unit(string from, string to) {
-    if(!game_master.get_gameMap()->get_occupationPlayer(to).empty()) {
+    if(game_master.get_gameMap()->get_occupationPlayer(to)!="\0") {
         fight(from, to);
     } else move(from,to);
 }
@@ -242,19 +258,37 @@ bool Player::fight(string from_area, string to_area) {
 void Player::move(string from, string to) {
     string tendency;
     int count;
+    int from_areaTendencyCount;
 
-    //움직일 병과를 입력하세요
-    cin >> tendency;
-    //움직일 병력의 수를 입력하세요
-    cin >> count;
+    if(this->is_yourArea(from)) {
+        game_master.get_gameMap()->showAreaInformation(from);
+        cout << endl << " 움직일 병과를 입력하세요 " << endl ;
+        cin >> tendency;
+        cout << " 움직일 병력의 수를 입력하세요 " << endl;
+        cin >> count;
+        if (is_movableArea(tendency, from, to)) {
 
-    if(is_movableArea(tendency,from,to)){
-        game_master.get_gameMap()->set_unit(to,tendency,count);
-        cout << count << " 명의 " << tendency << " (이)가 " << to << " 지역에 주둔합니다. " << endl;
-        cout << "===========>> 지역의 소유권을 얻기 위해서 Conquer 하십시오 <<=============" <<endl;
-        discount_currentControlCnt();
-    } else cout << "선택한 유닛은 해당 지역으로 움직일 수 없습니다. (SYS : 이동 거리 부족 )" << endl;
+            game_master.get_gameMap()->set_unit(to, tendency, count);
+            if (tendency == "Infantry")
+                from_areaTendencyCount = game_master.get_gameMap()->get_areaInformation(from).areaunit.Infantrycount;
 
+            if (tendency == "Archer")
+                from_areaTendencyCount = game_master.get_gameMap()->get_areaInformation(from).areaunit.Archercount;
+
+            if (tendency == "Cavalry")
+                from_areaTendencyCount = game_master.get_gameMap()->get_areaInformation(from).areaunit.Cavalrycount;
+
+            if (tendency == "Navy")
+                from_areaTendencyCount = game_master.get_gameMap()->get_areaInformation(from).areaunit.Navycount;
+
+            cout << count << " 명의 " << tendency << " (이)가 " << to << " 지역에 주둔합니다. " << endl;
+            cout << "===========>> 지역의 소유권을 얻기 위해서 Conquer 하십시오 <<=============" << endl;
+
+            game_master.get_gameMap()->set_unit(from, tendency, from_areaTendencyCount - count);
+
+            discount_currentControlCnt();
+        } else cout << "선택한 유닛은 해당 지역으로 움직일 수 없습니다. (SYS : 이동 거리 부족 )" << endl;
+    }else cout << "해당 지역의 유닛을 컨트롤 할 수 없습니다. (SYS : 지역의 호스트가 아닙니다. )" << endl;
 }
 
 
@@ -289,11 +323,18 @@ void Player::upgradeArea(string area) {
 }
 
 
+// void conquerArea() : 플레이어가 특정 지역 점령을 명령했을 때 수행되는 함수.
+// fixme : 얘가 어디서부터 어디까지 할건데?
 void Player::conquerArea(string areaName) {
     Resource research= this->_my_resource;
     areainformation setting;
     //areaName 으로 단일 지역에 대해 this 포인터로 지역 소유권 확립
     
+    // fixme : 지역 점령 시 로직 구현
+    // 지역 점령 명령 동작을 이용자로부터 입력받았을 때,
+    // 이용자의 병력이 존재하는 지역 중 점령당하지 않은 지역을 반환해야 함.
+    // 그런데, 지금은 그냥 나의 병력이 존재하지 않는 지역도 입력을 받고 봄.
+
     if(is_yourArea(areaName)) {
         ////자원확인
         if(research.check_resource(this->get_myResource(),game_master.get_gameMap()->get_occupationCost(areaName))) {

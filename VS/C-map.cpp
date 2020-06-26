@@ -59,16 +59,17 @@ void Map::set_areaInformation() {
 	area[29] = { "강5",29,"강",1 };
 	for (i = 0; i < 30; i++) {
 		for (j = 0; j < 30; j++) {
-			area[i].neighborarea[j] = '\0';
+			area[i].neighborarea[j] = "\0";
 		}
-		tempareaname = game_master.get_gameMap()->area[i].areaname;
-		area[i].areahost = '\0';
+		tempareaname = area[i].areaname;
+		area[i].areahost = "\0";
 		area[i].areaunit.Archercount = 0;
 		area[i].areaunit.Cavalrycount = 0;
 		area[i].areaunit.Infantrycount = 0;
 		area[i].areaunit.Navycount = 0;
 
 		area[i].arearesource = new Resource();
+		area[i].occupationcost = new Resource();
 		area[i].arearesource->set_resource_food(0);
 		area[i].arearesource->set_resource_water(0);
 		area[i].arearesource->set_resource_gold(0);
@@ -212,11 +213,13 @@ void Map::set_acquirableWater(string areaname) {
 }
 
 void Map::set_areaHost(Player* _host_player, string areaname) {
-	areainformation temp;
-	string host;
-	temp = findArea(areaname);
-	host = _host_player->get_player_name();
-	temp.areahost = host;
+    areainformation temp;
+    string host;
+    int tempnum;
+    temp = findArea(areaname);
+    host = _host_player->get_player_name();
+    tempnum = temp.areanum;
+    area[tempnum - 1].areahost = host;
 }
 
 Army Map::get_unit(string areaname, Player* _host_player) {
@@ -261,9 +264,9 @@ Army Map::get_unitWhole(Player* _host_player) {
 string Map::get_occupationPlayer(string areaname) {
 	areainformation temp;
 	temp = findArea(areaname);
-	if (temp.areahost.empty()) {
-		cout << areaname << "주인이 없습니다." << endl;
-		return NULL;
+	if (temp.areahost=="\0") {
+		cout << areaname << "의 주인이 없습니다." << endl;
+		return "\0";
 	}
 	else {
 		return temp.areahost;
@@ -352,4 +355,19 @@ int* Map::get_wholeArea(Player* _host_player) {
         }
     }
 	return wholeArea;
+}
+
+void Map::firstArea(Player* player, int i) {
+	if (i == 1) {
+		set_areaHost(player, "강남구");
+	}
+	else if (i == 2) {
+		set_areaHost(player, "구로구");
+	}
+	else if (i == 3) {
+		set_areaHost(player, "노원구");
+	}
+	else {
+		set_areaHost(player, "은평구");
+	}
 }

@@ -1,6 +1,9 @@
 #ignore File
 *.suo
 *.vscode
+*.obj
+*.filters
+*.vcxproj
 VS/.vs
 /.vs/*
 /vs/*.CMakeLists.txt
