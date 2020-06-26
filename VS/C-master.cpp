@@ -79,6 +79,12 @@ void Master::gameReady(int initial_player_cnt)
 			_player[i] = new Player(tempname, 2, 2);
 			_is_player_alive[i] = true;
 		}
+		_player_score = new int[_player_cnt+1];
+		_player_score[0] = -1;
+		for (int i = 1; i <= _player_cnt; i++)
+		{
+			_player_score[i] = 0;
+		}
 	}
 	else
 	{
@@ -183,8 +189,74 @@ void Master::gameEnd()
 	set_gameState("gameEnd");	
 
 	// -- Dashboard
+	system("cls");
+	cout << "■■■■■■■■■■■■■■■■■■■■■■" << endl;
+	cout << "게임 종료!" << endl;
+	cout << "■■■■■■■■■■■■■■■■■■■■■■" << endl;
+
+	// ---- Dashboard : 성 개수
+	int myplace_cnt;
+	int myplace_score;
+	int myplace_score_weight = 1000;
+	for (int i = 1; i <= _player_cnt; i++)
+	{
+		myplace_score = 0;
+		myplace_cnt = 0;
+		int* myplace_arr = _player[i]->get_myPlace();
+		for (int j = 0; j < 25; j++)
+		{
+			if (myplace_arr[i] == 1) myplace_cnt++;
+		}
+		myplace_score = myplace_score_weight * myplace_cnt;
+		cout << myplace_score << "점 :: " << _player[i]->get_player_name() << " 의 최종 보유 성 : " << myplace_cnt << " 개 *" << myplace_score << endl;
+		_player_score[i] += myplace_score;
+	}
+	cout << "■■■■■■■■■■■■■■■■■■■■■■" << endl;
+	
+	// ---- Dashboard : 자원
+	int myresource_score;
+	int myresource_gold_weight = 3;
+	for (int i = 1; i <= _player_cnt; i++)
+	{
+		myresource_score = 0;
+
+		Resource* myresource = _player[i]->get_myResource();
+		for (int j = 0; j < 3; j++)
+		{
+			myresource_score = myresource_gold_weight*(myresource->get_resource_gold()) + myresource->get_resource_food() + myresource->get_resource_water();
+		}
+		cout << myresource_score << "점 :: " << _player[i]->get_player_name() << " 의 최종 자원, 산출근거 : (" << myresource_gold_weight << "*금+음식+자원)" << endl;
+		_player_score[i] += myresource_score;
+	}
+	cout << "■■■■■■■■■■■■■■■■■■■■■■" << endl;
+
+	// ---- Dashboard : 자원
+	for (int i = 1; i <= _player_cnt; i++)
+	{
+		cout << _player_score[i] << "점 :: " << _player[i]->get_player_name() << " 의 최종 점수" << endl;
+	}
+	cout << "■■■■■■■■■■■■■■■■■■■■■■" << endl;
 
 
+	// ---- Dashboard : 결과 출력
+	int maxindex = 0;
+	int maxscore = 0;
+	for (int i = 1; i <= _player_cnt; i++)
+	{
+		if (i == 1) maxscore = _player_score[i];
+	
+		if (_player_score[i] > maxscore)
+		{
+			maxscore = _player_score[i];
+			maxindex = i;
+		}
+	}
+
+	cout << "player " << _player[maxindex]->get_player_name() << "가 한강 유역의 지배자가 되었습니다!" << endl;
+	cout << endl;
+	cout << "hanpotamia" << endl;
+
+	delete[] _player_score;
 }
 
 
@@ -250,7 +322,6 @@ void Master::calculateAndSetAllPlayersMaxCommandCnt()
 		}
 
 		_player[i]->set_maxControlCnt(user_max_control_cnt);
-		delete[] myplace_arr;
 	}
 }
 
