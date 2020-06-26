@@ -135,7 +135,7 @@ Map::Map(int _max_area):_max_area(_max_area) {
 	_route[26][27] = 1;
 	_route[27][28] = 1;
 	_route[28][29] = 1;
-	set_areaInformation();
+//	set_areaInformation();
 }
 
 int Map::attackable(string startarea, string endarea) {
