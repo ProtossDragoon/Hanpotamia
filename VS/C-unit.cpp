@@ -142,6 +142,27 @@ void Unit::set_unit_cnt(int cnt)
 
 //func
 
+
+//int Unit::totalattackdamage(Unit *attack_tendency, int cnt)
+//{
+//    return attack_tendency->get_attack_damage() * cnt;
+//}
+//
+//int Unit::calculate_underattack_hp(string to, Unit underattack_tendency) 
+//{
+//
+//}
+//
+//
+//void Unit::calculate_unit(string to, string undetattack_tendency, string attack_tendency, int cnt) 
+//{
+//    totalattackdamage(attack_tendency, cnt);
+//
+//}
+
+
+
+
 void Unit::calculate_unit(string to, string underattack_tendency, string attack_tendency, int cnt)
 {
     Map* searching=NULL;
