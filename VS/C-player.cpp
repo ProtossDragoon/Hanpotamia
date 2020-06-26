@@ -111,7 +111,7 @@ void Player::selectAction() {
 
     if(command == 2 ){
         //이동 가능 지역 Display 해주자 !!
-        cout << " 이동 가능 지역 " << endl;
+        cout << " 이동 명령 가능 지역 " << endl;
         display_movableArea();
         cout << " 병력을 이동 시킬 지역을 입력하세요 " << endl;
         cout << " From : " ;
@@ -206,7 +206,7 @@ void Player::produce_unit(string tendency, int product_count, string area) {
 }
 
 void Player::MoveOrAttack_unit(string from, string to) {
-    if(!game_master.get_gameMap()->get_occupationPlayer(to).empty()) {
+    if(game_master.get_gameMap()->get_occupationPlayer(to)!="\0") {
         fight(from, to);
     } else move(from,to);
 }
@@ -242,19 +242,37 @@ bool Player::fight(string from_area, string to_area) {
 void Player::move(string from, string to) {
     string tendency;
     int count;
+    int from_areaTendencyCount;
 
-    //움직일 병과를 입력하세요
-    cin >> tendency;
-    //움직일 병력의 수를 입력하세요
-    cin >> count;
+    if(this->is_yourArea(from)) {
+        game_master.get_gameMap()->showAreaInformation(from);
+        cout << endl << " 움직일 병과를 입력하세요 " << endl ;
+        cin >> tendency;
+        cout << " 움직일 병력의 수를 입력하세요 " << endl;
+        cin >> count;
+        if (is_movableArea(tendency, from, to)) {
 
-    if(is_movableArea(tendency,from,to)){
-        game_master.get_gameMap()->set_unit(to,tendency,count);
-        cout << count << " 명의 " << tendency << " (이)가 " << to << " 지역에 주둔합니다. " << endl;
-        cout << "===========>> 지역의 소유권을 얻기 위해서 Conquer 하십시오 <<=============" <<endl;
-        discount_currentControlCnt();
-    } else cout << "선택한 유닛은 해당 지역으로 움직일 수 없습니다. (SYS : 이동 거리 부족 )" << endl;
+            game_master.get_gameMap()->set_unit(to, tendency, count);
+            if (tendency == "Infantry")
+                from_areaTendencyCount = game_master.get_gameMap()->get_areaInformation(from).areaunit.Infantrycount;
 
+            if (tendency == "Archer")
+                from_areaTendencyCount = game_master.get_gameMap()->get_areaInformation(from).areaunit.Archercount;
+
+            if (tendency == "Cavalry")
+                from_areaTendencyCount = game_master.get_gameMap()->get_areaInformation(from).areaunit.Cavalrycount;
+
+            if (tendency == "Navy")
+                from_areaTendencyCount = game_master.get_gameMap()->get_areaInformation(from).areaunit.Navycount;
+
+            cout << count << " 명의 " << tendency << " (이)가 " << to << " 지역에 주둔합니다. " << endl;
+            cout << "===========>> 지역의 소유권을 얻기 위해서 Conquer 하십시오 <<=============" << endl;
+
+            game_master.get_gameMap()->set_unit(from, tendency, from_areaTendencyCount - count);
+
+            discount_currentControlCnt();
+        } else cout << "선택한 유닛은 해당 지역으로 움직일 수 없습니다. (SYS : 이동 거리 부족 )" << endl;
+    }else cout << "해당 지역의 유닛을 컨트롤 할 수 없습니다. (SYS : 지역의 호스트가 아닙니다. )" << endl;
 }
 
 
