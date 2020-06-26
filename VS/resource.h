@@ -33,7 +33,7 @@ public:
     //func
 
     bool check_resource(Resource* player, Resource* need);
-    ////??��별로 ?�요?�니??
+    ////??��별로 ?�요?�니??
 
     Resource * calculate_produce_unit(string tendency, int cnt);
 };
