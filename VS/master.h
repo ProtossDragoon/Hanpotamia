@@ -17,6 +17,7 @@ private:
 	bool _is_player_alive[5];
 	int _turn_passed;
 	int _turn_available;
+	int *_player_score;
 
 protected:
 
