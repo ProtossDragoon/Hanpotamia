@@ -90,6 +90,9 @@ void Master::gameReady(int initial_player_cnt)
 	// -- 맵 생성
 	_gamemap = new Map(30);
 	_gamemap->set_areaInformation();
+	for(int i=1; i<=_player_cnt; i++)
+	    _gamemap->firstArea(_player[i],i);
+
 	system("cls");
 	showGameDiscription();
 }

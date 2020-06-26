@@ -351,3 +351,18 @@ int* Map::get_wholeArea(Player* _host_player) {
     }
 	return wholeArea;
 }
+
+void Map::firstArea(Player* player, int i) {
+    if (i == 1) {
+        set_areaHost(player, "강남구");
+    }
+    else if (i == 2) {
+        set_areaHost(player, "구로구");
+    }
+    else if (i == 3) {
+        set_areaHost(player, "노원구");
+    }
+    else {
+        set_areaHost(player, "은평구");
+    }
+}
