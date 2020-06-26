@@ -193,13 +193,13 @@ void Player::selectAction() {
 
 
 void Player::produce_unit(string tendency, int product_count, string area) {
-    Resource *research = NULL;
+    Resource research = this->_my_resource;
     areainformation set_product;
     set_product=game_master.get_gameMap()->get_areaInformation(area);
 
-   if(research->check_resource(this->get_myResource(),research->calculate_produce_unit(tendency,product_count))){
+   if(research.check_resource(this->get_myResource(),research.calculate_produce_unit(tendency,product_count))){
        ////자원확인
-       if (research->check_resource(this->get_myResource(), this->get_myResource())) {
+       if (research.check_resource(this->get_myResource(), this->get_myResource())) {
            if (this->is_yourArea(area)) {
                if (tendency == "Navy")
                    game_master.get_gameMap()->set_unit(area, tendency, set_product.areaunit.Navycount + product_count);
