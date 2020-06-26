@@ -67,7 +67,6 @@ string  Player::get_player_name() {
 
 //// game function
 void Player::selectAction() {
-    Map *searching=NULL;
     Resource *research;
     //// produce_unit
     string tendency; int product_count; string area;
@@ -132,12 +131,12 @@ void Player::selectAction() {
         cout << " 1. 전체 지역 정보 조회    2. 단일 지역 정보 조회 " <<endl;
         cin >> command;
         if(command == 1 ){
-            show_myWholePlace(searching->get_wholeArea(this));
+            show_myWholePlace(game_master.get_gameMap()->get_wholeArea(this));
         }
         if(command == 2){
             cout << "지역이름을 입력하세요 :" ;
             cin >> area;
-            searching->showAreaInformation(area);
+            game_master.get_gameMap()->showAreaInformation(area);
         }
     }
 
@@ -412,8 +411,8 @@ void Player::show_myWholePlace(int *place) {
 
     cout << this->get_player_name() << "가 소유하는 지역을 조회합니다...." << endl;
     cout << this->get_player_name() << " 님이 소유하는 지역 " << endl;
-    for(int i=0; i<30; i++){
-        if(place[i]!=-1)
+    for(int i=0; i<30; i++,place++){
+        if(*place=0)
             cout <<  game_master.get_gameMap()->findArea(place[i]).areaname << endl;
     }
 }
