@@ -39,7 +39,7 @@ private:
 	int _acquirable_resource_food;
 	const int _max_area = 30;
 	int** _route;
-	areainformation area[30] = {};
+	areainformation area[30];
 public:
 	Map(int _max_area);
 	~Map();
