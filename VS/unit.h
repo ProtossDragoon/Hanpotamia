@@ -59,7 +59,7 @@ public:
 
  
 
-    //?„íˆ¬ê²°ê³¼ë°˜ì˜?¨ìˆ˜ ì´ì²´?? ê³µê²©? ë‹›, ì§€??´ë¦?    
+    //º´·ÂÀÌ °ø°İÇØ¼­ º¯È­ÇÏ´Â »ó´ëº´·ÂÀÇ ¼ö¸¦ °è»ê   
 	void calculate_unit(string to, string undetattack_tendency, string attack_tendency, int cnt);
 
 };
@@ -76,6 +76,8 @@ public:
 	Unit_Infantry();
     //?Œë©¸??    
 	~Unit_Infantry();
+    //º´·ÂÀÌ °ø°İÇØ¼­ º¯È­ÇÏ´Â »ó´ëº´·ÂÀÇ ¼ö¸¦ °è»ê   
+    void calculate_unit(string to, string undetattack_tendency, string attack_tendency, int cnt);
 };
 
 //ê¶ìˆ˜
@@ -89,6 +91,8 @@ public:
 	Unit_Archer();
     //?Œë©¸??    
 	~Unit_Archer();
+    //º´·ÂÀÌ °ø°İÇØ¼­ º¯È­ÇÏ´Â »ó´ëº´·ÂÀÇ ¼ö¸¦ °è»ê   
+    void calculate_unit(string to, string undetattack_tendency, string attack_tendency, int cnt);
 };
 
 //ê¸°ë³‘
@@ -102,6 +106,8 @@ public:
 	Unit_Cavalry();
     //?Œë©¸??    
 	~Unit_Cavalry();
+    //º´·ÂÀÌ °ø°İÇØ¼­ º¯È­ÇÏ´Â »ó´ëº´·ÂÀÇ ¼ö¸¦ °è»ê   
+    void calculate_unit(string to, string undetattack_tendency, string attack_tendency, int cnt);
 };
 
 //?˜êµ°
@@ -115,4 +121,6 @@ public:
 	Unit_Navy();
     //?Œë©¸??    
 	~Unit_Navy();
+    //º´·ÂÀÌ °ø°İÇØ¼­ º¯È­ÇÏ´Â »ó´ëº´·ÂÀÇ ¼ö¸¦ °è»ê   
+    void calculate_unit(string to, string undetattack_tendency, string attack_tendency, int cnt);
 };
