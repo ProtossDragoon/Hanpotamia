@@ -69,7 +69,8 @@ void Map::set_areaInformation() {
 		area[i].areaunit.Infantrycount = 0;
 		area[i].areaunit.Navycount = 0;
 
-		// area[i].arearesource = new Resource();
+		area[i].arearesource = new Resource();
+		area[i].occupationcost = new Resource();
 		area[i].arearesource->set_resource_food(0);
 		area[i].arearesource->set_resource_water(0);
 		area[i].arearesource->set_resource_gold(0);
@@ -134,7 +135,7 @@ Map::Map(int _max_area):_max_area(_max_area) {
 	_route[26][27] = 1;
 	_route[27][28] = 1;
 	_route[28][29] = 1;
-	// set_areaInformation();
+	set_areaInformation();
 }
 
 int Map::attackable(string startarea, string endarea) {
@@ -352,4 +353,19 @@ int* Map::get_wholeArea(Player* _host_player) {
 		}
 	}
 	return wholeArea;
+}
+
+void Map::firstArea(Player* player, int i) {
+	if (i == 1) {
+		set_areaHost(player, "강남구");
+	}
+	else if (i == 2) {
+		set_areaHost(player, "구로구");
+	}
+	else if (i == 3) {
+		set_areaHost(player, "노원구");
+	}
+	else {
+		set_areaHost(player, "은평구");
+	}
 }

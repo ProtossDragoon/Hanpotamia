@@ -65,4 +65,5 @@ public:
 	areainformation findArea(string areaname);
 	void showAreaInformation(string areaname);
 	int attackable(string startarea, string endarea);
+	void firstArea(Player* player, int i);
 };
