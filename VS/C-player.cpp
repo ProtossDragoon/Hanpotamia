@@ -83,19 +83,16 @@ void Player::selectAction() {
     ////searching Unit
 
     // 보유 성을 기본으로 출력하게 해주세요.
+    cout << endl;
+    cout << endl;
+    cout << "=========== 부족장 상세 =============" << endl;
     cout << "부족장 " << this->get_player_name() << " >> 남은 동작 횟수 : " << get_currentControlCnt() << "/" << get_maxControlCnt() << endl;
-    cout << this->get_player_name() << "     님이 소유하고 있는 지역 목록    " << endl;
-    cout << " ====================================================================" << endl;
+  
+    cout << "=========== 점령지 목록 =============" << endl;
     show_myWholePlace(game_master.get_gameMap()->get_wholeArea(this));
 
-
-    cout << this->get_player_name() << "     님이 소유하고 있는 자원 목록 " << endl;
-    cout << " ====================================================================" << endl;
+    cout << "=========== 자원   목록 =============" << endl;
     this->show_myResource();
-
-
-
-
 
     cout << "=========== 동작을 선택하세요 =============" << endl;
     cout << "0. [동작횟수 -1] 지역점령 " << endl;
@@ -106,10 +103,13 @@ void Player::selectAction() {
     cout << "5. 보유 자원 조회 " << endl;
     cout << "6. 보유 병력 조회 " << endl;
     cout << "9. [동작횟수 -1] 실행 1회 넘기기" << endl;
+    cout << endl;
 
     command = -1;
     while (command == -1) {
+        cout << "동작 입력 ::: ";
         cin >> command;
+        cout << endl;
         if (command == 0) {
             // fixme : 점령받을 지역을 선택하기 이전에
             // 먼저 내가 가지고 있는 병력이 어디있는지부터 확인해야하는 것 아님?
@@ -120,7 +120,6 @@ void Player::selectAction() {
             cin >> area;
             conquerArea(area);
         }
-
         else if (command == 1) {
             // fixme : 내가 가지고 있는 지역에서 병력을 생산할 수 있는 것이니까
             // 내가 가지고 있는 지역을 먼저 display 하고, 해당 목록에서 번호를 선택해서
@@ -139,7 +138,6 @@ void Player::selectAction() {
             cin >> area;
             produce_unit(tendency, product_count, area);
         }
-
         else if (command == 2) {
             // 이동 가능 지역 Display 해주자 !!
             // fixme : 이것도 마찬가지로, 내가 가지고 있는 병력들이 먼저 떠야할듯
@@ -156,13 +154,11 @@ void Player::selectAction() {
             cin >> to;
             MoveOrAttack_unit(from, to);
         }
-
         else if (command == 3) {
             cout << "업그레이드 할 지역을 입력하세요 " << endl;
             cin >> area;
             upgradeArea(area);
         }
-
         else if (command == 4) {
             cout << " 1. 전체 지역 정보 조회    2. 단일 지역 정보 조회 " << endl;
             cin >> command;
@@ -176,18 +172,16 @@ void Player::selectAction() {
                 game_master.get_gameMap()->showAreaInformation(area);
             }
         }
-
-
         else if (command == 5) {
             cout << "보유하고 있는 자원 " << endl;
             show_myResource();
         }
-
         else if (command == 6) {
             Map* searching = game_master.get_gameMap();
             cout << "1. 전체 보유 병력 조회     2. 단일 지역 병력 조회" << endl;
             cin >> command;
-            if (command == 1) {
+            if (command == 1)
+            {
                 Army army;
                 army = searching->get_unitWhole(this);
                 cout << " 보병 : " << army.Infantrycount << endl;
@@ -197,10 +191,12 @@ void Player::selectAction() {
                 //unitWhole 에서 병종 구분 필요
             }
 
-            if (command == 2) {
+            if (command == 2)
+            {
                 cin >> area;
                 //지역이름으로 해당 지역 정보 가져와서 해당 지역 병력 정보 Display
-                if (is_yourArea(area)) {
+                if (is_yourArea(area))
+                {
                     Army army;
                     army = searching->get_unit(area, this);
                     cout << " 보병 : " << army.Infantrycount << endl;
@@ -209,26 +205,19 @@ void Player::selectAction() {
                     cout << " 궁병 : " << army.Navycount << endl;
                 }
                 else
+                {
                     cout << area << "지역은 " << this->get_player_name() << "가 소유한 땅이 아닙니다." << endl;
-            }
-            else if (command == 9)
-            {
-                cout << "턴 넘기기" << endl;
-            }
-            else {
-                command = -1;
-                cout << "잘못된 입력입니다." << endl;
+                }
             }
         }
-
         else if (command == 9)
         {
             cout << "턴 넘기기" << endl;
         }
-
-        else {
-            cout << "잘못된 입력입니다." << endl;
-            command = -1;
+        else 
+        {
+                command = -1;
+                cout << "잘못된 입력입니다." << endl;
         }
     }
 }
@@ -488,9 +477,9 @@ void Player::success_procedure(string type) {
 }
 
 void Player::show_myResource() {
-    cout << " 물 : " << get_myResource()->get_resource_water()  <<endl ;
-    cout << " 금 : " << get_myResource()->get_resource_gold() <<endl ;
+    cout << "금  : " << get_myResource()->get_resource_gold() << endl;
     cout << "음식 : " << get_myResource()->get_resource_food() <<endl;
+    cout << "물  : " << get_myResource()->get_resource_water() << endl;
 }
 
 void Player::show_myWholePlace(int *place) {

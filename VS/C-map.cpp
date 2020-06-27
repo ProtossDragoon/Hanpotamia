@@ -72,6 +72,7 @@ void Map::set_areaInformation() {
 		area[i].arearesource->set_resource_food(0);
 		area[i].arearesource->set_resource_water(0);
 		area[i].arearesource->set_resource_gold(0);
+		area[i].occupationcost = new Resource();
 		area[i].occupationcost->set_resource_food(0);
 		area[i].occupationcost->set_resource_gold(0);
 		area[i].occupationcost->set_resource_water(0);

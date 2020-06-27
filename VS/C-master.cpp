@@ -140,7 +140,7 @@ void Master::turnCycleStart()
 		temp_gold = 0;
 		temp_water = 0;
 		_player[i]->get_myPlace();
-		for (int j = 0; j < 30; i++)
+		for (int j = 0; j < 30; j++)
 		{
 			temp_food += _gamemap->get_acquirableFood((_gamemap->findArea(j)).areaname);
 			temp_gold += _gamemap->get_acquirableGold((_gamemap->findArea(j)).areaname);
