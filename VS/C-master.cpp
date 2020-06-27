@@ -98,7 +98,6 @@ void Master::gameReady(int initial_player_cnt)
 	_gamemap->set_areaInformation();
 	for(int i=1; i<=_player_cnt; i++)
 	    _gamemap->firstArea(_player[i],i);
-
 	system("cls");
 	showGameDiscription();
 }
