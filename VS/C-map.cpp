@@ -82,12 +82,15 @@ Map::~Map() {
 }
 
 Map::Map(int _max_area):_max_area(_max_area) {
-	int** _route;
-	_route = (int**)malloc(_max_area * sizeof(int*));
-	for (int i = 0; i < _max_area; i++) {
-		_route[i] = (int*)malloc(_max_area * sizeof(int));
-		memset(_route[i], 0, _max_area * sizeof(int));
-	}
+    _route = new int* [_max_area];
+    for (int i = 0; i < _max_area; i++) {
+        _route[i] = new int[_max_area];
+    }
+    for (int i = 0; i < _max_area; i++) {
+        for (int j = 0; j < _max_area; j++) {
+            _route[i][j] = 0;
+        }
+    }
 	_route[0][2] = 1;
 	_route[0][3] = 1;
 	_route[0][28] = 1;
@@ -168,6 +171,7 @@ string* Map::get_movableArea(string areaname) {
 			j++;
 		}
 	}
+	temp.neighborarea[j]="NO";
 	return temp.neighborarea;
 }
 

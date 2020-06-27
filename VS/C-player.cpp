@@ -399,7 +399,7 @@ void Player::conquerArea(string areaName) {
 void Player::display_movableArea() {
 
     string area;
-    string *movableArea=nullptr;
+    string *movableArea;
 
     //while 문으로 보여주기
     cout << "이동가능한 지역을 조회 할 지역을 입력하세요  :";
@@ -410,10 +410,11 @@ void Player::display_movableArea() {
 
     else {
         movableArea = game_master.get_gameMap()->get_movableArea(area);
-        if (movableArea) {
-            cout << *movableArea << endl;
-            movableArea++;
-        }
+       for(int i=0; i<30; i++){
+           if(movableArea[i]=="NO")
+               break;
+           cout << movableArea[i] << endl;
+       }
     }
 }
 
