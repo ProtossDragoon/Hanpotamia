@@ -244,20 +244,21 @@ Army Map::get_unit(string areaname, Player* _host_player) {
 
 Army Map::get_unitWhole(Player* _host_player) {
 	string host;
-	Army temp;
+	Army* temp;
+	temp = new Army;
 	int i;
 	int cnt = 0;
 	host = _host_player->get_player_name();
 	for (i = 0; i < 30; i++) {
 		if (host == area[i].areahost) {
-			temp.Archercount += area[i].areaunit.Archercount;
-			temp.Navycount += area[i].areaunit.Navycount;
-			temp.Cavalrycount += area[i].areaunit.Cavalrycount;
-			temp.Infantrycount += area[i].areaunit.Infantrycount;
+			temp->Archercount += area[i].areaunit.Archercount;
+			temp->Navycount += area[i].areaunit.Navycount;
+			temp->Cavalrycount += area[i].areaunit.Cavalrycount;
+			temp->Infantrycount += area[i].areaunit.Infantrycount;
 			cnt++;
 		}
 	}
-	return temp;
+	return *temp;
 	if (cnt == 0) {
 		cout << host << "주인이 아닙니다." << endl;
 	}
@@ -376,4 +377,10 @@ void Map::firstArea(Player* player, int i) {
     else {
         set_areaHost(player, "은평구");
     }
+}
+
+int Map::areaLevel(string areaname) {
+	areainformation temp;
+	temp = findArea(areaname);
+	return temp.arealevel;
 }
