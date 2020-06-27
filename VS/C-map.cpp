@@ -69,7 +69,6 @@ void Map::set_areaInformation() {
 		area[i].areaunit.Navycount = 0;
 
 		area[i].arearesource = new Resource();
-		area[i].occupationcost = new Resource();
 		area[i].arearesource->set_resource_food(0);
 		area[i].arearesource->set_resource_water(0);
 		area[i].arearesource->set_resource_gold(0);
@@ -219,7 +218,7 @@ void Map::set_areaHost(Player* _host_player, string areaname) {
     temp = findArea(areaname);
     host = _host_player->get_player_name();
     tempnum = temp.areanum;
-    area[tempnum - 1].areahost = host;
+    area[tempnum].areahost = host;
 }
 
 Army Map::get_unit(string areaname, Player* _host_player) {
@@ -290,24 +289,28 @@ areainformation Map::get_areaInformation(string areaname) {
 
 void Map::upgrade_Area(string areaname) {
 	areainformation temp;
+	int tempnum;
 	temp = findArea(areaname);
-	temp.arealevel++;
+	tempnum = temp.areanum;
+	area[tempnum].arealevel++;
 }
 
 void Map::set_unit(string areaname, string tendency, int count) {
 	areainformation temp;
+	int tempnum;
 	temp = findArea(areaname);
+	tempnum = temp.areanum;
 	if (tendency == "Infantry") {
-		temp.areaunit.Infantrycount += count;
+		area[tempnum].areaunit.Infantrycount += count;
 	}
 	else if (tendency == "Navy") {
-		temp.areaunit.Navycount += count;
+		area[tempnum].areaunit.Navycount += count;
 	}
 	else if (tendency == "Cavalry") {
-		temp.areaunit.Cavalrycount += count;
+		area[tempnum].areaunit.Cavalrycount += count;
 	}
 	else {
-		temp.areaunit.Archercount += count;
+		area[tempnum].areaunit.Archercount += count;
 	}
 }
 
