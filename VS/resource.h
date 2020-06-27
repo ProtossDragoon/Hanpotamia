@@ -29,6 +29,9 @@ public:
     void set_resource_gold(int gold);
     void set_resource_food(int food);
     void set_resource_water(int water);
+    void add_resource_gold(int gold);
+    void add_resource_food(int food);
+    void add_resource_water(int water);
 
     //func
 

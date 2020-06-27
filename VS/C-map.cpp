@@ -214,6 +214,25 @@ void Map::set_acquirableWater(string areaname) {
 	}
 }
 
+int Map::get_acquirableFood(string areaname) {
+	areainformation temp;
+	temp = findArea(areaname);
+	return temp.arearesource->get_resource_food();
+}
+
+int Map::get_acquirableGold(string areaname) {
+	areainformation temp;
+	temp = findArea(areaname);
+	return temp.arearesource->get_resource_gold();
+}
+
+int Map::get_acquirableWater(string areaname) {
+	areainformation temp;
+	temp = findArea(areaname);
+	return temp.arearesource->get_resource_water();
+}
+
+
 void Map::set_areaHost(Player* _host_player, string areaname) {
     areainformation temp;
     string host;

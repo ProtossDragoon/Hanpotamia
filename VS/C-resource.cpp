@@ -21,6 +21,18 @@ void Resource::set_resource_water(int water)
 {
     this->_resource_water = water;
 }
+void Resource::add_resource_gold(int gold)
+{
+    this->_resource_gold += gold;
+}
+void Resource::add_resource_food(int food)
+{
+    this->_resource_food += food;
+}
+void Resource::add_resource_water(int water)
+{
+    this->_resource_water += water;
+}
 
 
 
