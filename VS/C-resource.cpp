@@ -11,22 +11,22 @@ Resource::~Resource() {}
 
 void Resource::set_resource_gold(int gold)
 {
-    _resource_gold = gold;
+    this->_resource_gold = gold;
 }
 void Resource::set_resource_food(int food)
 {
-    _resource_food = food;
+    this->_resource_food = food;
 }
 void Resource::set_resource_water(int water)
 {
-    _resource_water = water;
+    this->_resource_water = water;
 }
 
 
 
 Resource *Resource::calculate_produce_unit(string tendency, int cnt)
 {
-    Resource *troop=NULL;
+    Resource *troop = new Resource();
     if (tendency=="Infantry")
     {
         troop->set_resource_gold(cnt * 10);

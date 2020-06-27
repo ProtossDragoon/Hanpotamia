@@ -72,7 +72,6 @@ void Map::set_areaInformation() {
 		area[i].arearesource->set_resource_food(0);
 		area[i].arearesource->set_resource_water(0);
 		area[i].arearesource->set_resource_gold(0);
-		area[i].occupationcost = new Resource();
 		area[i].occupationcost->set_resource_food(0);
 		area[i].occupationcost->set_resource_gold(0);
 		area[i].occupationcost->set_resource_water(0);
@@ -134,7 +133,7 @@ Map::Map(int _max_area):_max_area(_max_area) {
 	_route[26][27] = 1;
 	_route[27][28] = 1;
 	_route[28][29] = 1;
-	//set_areaInformation();
+//	set_areaInformation();
 }
 
 int Map::attackable(string startarea, string endarea) {
@@ -241,20 +240,20 @@ Army Map::get_unit(string areaname, Player* _host_player) {
 
 Army Map::get_unitWhole(Player* _host_player) {
 	string host;
-	Army *temp=(Army *)malloc(sizeof(Army));
+	Army temp;
 	int i;
 	int cnt = 0;
 	host = _host_player->get_player_name();
 	for (i = 0; i < 30; i++) {
 		if (host == area[i].areahost) {
-			temp->Archercount += area[i].areaunit.Archercount;
-			temp->Navycount += area[i].areaunit.Navycount;
-			temp->Cavalrycount += area[i].areaunit.Cavalrycount;
-			temp->Infantrycount += area[i].areaunit.Infantrycount;
+			temp.Archercount += area[i].areaunit.Archercount;
+			temp.Navycount += area[i].areaunit.Navycount;
+			temp.Cavalrycount += area[i].areaunit.Cavalrycount;
+			temp.Infantrycount += area[i].areaunit.Infantrycount;
 			cnt++;
 		}
 	}
-	return *temp;
+	return temp;
 	if (cnt == 0) {
 		cout << host << "주인이 아닙니다." << endl;
 	}
@@ -294,8 +293,7 @@ void Map::upgrade_Area(string areaname) {
 }
 
 void Map::set_unit(string areaname, string tendency, int count) {
-	areainformation temp;
-	temp = findArea(areaname);
+	 areainformation temp = findArea(areaname);
 	if (tendency == "Infantry") {
 		temp.areaunit.Infantrycount += count;
 	}
@@ -357,16 +355,16 @@ int* Map::get_wholeArea(Player* _host_player) {
 }
 
 void Map::firstArea(Player* player, int i) {
-	if (i == 1) {
-		set_areaHost(player, "강남구");
-	}
-	else if (i == 2) {
-		set_areaHost(player, "구로구");
-	}
-	else if (i == 3) {
-		set_areaHost(player, "노원구");
-	}
-	else {
-		set_areaHost(player, "은평구");
-	}
+    if (i == 1) {
+        set_areaHost(player, "강남구");
+    }
+    else if (i == 2) {
+        set_areaHost(player, "구로구");
+    }
+    else if (i == 3) {
+        set_areaHost(player, "노원구");
+    }
+    else {
+        set_areaHost(player, "은평구");
+    }
 }
