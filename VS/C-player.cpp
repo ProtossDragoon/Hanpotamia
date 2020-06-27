@@ -10,9 +10,9 @@ Player::Player(string player_name, int current_control_time, int max_control_tim
     _player_name=player_name;
     _current_control_time=current_control_time;
     _max_control_time=max_control_time;
-    _my_resource.set_resource_food(0);
-    _my_resource.set_resource_gold(0);
-    _my_resource.set_resource_water(0);
+    _my_resource.set_resource_food(200);
+    _my_resource.set_resource_gold(200);
+    _my_resource.set_resource_water(200);
 }
 ////setter
 
@@ -69,7 +69,9 @@ string  Player::get_player_name() {
 void Player::selectAction() {
     Resource *research;
     //// produce_unit
-    string tendency; int product_count; string area;
+    string tendency;
+    int product_count;
+    string area;
 
     ////move or attack
     string from, to;
@@ -81,12 +83,25 @@ void Player::selectAction() {
     ////searching Unit
 
     // 보유 성을 기본으로 출력하게 해주세요.
-    cout << this->get_player_name() << " >> 남은 동작 횟수 : " << get_currentControlCnt() << "/" << get_maxControlCnt() << endl;
+    cout << "부족장 " << this->get_player_name() << " >> 남은 동작 횟수 : " << get_currentControlCnt() << "/" << get_maxControlCnt() << endl;
+    cout << this->get_player_name() << "     님이 소유하고 있는 지역 목록    " << endl;
+    cout << " ====================================================================" << endl;
+    show_myWholePlace(game_master.get_gameMap()->get_wholeArea(this));
+
+
+    cout << this->get_player_name() << "     님이 소유하고 있는 자원 목록 " << endl;
+    cout << " ====================================================================" << endl;
+    this->show_myResource();
+
+
+
+
+
     cout << "=========== 동작을 선택하세요 =============" << endl;
-    cout << "0. [동작횟수 -1] 지역점령 " <<endl;
-    cout << "1. [동작횟수 -1] 유닛생산 " <<endl;
-    cout << "2. [동작횟수 -1] 이동 및 공격 "<<endl;
-    cout << "3. [동작횟수 -1] 지역 업그레이드 " <<endl;
+    cout << "0. [동작횟수 -1] 지역점령 " << endl;
+    cout << "1. [동작횟수 -1] 유닛생산 " << endl;
+    cout << "2. [동작횟수 -1] 이동 및 공격 " << endl;
+    cout << "3. [동작횟수 -1] 지역 업그레이드 " << endl;
     cout << "4. 보유 지역 조회 " << endl;
     cout << "5. 보유 자원 조회 " << endl;
     cout << "6. 보유 병력 조회 " << endl;
@@ -94,101 +109,106 @@ void Player::selectAction() {
 
     command = -1;
     while (command == -1) {
+    cin >> command;
+    if (command == 0) {
+        // fixme : 점령받을 지역을 선택하기 이전에
+        // 먼저 내가 가지고 있는 병력이 어디있는지부터 확인해야하는 것 아님?
+        // 동작 수정 요청 : 나의 병력이 존재하는 곳들을 확인하고,
+        // 나의 병력이 존재하는 곳들의 지역이 아무의 소유도 되지 않은 지역임을 확인
+        // 아무도 점령하지 않은 지역이면, 해당 지역 목록을 화면에 출력
+        cout << " 점령 할 지역을 선택하세요 " << endl;
+        cin >> area;
+        conquerArea(area);
+    }
+
+    else if (command == 1) {
+        // fixme : 내가 가지고 있는 지역에서 병력을 생산할 수 있는 것이니까
+        // 내가 가지고 있는 지역을 먼저 display 하고, 해당 목록에서 번호를 선택해서
+        // 하는 방식이 맞을것같은데, 병력 병과부터 먼저 고르면 안된다고봄.
+
+        cout << this->get_player_name() << "님이 소유하고 있는 지역 목록 ( 유닛 생산 가능 지역 목록 )" << endl;
+        cout << " ====================================================================" << endl;
+        show_myWholePlace(game_master.get_gameMap()->get_wholeArea(this));
+
+        cout << " 병과를 선택하세요 " << endl; //예시 보여주기
+        cout << " 보병 : Infantry  궁병 : Archer  기병 : Cavalry 해병 : Navy" << endl;
+        cin >> tendency;
+        cout << " 생산할 병력의 수를 입력하세요 " << endl;
+        cin >> product_count;
+        cout << " 배치 할 지역을 입력하세요 " << endl;
+        cin >> area;
+        produce_unit(tendency, product_count, area);
+    }
+
+    else if (command == 2) {
+        // 이동 가능 지역 Display 해주자 !!
+        // fixme : 이것도 마찬가지로, 내가 가지고 있는 병력들이 먼저 떠야할듯
+        // ex.
+        // 1. [보병 500] : 노원
+        // 2. [궁병 1000] : 마포대교
+        // 그 중에서 이동가능 지역을 선택할 수 있게 해주는 것이 더 옳을듯?
+        cout << " 이동 가능 지역 " << endl;
+        display_movableArea();
+        cout << " 병력을 이동 시킬 지역을 입력하세요 " << endl;
+        cout << " From : ";
+        cin >> from;
+        cout << " To : ";
+        cin >> to;
+        MoveOrAttack_unit(from, to);
+    }
+
+    else if (command == 3) {
+        cout << "업그레이드 할 지역을 입력하세요 " << endl;
+        cin >> area;
+        upgradeArea(area);
+    }
+
+    else if (command == 4) {
+        cout << " 1. 전체 지역 정보 조회    2. 단일 지역 정보 조회 " << endl;
         cin >> command;
-        if (command == 0) {
-            cout << " 점령 할 지역을 선택하세요 " << endl;
-            cin >> area;
-            conquerArea(area);
-        }
-        else if (command == 1) {
-            cout << " 병과를 선택하세요 " << endl; //예시 보여주기
-            cin >> tendency;
-            cout << " 생산할 병력의 수를 입력하세요 " << endl;
-            cin >> product_count;
-            cout << " 배치 할 지역을 입력하세요 " << endl;
-            cin >> area;
-            produce_unit(tendency, product_count, area);
-        }
-        else if (command == 2) {
-            //이동 가능 지역 Display 해주자 !!
-            cout << " 이동 명령 가능 지역 " << endl;
-            display_movableArea();
-            cout << " 병력을 이동 시킬 지역을 입력하세요 " << endl;
-            cout << " From : ";
-            cin >> from;
-            cout << " To : ";
-            cin >> to;
-            MoveOrAttack_unit(from, to);
-        }
-        else if (command == 3) {
-            cout << "업그레이드 할 지역을 입력하세요 " << endl;
-            cin >> area;
-            upgradeArea(area);
-        }
-        else if (command == 4) {
-            cout << " 1. 전체 지역 정보 조회    2. 단일 지역 정보 조회 " << endl;
-            cin >> command;
-            if (command == 0) {
-                // fixme : 점령받을 지역을 선택하기 이전에 
-                // 먼저 내가 가지고 있는 병력이 어디있는지부터 확인해야하는 것 아님?
-                // 동작 수정 요청 : 나의 병력이 존재하는 곳들을 확인하고,
-                // 나의 병력이 존재하는 곳들의 지역이 아무의 소유도 되지 않은 지역임을 확인
-                // 아무도 점령하지 않은 지역이면, 해당 지역 목록을 화면에 출력
-                cout << " 점령 할 지역을 선택하세요 " << endl;
-                cin >> area;
-                conquerArea(area);
-            }
-            else if (command == 1) {
-                // fixme : 내가 가지고 있는 지역에서 병력을 생산할 수 있는 것이니까
-                // 내가 가지고 있는 지역을 먼저 display 하고, 해당 목록에서 번호를 선택해서
-                // 하는 방식이 맞을것같은데, 병력 병과부터 먼저 고르면 안된다고봄.
 
-                cout << " 병과를 선택하세요 " << endl; // 예시 보여주기
-                cin >> tendency;
-                cout << " 생산할 병력의 수를 입력하세요 " << endl;
-                cin >> product_count;
-                cout << " 배치 할 지역을 입력하세요 " << endl;
-                cin >> area;
-                produce_unit(tendency, product_count, area);
-            }
-            else if (command == 2) {
-                // 이동 가능 지역 Display 해주자 !!
-                // fixme : 이것도 마찬가지로, 내가 가지고 있는 병력들이 먼저 떠야할듯
-                // ex. 
-                // 1. [보병 500] : 노원
-                // 2. [궁병 1000] : 마포대교
-                // 그 중에서 이동가능 지역을 선택할 수 있게 해주는 것이 더 옳을듯?
-                cout << " 이동 가능 지역 " << endl;
-                display_movableArea();
-                cout << " 병력을 이동 시킬 지역을 입력하세요 " << endl;
-                cout << " From : ";
-                cin >> from;
-                cout << " To : ";
-                cin >> to;
-                MoveOrAttack_unit(from, to);
-            }
-            else if (command == 3) {
-                // fixme : 업그레이드 할 수 있는 지역 목록을 먼저 보여주고,
-                // 해당 목록에서 업그레이드할 지역을 선택하는 것이 맞을듯.
+        if (command == 1) {
+            show_myWholePlace(game_master.get_gameMap()->get_wholeArea(this));
+        }
+        if (command == 2) {
+            cout << "지역이름을 입력하세요 :";
+            cin >> area;
+            game_master.get_gameMap()->showAreaInformation(area);
+        }
+    }
 
-                cout << "업그레이드 할 지역을 입력하세요 " << endl;
-                cin >> area;
-                upgradeArea(area);
-            }
-            else if (command == 4) {
-                cout << " 1. 전체 지역 정보 조회    2. 단일 지역 정보 조회 " << endl;
-                cin >> command;
-                if (command == 1) {
-                    show_myWholePlace(game_master.get_gameMap()->get_wholeArea(this));
-                }
-                if (command == 2) {
-                    cout << "지역이름을 입력하세요 :";
-                    cin >> area;
-                    game_master.get_gameMap()->showAreaInformation(area);
-                }
-            }
-            cout << "잘못된 입력입니다." << endl;
-            command = -1;
+
+    else if (command == 5) {
+        cout << "보유하고 있는 자원 " << endl;
+        show_myResource();
+    }
+
+    else if (command == 6) {
+        Map *searching = game_master.get_gameMap();
+        cout << "1. 전체 보유 병력 조회     2. 단일 지역 병력 조회" << endl;
+        cin >> command;
+        if (command == 1) {
+            Army army;
+            army = searching->get_unitWhole(this);
+            cout << " 보병 : " << army.Infantrycount << endl;
+            cout << " 수군 : " << army.Navycount << endl;
+            cout << " 기병 : " << army.Cavalrycount << endl;
+            cout << " 궁병 : " << army.Archercount << endl;
+            //unitWhole 에서 병종 구분 필요
+        }
+
+        if (command == 2) {
+            cin >> area;
+            //지역이름으로 해당 지역 정보 가져와서 해당 지역 병력 정보 Display
+            if (is_yourArea(area)) {
+                Army army;
+                army = searching->get_unit(area, this);
+                cout << " 보병 : " << army.Infantrycount << endl;
+                cout << " 수군 : " << army.Navycount << endl;
+                cout << " 기병 : " << army.Cavalrycount << endl;
+                cout << " 궁병 : " << army.Navycount << endl;
+            } else
+                cout << area << "지역은 " << this->get_player_name() << "가 소유한 땅이 아닙니다." << endl;
         }
         else if (command == 9)
         {
@@ -199,7 +219,19 @@ void Player::selectAction() {
             cout << "잘못된 입력입니다." << endl;
         }
     }
+
+    else if(command == 9)
+    {
+        cout << "턴 넘기기" << endl;
+    }
+
+    else {
+        cout << "잘못된 입력입니다." << endl;
+        command = -1;
+    }
 }
+
+
 
 
 void Player::produce_unit(string tendency, int product_count, string area) {
@@ -224,7 +256,7 @@ void Player::produce_unit(string tendency, int product_count, string area) {
                    game_master.get_gameMap()->set_unit(area, tendency, set_product.areaunit.Archercount + product_count);
 
                success_procedure("유닛생산완료");
-               discount_currentControlCnt();
+               //discount_currentControlCnt();
            }
        }
    }
@@ -367,7 +399,7 @@ void Player::conquerArea(string areaName) {
 void Player::display_movableArea() {
 
     string area;
-    string *movableArea=nullptr;
+    string *movableArea;
 
     //while 문으로 보여주기
     cout << "이동가능한 지역을 조회 할 지역을 입력하세요  :";
@@ -378,10 +410,11 @@ void Player::display_movableArea() {
 
     else {
         movableArea = game_master.get_gameMap()->get_movableArea(area);
-        if (movableArea) {
-            cout << *movableArea << endl;
-            movableArea++;
-        }
+       for(int i=0; i<30; i++){
+           if(movableArea[i]=="NO")
+               break;
+           cout << movableArea[i] << endl;
+       }
     }
 }
 
@@ -464,7 +497,7 @@ void Player::show_myWholePlace(int *place) {
     cout << this->get_player_name() << " 님이 소유하는 지역 " << endl;
     for(int i=0; i<30; i++){
         if(place[i]==1)
-            cout <<  game_master.get_gameMap()->findArea(place[i]).areaname << endl;
+            cout <<  game_master.get_gameMap()->findArea(i).areaname << endl;
     }
 
 }
