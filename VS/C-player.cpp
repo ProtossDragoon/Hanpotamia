@@ -83,10 +83,7 @@ void Player::selectAction() {
     ////searching Unit
 
     // 보유 성을 기본으로 출력하게 해주세요.
-    cout << this->get_player_name() << " >> 남은 동작 횟수 : " << get_currentControlCnt() << "/" << get_maxControlCnt()
-         << endl;
-
-
+    cout << "부족장 " << this->get_player_name() << " >> 남은 동작 횟수 : " << get_currentControlCnt() << "/" << get_maxControlCnt() << endl;
     cout << this->get_player_name() << "     님이 소유하고 있는 지역 목록    " << endl;
     cout << " ====================================================================" << endl;
     show_myWholePlace(game_master.get_gameMap()->get_wholeArea(this));
@@ -110,6 +107,8 @@ void Player::selectAction() {
     cout << "6. 보유 병력 조회 " << endl;
     cout << "9. [동작횟수 -1] 실행 1회 넘기기" << endl;
 
+    command = -1;
+    while (command == -1) {
     cin >> command;
     if (command == 0) {
         // fixme : 점령받을 지역을 선택하기 이전에
@@ -186,9 +185,6 @@ void Player::selectAction() {
 
     else if (command == 6) {
         Map *searching = game_master.get_gameMap();
-
-
-
         cout << "1. 전체 보유 병력 조회     2. 단일 지역 병력 조회" << endl;
         cin >> command;
         if (command == 1) {
@@ -213,6 +209,14 @@ void Player::selectAction() {
                 cout << " 궁병 : " << army.Navycount << endl;
             } else
                 cout << area << "지역은 " << this->get_player_name() << "가 소유한 땅이 아닙니다." << endl;
+        }
+        else if (command == 9)
+        {
+            cout << "턴 넘기기" << endl;
+        }
+        else {
+            command = -1;
+            cout << "잘못된 입력입니다." << endl;
         }
     }
 

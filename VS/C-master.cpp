@@ -2,6 +2,7 @@
 #include<iostream>
 #include<string>
 #include<stdlib.h>
+#include<Windows.h>
 using namespace std;
 
 //// Constructor
@@ -47,7 +48,7 @@ void Master::gameReady(int initial_player_cnt)
 
 	_player_cnt = initial_player_cnt;
 	_turn_passed = 0;
-	_turn_available = 100;
+	_turn_available = 5;
 
 	// -- 플레이어 할당
 	if (initial_player_cnt <= 0)
@@ -79,6 +80,7 @@ void Master::gameReady(int initial_player_cnt)
 			_player[i] = new Player(tempname, 2, 2);
 			_is_player_alive[i] = true;
 		}
+
 		_player_score = new int[_player_cnt+1];
 		_player_score[0] = -1;
 		for (int i = 1; i <= _player_cnt; i++)
@@ -100,6 +102,19 @@ void Master::gameReady(int initial_player_cnt)
 	    _gamemap->firstArea(_player[i],i);
 	system("cls");
 	showGameDiscription();
+	for (int i = 3; i >= 0; i--)
+	{
+		cout << "start in " << i << " second(s)";
+		Sleep(1000);
+		cout << "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b";
+	}
+
+	cout << "Mission Object      " << endl;
+	cout << "상대의 모든 점령지를 빼앗고, 한강 유역 문명의 주인이 되어라";
+
+	Sleep(3000);
+
+	system("cls");
 }
 
 //// methods - flow management
@@ -120,11 +135,20 @@ int Master::playerTrunStart(Player *player)
 	/*	플레이어가 죽었을 경우 관련해서 이 함수에서 처리해줄 것.
 	 	즉, Player 배열에서 데이터 빼고 버리지 말고 여기서 흐름 처리.*/
 
+	// -- 플레이어의 가용 턴을 복구
+	for (int i = 1; i <= _player_cnt; i++)
+	{
+		_player[i]->set_currentControlCnt(_player[i]->get_maxControlCnt());
+	}
+
 	// -- 만약 멸망한 플레이어라면 주지 않음.
 	if (!get_isPlayerAlive(player))
 	{
 		return 0;
 	}
+
+	system("cls");
+	showGameDiscription();
 
 	return player->get_maxControlCnt();
 }

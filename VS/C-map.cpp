@@ -293,23 +293,28 @@ areainformation Map::get_areaInformation(string areaname) {
 
 void Map::upgrade_Area(string areaname) {
 	areainformation temp;
+	int tempnum;
 	temp = findArea(areaname);
-	temp.arealevel++;
+	tempnum = temp.areanum;
+	area[tempnum].arealevel++;
 }
 
 void Map::set_unit(string areaname, string tendency, int count) {
-	 areainformation temp = findArea(areaname);
+	areainformation temp;
+	int tempnum;
+	temp = findArea(areaname);
+	tempnum = temp.areanum;
 	if (tendency == "Infantry") {
-		temp.areaunit.Infantrycount += count;
+		area[tempnum].areaunit.Infantrycount += count;
 	}
 	else if (tendency == "Navy") {
-		temp.areaunit.Navycount += count;
+		area[tempnum].areaunit.Navycount += count;
 	}
 	else if (tendency == "Cavalry") {
-		temp.areaunit.Cavalrycount += count;
+		area[tempnum].areaunit.Cavalrycount += count;
 	}
 	else {
-		temp.areaunit.Archercount += count;
+		area[tempnum].areaunit.Archercount += count;
 	}
 }
 
