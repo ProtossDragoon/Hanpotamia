@@ -81,7 +81,7 @@ void Player::selectAction() {
     ////searching Unit
 
     // 보유 성을 기본으로 출력하게 해주세요.
-    cout << this->get_player_name() << " >> 남은 동작 횟수 : " << get_currentControlCnt() << "/" << get_maxControlCnt() << endl;
+    cout << "부족장 " << this->get_player_name() << " >> 남은 동작 횟수 : " << get_currentControlCnt() << "/" << get_maxControlCnt() << endl;
     cout << "=========== 동작을 선택하세요 =============" << endl;
     cout << "0. [동작횟수 -1] 지역점령 " <<endl;
     cout << "1. [동작횟수 -1] 유닛생산 " <<endl;

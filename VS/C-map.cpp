@@ -218,7 +218,7 @@ void Map::set_areaHost(Player* _host_player, string areaname) {
     temp = findArea(areaname);
     host = _host_player->get_player_name();
     tempnum = temp.areanum;
-    area[tempnum - 1].areahost = host;
+    area[tempnum].areahost = host;
 }
 
 Army Map::get_unit(string areaname, Player* _host_player) {
