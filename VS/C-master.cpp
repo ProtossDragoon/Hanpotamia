@@ -211,6 +211,8 @@ void Master::playerTurnEnd(Player *player)
 {
 	// 목적 : 이 플레이어의 동작 마무리 및 갱신
 	set_gameState("playerTurnEnd");
+
+	Sleep(2000);
 }
 
 //// methods - flow management
