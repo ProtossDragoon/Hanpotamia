@@ -8,24 +8,22 @@ class Unit
 private:
 
 protected:
-    string _unit_type;//ë³‘ì¢… Infantry(ë³´ë³‘)=0, Archer(ê¶ìˆ˜)=1, Cavalry(ê¸°ë³‘)=2, Navy(?˜êµ°)=3
-    int _attack_damage;//ê³µê²© infantry(ë³´ë³‘)=10, Archer(ê¶ìˆ˜)=10, Cavalry(ê¸°ë³‘)=20, Navy(?˜êµ°)=20
-    int _hit_point;//ì²´ë ¥ infantry(ë³´ë³‘)=50, Archer(ê¶ìˆ˜)=30, Cavalry(ê¸°ë³‘)=100, Navy(?˜êµ°)=20
-    int _resource_gold;//ê¸?infantry(ë³´ë³‘)=10, Archer(ê¶ìˆ˜)=10, Cavalry(ê¸°ë³‘)=20, Navy(?˜êµ°)=10
-    int _resource_water;//ë¬?infantry(ë³´ë³‘)=10, Archer(ê¶ìˆ˜)=5, Cavalry(ê¸°ë³‘)=10, Navy(?˜êµ°)=20
-    int _resource_food;//?Œì‹ infantry(ë³´ë³‘)=10, Archer(ê¶ìˆ˜)=5, Cavalry(ê¸°ë³‘)=10, Navy(?˜êµ°)=20
-    int _troop_production;//?œí„´?ì‚°ë³‘ë ¥ infantry(ë³´ë³‘)=50, Archer(ê¶ìˆ˜)=3, Cavalry(ê¸°ë³‘)=2, Navy(?˜êµ°)=2
-    int _moving_range;//?œí„´?´ë™ë²”ìœ„ infantry(ë³´ë³‘)=2, Archer(ê¶ìˆ˜)=1, Cavalry(ê¸°ë³‘)=3, Navy(?˜êµ°)=2
-    int _moving_area_type;//?´ë™?????ˆëŠ” ì§€???¹ì„±	--?˜ì •?„ìš”--	??0, ë¬?1, ??ë¬?2		infantry(ë³´ë³‘)=0(?˜ì •?¬í•­-upgrade to 2), Archer(ê¶ìˆ˜)=0, Cavalry(ê¸°ë³‘)=0, Navy(?˜êµ°)=2
-    int _attack_range;//ê³µê²©ê°€?¥ë²”??infantry(ë³´ë³‘)=1, Archer(ê¶ìˆ˜)=2, Cavalry(ê¸°ë³‘)=1, Navy(?˜êµ°)=3
-    int _unit_cnt;//? ë‹›??
+    string _unit_type;//º´Á¾ Infantry=0, Archer=1, Cavalry=2, Navy=3
+    int _attack_damage;//°ø°İ·Â infantry=10, Archer=10, Cavalry=20, Navy=20
+    int _hit_point;//Ã¼·Â infantry=50, Archer=30, Cavalry=100, Navy=20
+    int _resource_gold;//ÀÚ¿ø ±İ infantry=10, Archer=10, Cavalry=20, Navy=10
+    int _resource_water;//ÀÚ¿ø ¹° infantry=10, Archer=5, Cavalry=10, Navy=20
+    int _resource_food;//ÀÚ¿ø À½½Ä infantry=10, Archer=5, Cavalry=10, Navy=20
+    int _troop_production;//ÇÑ¹ø¿¡ »ı»êÇÒ ¼ö ÀÖ´Â º´¼ö infantry=50, Archer=3, Cavalry=2, Navy=2
+    int _moving_range;//ÃÖ´ëÀÌµ¿°Å¸® infantry=2, Archer=1, Cavalry=3, Navy=2
+    int _moving_area_type;//ÀÌµ¿ÇÒ ¼öÀÖ´ÂÁö¿ª
+    int _attack_range;//°ø°İ»ç°Å¸® infantry=1, Archer=2, Cavalry=1, Navy=3
+    int _unit_cnt;//ÀÎ¿ø¼ö
 public:
     //constructor
-
     Unit();
-    //Unit(int);
 
-    //?Œë©¸??    
+    //¼Ò¸êÀÚ   
 	~Unit();
 
 
@@ -38,7 +36,7 @@ public:
     void set_resource_food(int food);
     void set_troop_production(int troopproduction);
     void set_moving_range(int movingrange);
-    void set_moving_area_type(int movingareatype);//ë³´ë³‘??ë¬¼ì—???¤ë‹???ˆê²Œ ?œë‹¤ë©??¬ìš©
+    void set_moving_area_type(int movingareatype);
     void set_attack_range(int attackrange);
     void set_unit_cnt(int cnt);
 
@@ -61,61 +59,61 @@ public:
 };
 
 
-//ë³´ë³‘
+//º¸º´
 class Unit_Infantry : public Unit{
 private:
 
 protected:
 
 public:
-    //?ì„±??    
+    //»ı¼ºÀÚ  
 	Unit_Infantry();
-    //?Œë©¸??    
+    //¼Ò¸êÀÚ    
 	~Unit_Infantry();
     //º´·ÂÀÌ °ø°İÇØ¼­ º¯È­ÇÏ´Â »ó´ëº´·ÂÀÇ ¼ö¸¦ °è»ê   
     void calculate_unit(string to, string undetattack_tendency, string attack_tendency, int cnt);
 };
 
-//ê¶ìˆ˜
+//±Ã¼ö
 class Unit_Archer : public Unit{
 private:
 
 protected:
 
 public:
-    //?ì„±??    
+    //»ı¼ºÀÚ 
 	Unit_Archer();
-    //?Œë©¸??    
+    //¼Ò¸êÀÚ
 	~Unit_Archer();
     //º´·ÂÀÌ °ø°İÇØ¼­ º¯È­ÇÏ´Â »ó´ëº´·ÂÀÇ ¼ö¸¦ °è»ê   
     void calculate_unit(string to, string undetattack_tendency, string attack_tendency, int cnt);
 };
 
-//ê¸°ë³‘
+//±âº´
 class Unit_Cavalry : public Unit{
 private:
 
 protected:
 
 public:
-    //?ì„±??    
+    //»ı¼ºÀÚ   
 	Unit_Cavalry();
-    //?Œë©¸??    
+    //¼Ò¸êÀÚ  
 	~Unit_Cavalry();
     //º´·ÂÀÌ °ø°İÇØ¼­ º¯È­ÇÏ´Â »ó´ëº´·ÂÀÇ ¼ö¸¦ °è»ê   
     void calculate_unit(string to, string undetattack_tendency, string attack_tendency, int cnt);
 };
 
-//?˜êµ°
+//ÇØ±º
 class Unit_Navy : public Unit{
 private:
 
 protected:
 
 public:
-    //?ì„±??    
+    //»ı¼ºÀÚ    
 	Unit_Navy();
-    //?Œë©¸??    
+    //¼Ò¸êÀÚ  
 	~Unit_Navy();
     //º´·ÂÀÌ °ø°İÇØ¼­ º¯È­ÇÏ´Â »ó´ëº´·ÂÀÇ ¼ö¸¦ °è»ê   
     void calculate_unit(string to, string undetattack_tendency, string attack_tendency, int cnt);

@@ -356,7 +356,7 @@ void Player::MoveOrAttack_unit(string from, string to) {
 
 bool Player::fight(string from_area, string to_area) {
     int sum_HP;
-    Unit *fightUnit=NULL;
+    Unit *fightUnit= new Unit();
     int count_attacker;
     string attack_Unit, under_attack_Unit;
     //공격하려는 Unit 과 공격당하는 Unit 의 공격력을 더해서 서로 차감하고
@@ -375,7 +375,12 @@ bool Player::fight(string from_area, string to_area) {
             cin >> under_attack_Unit;
             fightUnit->calculate_unit(to_area,under_attack_Unit,attack_Unit,count_attacker);
             ////유닛함수에서 작성하기로 햇음. -> set_Unit 까지.
-            
+            cout << endl << "================  공격에 성공했습니다.  ===================" << endl;
+            cout << "피해 지역 현황 " << endl;
+            game_master.get_gameMap()->showAreaInformation(to_area);
+            cout << endl << "======================================================" << endl;
+
+
             return true;
         }
         else
