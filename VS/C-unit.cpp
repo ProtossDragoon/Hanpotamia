@@ -200,6 +200,7 @@ void Unit::calculate_unit(string to, string underattack_tendency, string attack_
         Unit_Archer archer;
         totalhp = (archer.get_hit_point()) * army.Archercount;
         totalhp -= totalattackdamage;
+        leftcnt = totalhp /army.Archercount;
         leftcnt = totalhp / archer.get_hit_point();
         searching->set_unit(to, underattack_tendency, leftcnt);
     }
@@ -208,6 +209,7 @@ void Unit::calculate_unit(string to, string underattack_tendency, string attack_
         Unit_Cavalry cavalry;
         totalhp = (cavalry.get_hit_point()) * army.Cavalrycount;
         totalhp -= totalattackdamage;
+        leftcnt = totalhp /army.Cavalrycount;
         leftcnt = totalhp / cavalry.get_hit_point();
         searching->set_unit(to, underattack_tendency, leftcnt);
     }
@@ -216,6 +218,7 @@ void Unit::calculate_unit(string to, string underattack_tendency, string attack_
         Unit_Infantry infantry;
         totalhp = (infantry.get_hit_point()) * army.Infantrycount;
         totalhp -= totalattackdamage;
+        leftcnt = totalhp /army.Infantrycount;
         leftcnt = totalhp / infantry.get_hit_point();
         searching->set_unit(to, underattack_tendency, leftcnt);
     }
@@ -224,6 +227,7 @@ void Unit::calculate_unit(string to, string underattack_tendency, string attack_
         Unit_Navy navy;
         totalhp = (navy.get_hit_point()) * army.Navycount;
         totalhp -= totalattackdamage;
+        leftcnt = totalhp /army.Navycount;
         leftcnt = totalhp / navy.get_hit_point();
         searching->set_unit(to, underattack_tendency, leftcnt);
     }
