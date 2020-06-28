@@ -165,7 +165,7 @@ void Unit::set_unit_cnt(int cnt)
 
 void Unit::calculate_unit(string to, string underattack_tendency, string attack_tendency, int cnt)
 {
-    Map* searching=NULL;
+    Map* searching=game_master.get_gameMap();
     int totalattackdamage;
     int totalhp;
     int leftcnt;
@@ -230,16 +230,5 @@ void Unit::calculate_unit(string to, string underattack_tendency, string attack_
         leftcnt = totalhp / army.Navycount;
         leftcnt /= navy.get_hit_point();
         searching->set_unit(to, underattack_tendency, leftcnt);
-    }
-}
-bool Unit::isValidTendency(string name)
-{
-    if (name == "Infantry" || name == "Archer" || name == "Cavalry" || name == "Navy")
-    {
-        return true;
-    }
-    else 
-    {
-        return false;
     }
 }
