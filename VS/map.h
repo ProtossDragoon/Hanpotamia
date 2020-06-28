@@ -16,7 +16,7 @@ typedef struct Army {
 	int Archercount;
 }Army;
 
-
+//지역 정보가 담긴 구조체
 typedef struct areainformation{
 	string areaname;
 	int areanum;
