@@ -441,15 +441,15 @@ bool Player::conquerArea(string areaName) {
             ////자원확인
             if (research.check_resource(this->get_myResource(),
                                         game_master.get_gameMap()->get_occupationCost(areaName))) {
-                setting = game_master.get_gameMap()->get_areaInformation(areaName);
-                setting.areahost = this->get_player_name();
+                game_master.get_gameMap()->set_areaHost(this,areaName);
                 success_procedure("지역 정복");
                 cout << "이제부터 " << areaName << " 지역을 " << this->get_player_name() << "님이 소유 합니다." << endl;
                 ////자원획득
+                cout << endl << "============점령 한 지역으로 부터 자원을 획득합니다. ===============" << endl;
                 this->set_my_resource(
-                        this->get_myResource()->get_resource_food() + setting.arearesource->get_resource_food(),
-                        this->get_myResource()->get_resource_gold() + setting.arearesource->get_resource_gold(),
-                        this->get_myResource()->get_resource_water() + setting.arearesource->get_resource_water());
+                        this->get_myResource()->get_resource_food() + 100,
+                        this->get_myResource()->get_resource_gold() +100,
+                        this->get_myResource()->get_resource_water() + 100);
                 show_myResource();
             } else {
                 cout << "책사 : 자원이 부족하여 지역 점령을 하지 못합니다." << endl;

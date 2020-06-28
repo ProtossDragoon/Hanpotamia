@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <memory.h>
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wreturn-stack-address"
 using namespace std;
 extern Master game_master;
 
@@ -323,8 +325,7 @@ string Map::get_occupationPlayer(string areaname) {
 }
 
 Resource *Map::get_occupationCost(string areaname) {
-	Resource* hi;
-	hi = new Resource();
+	Resource *hi =new Resource();
 	hi->set_resource_food(100);
 	hi->set_resource_gold(100);
 	hi->set_resource_water(100);
@@ -466,7 +467,7 @@ void Map::set_SemiareaHost(Player* _host_player, string areaname) {
     area[tempnum].areahost = host;
 }
 
-bool Map::isTrue(string areaname) {
+bool Map::isTrue(string areaname) {
 	for (int i = 0; i < 30; i++) {
 		if (area[i].areaname == areaname) {
 			return true;
@@ -474,3 +475,4 @@ bool Map::isTrue(string areaname) {
 	}
 	return false;
 }
+#pragma clang diagnostic pop
