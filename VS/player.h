@@ -4,6 +4,11 @@
 #include "map.h"
 #pragma once
 
+
+#define INTEGER 0 
+#define CHARACTER '0'
+#define STRING "str"
+
 using namespace std;
 
 class Player
@@ -39,6 +44,8 @@ public :
 
     //Control Function
     //병과, ?�산 ???�자�??��?
+    template <typename inputtype>    
+    inputtype inputWrapper(string);
     void selectAction();
     bool produce_unit(string tendency, int product_count,string area);
     void MoveOrAttack_unit(string from, string to);
@@ -47,8 +54,20 @@ public :
     bool upgradeArea(string area);
     bool conquerArea(string areaName);
     void display_movableArea();
-    bool is_yourArea(string area);
+    bool is_yourArea(string area, bool vervose = true);
     static bool is_attackableArea(string attack_Unit, string from_area,string to_area);
     static bool is_movableArea(string moving_Unit, string from_area, string to_area);
     static void success_procedure(string type);
 };
+
+//// game function 에서 입력을 예쁘게 받기 위한 함수
+template <typename inputtype>
+inputtype Player::inputWrapper(string comment)
+{
+    inputtype input;
+    cout << endl;
+    cout << comment << " >>> ";
+    cin >> input;
+    cout << endl;
+    return input;
+}
