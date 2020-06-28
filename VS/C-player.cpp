@@ -1,6 +1,7 @@
 ﻿#include "master.h"
 #include "player.h"
 #include <string>
+#include <iostream>
 
 // extern master
 extern Master game_master;
@@ -114,148 +115,179 @@ void Player::selectAction() {
     command = -1;
     command_notcompleted = true;
     while (command == -1 || command_notcompleted) {
-
-        command_notcompleted = false;
-        command = inputWrapper<int>("동작 선택");
         
-        // command 0 : 
-        if (command == 0) {
-            if(game_master.get_gameMap()->show_conquerAbleArea(this->get_player_name())) 
-            {
-                area = inputWrapper<int>("점령 할 지역을 선택하세요");
-                command_notcompleted = conquerArea(area);
-            }
-            else
-            {
-                cout << "책사 : 병력이 존재하지 않아 점령 가능한 지역이 없습니다. " << endl;
-                command_notcompleted = true;
-            }
-        }
-        else if (command == 1) 
+        command_notcompleted = false;
+        try
         {
-            cout << this->get_player_name() << "족장님이 소유하고 있는 지역 목록 ( 유닛 생산 가능 지역 목록 )" << endl;
-            cout << "====================================================================" << endl;
-            show_myWholePlace(game_master.get_gameMap()->get_wholeArea(this));
-            cout << "====================================================================" << endl;
+            command = inputWrapper<int>("동작 선택");
 
-            cout << "[보병] Infantry   [궁병] Archer   [기병] Cavalry  [해병] Navy" << endl;
-            
-            tendency = inputWrapper<string>("책사 : 병과를 선택하세요");
-            unitname_valid = true;
-
-            if (unitname_valid)
+            /*
+            if (cin.fail())
             {
-                area = inputWrapper<string>("책사 : 배치 할 지역을 입력하세요");
-                areaname_valid = this->is_yourArea(area, false);
-                if (areaname_valid)
+                std::cin.ignore(INT_MAX, '\n');
+                cin.clear();
+                rewind(stdin);
+                command = -1;
+            }
+            */
+
+            // command 0 : 지역 점령
+            if (command == 0) {
+                if (game_master.get_gameMap()->show_conquerAbleArea(this->get_player_name()))
                 {
-                    product_count = inputWrapper<int>("책사 : 생산할 병력의 수를 입력하세요");
-                    command_notcompleted = produce_unit(tendency, product_count, area);
+                    area = inputWrapper<string>("점령 할 지역을 선택하세요");
+                    command_notcompleted = conquerArea(area);
                 }
                 else
                 {
-                    cout << "책사 : 족장님의 땅이 아니거나, 유효한 땅이 아닙니다!" << endl;
+                    cout << "책사 : 병력이 존재하지 않아 점령 가능한 지역이 없습니다. " << endl;
                     command_notcompleted = true;
                 }
             }
-            else
+            // command 1 : 유닛 생산
+            else if (command == 1)
             {
-                command_notcompleted = true;
-            }
-        }
-        else if (command == 2) 
-        {
-            cout << "이동 가능한 지역" << endl;
-            cout << "====================================================================" << endl;
-            display_movableArea();
-            cout << "====================================================================" << endl;
-
-            from = inputWrapper<string>("책사 : 어느 지역의 병력을 이동하시나요?");
-            if (game_master.isVaildArea(from))
-            {
-                to = inputWrapper<string>("책사 : 어디로 병력을 이동하시나요?");
-                if (game_master.isVaildArea(to))
-                {
-                    // command_notcompleted = 
-                    MoveOrAttack_unit(from, to);
-                }
-                else
-                {
-                    command_notcompleted = true;
-                }
-            }
-            else
-            {
-                command_notcompleted = true;
-            }
-        }
-        else if (command == 3) 
-        {
-            area = inputWrapper<string>("책사 : 업그레이드 할 지역명이 무엇인가요?");
-            command_notcompleted = upgradeArea(area);
-        }
-        else if (command == 4) 
-        {
-            command = inputWrapper<int>("1. 전체 지역 정보 조회    2. 단일 지역 정보 조회");
-            if (command == 1) 
-            {
+                cout << this->get_player_name() << "족장님이 소유하고 있는 지역 목록 ( 유닛 생산 가능 지역 목록 )" << endl;
+                cout << "====================================================================" << endl;
                 show_myWholePlace(game_master.get_gameMap()->get_wholeArea(this));
+                cout << "====================================================================" << endl;
+
+                cout << "[보병] Infantry  [궁병] Archer    [기병] Cavalry    [해병] Navy" << endl;
+
+                tendency = inputWrapper<string>("책사 : 병과를 선택하세요");
+                unitname_valid = game_master.isValidUnitTendency(tendency);
+
+                if (unitname_valid)
+                {
+                    area = inputWrapper<string>("책사 : 배치 할 지역을 입력하세요");
+                    areaname_valid = this->is_yourArea(area, false);
+                    if (areaname_valid)
+                    {
+                        product_count = inputWrapper<int>("책사 : 생산할 병력의 수를 입력하세요");
+                        command_notcompleted = produce_unit(tendency, product_count, area);
+                    }
+                    else
+                    {
+                        cout << "책사 : 족장님의 땅이 아니거나, 유효한 땅이 아닙니다!" << endl;
+                        command_notcompleted = true;
+                    }
+                }
+                else
+                {
+                    command_notcompleted = true;
+                }
             }
-            if (command == 2)
+            else if (command == 2)
             {
-                area = inputWrapper<string>("정보를 조회할 지역명");
-                game_master.get_gameMap()->showAreaInformation(area);
+                cout << "이동 가능한 지역" << endl;
+                cout << "====================================================================" << endl;
+                display_movableArea();
+                cout << "====================================================================" << endl;
+
+                from = inputWrapper<string>("책사 : 어느 지역의 병력을 이동하시나요?");
+                if (game_master.isVaildArea(from))
+                {
+                    to = inputWrapper<string>("책사 : 어디로 병력을 이동하시나요?");
+                    if (game_master.isVaildArea(to))
+                    {
+                        // command_notcompleted = 
+                        MoveOrAttack_unit(from, to);
+                    }
+                    else
+                    {
+                        cout << "책사 : 족장님의 땅이 아니거나, 유효한 땅이 아닙니다!" << endl;
+                        command_notcompleted = true;
+                    }
+                }
+                else
+                {
+                    command_notcompleted = true;
+                }
             }
-            command_notcompleted = true;
-        }
-        else if (command == 5) 
-        {
-            cout << "보유하고 있는 자원 " << endl;
-            show_myResource();
-            command_notcompleted = true;
-        }
-        else if (command == 6) 
-        {
-            Map* searching = game_master.get_gameMap();
-            command = inputWrapper<int>("1. 전체 보유 병력 조회   2. 단일 지역 병력 조회");
-            if (command == 1)
+            // command 3 : 지역 업그레이드
+            else if (command == 3)
             {
-                Army army;
-                army = searching->get_unitWhole(this);
-                cout << " 보병 : " << army.Infantrycount << endl;
-                cout << " 수군 : " << army.Navycount << endl;
-                cout << " 기병 : " << army.Cavalrycount << endl;
-                cout << " 궁병 : " << army.Archercount << endl;
-                //unitWhole 에서 병종 구분 필요
-            }
-            if (command == 2)
-            {
-                area = inputWrapper<string>("정보를 조회할 지역명");
+                area = inputWrapper<string>("책사 : 업그레이드 할 지역명이 무엇인가요?");
                 if (is_yourArea(area))
                 {
+                    command_notcompleted = upgradeArea(area);
+                }
+                else
+                {
+                    command_notcompleted = true;
+                }
+            }
+            else if (command == 4)
+            {
+                command = inputWrapper<int>("1. 전체 지역 정보 조회    2. 단일 지역 정보 조회");
+                if (command == 1)
+                {
+                    show_myWholePlace(game_master.get_gameMap()->get_wholeArea(this));
+                }
+                if (command == 2)
+                {
+                    area = inputWrapper<string>("정보를 조회할 지역명");
+                    game_master.get_gameMap()->showAreaInformation(area);
+                }
+                command_notcompleted = true;
+            }
+            else if (command == 5)
+            {
+                cout << "보유하고 있는 자원 " << endl;
+                show_myResource();
+                command_notcompleted = true;
+            }
+            else if (command == 6)
+            {
+                Map* searching = game_master.get_gameMap();
+                command = inputWrapper<int>("1. 전체 보유 병력 조회   2. 단일 지역 병력 조회");
+                if (command == 1)
+                {
                     Army army;
-                    army = searching->get_unit(area, this);
+                    army = searching->get_unitWhole(this);
                     cout << " 보병 : " << army.Infantrycount << endl;
                     cout << " 수군 : " << army.Navycount << endl;
                     cout << " 기병 : " << army.Cavalrycount << endl;
-                    cout << " 궁병 : " << army.Navycount << endl;
+                    cout << " 궁병 : " << army.Archercount << endl;
+                    //unitWhole 에서 병종 구분 필요
                 }
-                else
+                if (command == 2)
                 {
-                    cout << area << "지역은 " << this->get_player_name() << "가 소유한 땅이 아닙니다." << endl;
+                    area = inputWrapper<string>("정보를 조회할 지역명");
+                    if (is_yourArea(area))
+                    {
+                        Army army;
+                        army = searching->get_unit(area, this);
+                        cout << " 보병 : " << army.Infantrycount << endl;
+                        cout << " 수군 : " << army.Navycount << endl;
+                        cout << " 기병 : " << army.Cavalrycount << endl;
+                        cout << " 궁병 : " << army.Navycount << endl;
+                    }
+                    else
+                    {
+                        cout << area << "지역은 " << this->get_player_name() << "가 소유한 땅이 아닙니다." << endl;
+                    }
                 }
+                command_notcompleted = true;
             }
+            else if (command == 9)
+            {
+                cout << "턴 넘기기" << endl;
+            }
+            else
+            {
+                command = -1;
+                cout << "잘못된 입력입니다." << endl;
+                command_notcompleted = true;
+            }
+        }
+        catch (int e)
+        {
+            cin.ignore(INT_MAX, '\n');
+            cin.clear();
+            rewind(stdin);
             command_notcompleted = true;
-        }
-        else if (command == 9)
-        {
-            cout << "턴 넘기기" << endl;
-        }
-        else 
-        {
             command = -1;
-            cout << "잘못된 입력입니다." << endl;
-            command_notcompleted = true;
         }
     }
 }
@@ -321,21 +353,26 @@ bool Player::fight(string from_area, string to_area) {
     //공격하려는 Unit 과 공격당하는 Unit 의 공격력을 더해서 서로 차감하고
     //해당 체력에 관해 modulo 연산으로 남은 유닛을 반영한다.
 
-    while(attack_Unit.data() && under_attack_Unit.data()) { //string 함수중 Data , c_str Data 함수 사용 오류나면 c_str 함수 사용해보자
+    while(attack_Unit.data() && under_attack_Unit.data()) 
+    { //string 함수중 Data , c_str Data 함수 사용 오류나면 c_str 함수 사용해보자
         cout << "자신의 공격 할 병과를 입력하세요" << endl;
         cin >> attack_Unit;
         cout << "공격 할 병력의 수를 입력하세요 " << endl;
         cin >> count_attacker;
 
-        if(is_attackableArea(attack_Unit,from_area,to_area)) {
+        if(is_attackableArea(attack_Unit,from_area,to_area)) 
+        {
             cout << "해당 지역의 공격 대상을 입력하세요" << endl;
             cin >> under_attack_Unit;
             fightUnit->calculate_unit(to_area,under_attack_Unit,attack_Unit,count_attacker);
             ////유닛함수에서 작성하기로 햇음. -> set_Unit 까지.
+            
             return true;
         }
         else
+        {
             cout << "선택한 유닛은 해당 지역을 공격할 수 없습니다. (SYS : 사거리 부족 )" << endl;
+        }
     }
     return false;
 }

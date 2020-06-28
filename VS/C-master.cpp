@@ -407,3 +407,18 @@ bool Master::isVaildArea(string areaname)
 {
 	return _gamemap->isTrue(areaname);
 }
+
+bool Master::isValidUnitTendency(string unittendency)
+{
+	if (unittendency == "Infantry" || 
+		unittendency == "Archer" || 
+		unittendency == "Cavalry" || 
+		unittendency == "Navy")
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}

@@ -78,4 +78,5 @@ public:
 
 	//// methods - utilities
 	bool isVaildArea(string areaname);
+	bool isValidUnitTendency(string unittendency);
 };
