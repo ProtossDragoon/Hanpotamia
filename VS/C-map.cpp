@@ -73,6 +73,7 @@ void Map::set_areaInformation() {
 		area[i].arearesource->set_resource_food(0);
 		area[i].arearesource->set_resource_water(0);
 		area[i].arearesource->set_resource_gold(0);
+		area[i].occupationcost = new Resource();
 		area[i].occupationcost->set_resource_food(0);
 		area[i].occupationcost->set_resource_gold(0);
 		area[i].occupationcost->set_resource_water(0);
@@ -215,6 +216,25 @@ void Map::set_acquirableWater(string areaname) {
 	}
 }
 
+int Map::get_acquirableFood(string areaname) {
+	areainformation temp;
+	temp = findArea(areaname);
+	return temp.arearesource->get_resource_food();
+}
+
+int Map::get_acquirableGold(string areaname) {
+	areainformation temp;
+	temp = findArea(areaname);
+	return temp.arearesource->get_resource_gold();
+}
+
+int Map::get_acquirableWater(string areaname) {
+	areainformation temp;
+	temp = findArea(areaname);
+	return temp.arearesource->get_resource_water();
+}
+
+
 void Map::set_areaHost(Player* _host_player, string areaname) {
     areainformation temp;
     string host;
@@ -245,20 +265,21 @@ Army Map::get_unit(string areaname, Player* _host_player) {
 
 Army Map::get_unitWhole(Player* _host_player) {
 	string host;
-	Army temp;
+	Army* temp;
+	temp = new Army;
 	int i;
 	int cnt = 0;
 	host = _host_player->get_player_name();
 	for (i = 0; i < 30; i++) {
 		if (host == area[i].areahost) {
-			temp.Archercount += area[i].areaunit.Archercount;
-			temp.Navycount += area[i].areaunit.Navycount;
-			temp.Cavalrycount += area[i].areaunit.Cavalrycount;
-			temp.Infantrycount += area[i].areaunit.Infantrycount;
+			temp->Archercount += area[i].areaunit.Archercount;
+			temp->Navycount += area[i].areaunit.Navycount;
+			temp->Cavalrycount += area[i].areaunit.Cavalrycount;
+			temp->Infantrycount += area[i].areaunit.Infantrycount;
 			cnt++;
 		}
 	}
-	return temp;
+	return *temp;
 	if (cnt == 0) {
 		cout << host << "주인이 아닙니다." << endl;
 	}
@@ -377,4 +398,38 @@ void Map::firstArea(Player* player, int i) {
     else {
         set_areaHost(player, "은평구");
     }
+}
+
+int Map::areaLevel(string areaname) {
+	areainformation temp;
+	temp = findArea(areaname);
+	return temp.arealevel;
+}
+
+bool Map::show_conquerAbleArea(string areaHost){
+    int check=0;
+    string semihost = areaHost+"(Semi)";
+    cout << areaHost << "의 병력이 주둔하고 있는 지역을 표시합니다. " << endl;
+    cout << "===================================================" << endl;
+    for(int i=0; i<30; i++){
+        if(game_master.get_gameMap()->findArea(i).areahost==semihost) {
+            cout << game_master.get_gameMap()->findArea(i).areaname << endl;
+            check=1;
+        }
+    }
+    if(check==1)
+        return true;
+    else
+        return false;
+
+}
+
+void Map::set_SemiareaHost(Player* _host_player, string areaname) {
+    areainformation temp;
+    string host;
+    int tempnum;
+    temp = findArea(areaname);
+    host = _host_player->get_player_name()+"(Semi)";
+    tempnum = temp.areanum;
+    area[tempnum].areahost = host;
 }
