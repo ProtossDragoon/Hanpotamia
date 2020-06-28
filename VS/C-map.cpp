@@ -294,6 +294,14 @@ Army Map::get_unitWhole(Player* _host_player) {
 	string host;
 	Army* temp;
 	temp = new Army;
+	temp->Cavalrycount=0;
+	temp->Navycount=0;
+	temp->Infantrycount=0;
+	temp->Archercount=0;
+	temp->Navy=new Unit_Navy();
+	temp->Archer=new Unit_Archer();
+	temp->cavalry = new Unit_Cavalry();
+	temp->Infantry= new Unit_Infantry();
 	int i;
 	int cnt = 0;
 	host = _host_player->get_player_name();
@@ -467,7 +475,8 @@ void Map::set_SemiareaHost(Player* _host_player, string areaname) {
     area[tempnum].areahost = host;
 }
 
-bool Map::isTrue(string areaname) {
+bool Map::isTrue(string areaname) {
+
 	for (int i = 0; i < 30; i++) {
 		if (area[i].areaname == areaname) {
 			return true;

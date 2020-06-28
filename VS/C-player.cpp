@@ -11,9 +11,9 @@ Player::Player(string player_name, int current_control_time, int max_control_tim
     _player_name=player_name;
     _current_control_time=current_control_time;
     _max_control_time=max_control_time;
-    _my_resource.set_resource_food(200);
-    _my_resource.set_resource_gold(200);
     _my_resource.set_resource_water(200);
+    _my_resource.set_resource_gold(200);
+    _my_resource.set_resource_food(200);
 }
 ////setter
 
@@ -275,7 +275,7 @@ bool Player::produce_unit(string tendency, int product_count, string area) {
                    game_master.get_gameMap()->set_unit(area, tendency, set_product.areaunit.Navycount + product_count);
                else if (tendency == "Infantry")
                    game_master.get_gameMap()->set_unit(area, tendency, set_product.areaunit.Infantrycount + product_count);
-               else if (tendency == "Cabalry")
+               else if (tendency == "Cavalry")
                    game_master.get_gameMap()->set_unit(area, tendency, set_product.areaunit.Cavalrycount + product_count);
                else if (tendency == "Archer")
                    game_master.get_gameMap()->set_unit(area, tendency, set_product.areaunit.Archercount + product_count);
