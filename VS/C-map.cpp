@@ -67,16 +67,29 @@ void Map::set_areaInformation() {
 		area[i].areaunit.Cavalrycount = 0;
 		area[i].areaunit.Infantrycount = 0;
 		area[i].areaunit.Navycount = 0;
-
+		
 		area[i].arearesource = new Resource();
+		if (area[i].areatype == "육지") {
+			area[i].arearesource->set_resource_food(100);
+			area[i].arearesource->set_resource_water(100);
+			area[i].arearesource->set_resource_gold(30);
+		}
+		else{
+			area[i].arearesource->set_resource_food(50);
+			area[i].arearesource->set_resource_water(10);
+			area[i].arearesource->set_resource_gold(100);
+		}
 		area[i].occupationcost = new Resource();
-		area[i].arearesource->set_resource_food(0);
-		area[i].arearesource->set_resource_water(0);
-		area[i].arearesource->set_resource_gold(0);
-		area[i].occupationcost = new Resource();
-		area[i].occupationcost->set_resource_food(0);
-		area[i].occupationcost->set_resource_gold(0);
-		area[i].occupationcost->set_resource_water(0);
+		if (area[i].areatype == "육지") {
+			area[i].occupationcost->set_resource_food(100);
+			area[i].occupationcost->set_resource_gold(100);
+			area[i].occupationcost->set_resource_water(100);
+		}
+		else {
+			area[i].occupationcost->set_resource_food(100);
+			area[i].occupationcost->set_resource_gold(100);
+			area[i].occupationcost->set_resource_water(100);
+		}
 	}
 }
 
@@ -163,7 +176,7 @@ int Map::attackable(string startarea, string endarea) {
 
 string* Map::get_movableArea(string areaname) {
 	areainformation temp;
-	int tempnum = 0;
+	int tempnum;
 	int j = 0;
 	temp = findArea(areaname);
 	tempnum = temp.areanum;
@@ -177,61 +190,73 @@ string* Map::get_movableArea(string areaname) {
 	return temp.neighborarea;
 }
 
-void Map::get_acquirableResource(string areaname) {
-	set_acquirableFood(areaname);
-	set_acquirableGold(areaname);
-	set_acquirableWater(areaname);
+Resource* Map::get_acquirableResource(string areaname) {
+	areainformation temp;
+	temp = findArea(areaname);
+	return temp.arearesource;
 }
 
 void Map::set_acquirableFood(string areaname) {
 	areainformation temp;
+	int tempnum;
 	temp = findArea(areaname);
-	if (temp.areatype == "육지") {
-		temp.arearesource->set_resource_food(100);
+	tempnum = temp.areanum;
+	if (area[tempnum].areatype == "육지") {
+		area[tempnum].arearesource->set_resource_food(100);
 	}
 	else {
-		temp.arearesource->set_resource_food(50);
+		area[tempnum].arearesource->set_resource_food(50);
 	}
 }
 
 void Map::set_acquirableGold(string areaname) {
 	areainformation temp;
+	int tempnum;
+	tempnum = temp.areanum;
 	temp = findArea(areaname);
-	if (temp.areatype == "육지") {
-		temp.arearesource->set_resource_gold(100);
+	if (area[tempnum].areatype == "육지") {
+		area[tempnum].arearesource->set_resource_gold(100);
 	}
 	else {
-		temp.arearesource->set_resource_gold(10);
+		area[tempnum].arearesource->set_resource_gold(10);
 	}
 }
 
 void Map::set_acquirableWater(string areaname) {
 	areainformation temp;
+	int tempnum;
+	tempnum = temp.areanum;
 	temp = findArea(areaname);
-	if (temp.areatype == "육지") {
-		temp.arearesource->set_resource_water(30);
+	if (area[tempnum].areatype == "육지") {
+		area[tempnum].arearesource->set_resource_water(30);
 	}
 	else {
-		temp.arearesource->set_resource_water(100);
+		area[tempnum].arearesource->set_resource_water(100);
 	}
 }
 
 int Map::get_acquirableFood(string areaname) {
 	areainformation temp;
+	int tempnum;
 	temp = findArea(areaname);
-	return temp.arearesource->get_resource_food();
+	tempnum = temp.areanum;
+	return area[tempnum].arearesource->get_resource_food();
 }
 
 int Map::get_acquirableGold(string areaname) {
 	areainformation temp;
+	int tempnum;
 	temp = findArea(areaname);
-	return temp.arearesource->get_resource_gold();
+	tempnum = temp.areanum;
+	return area[tempnum].arearesource->get_resource_gold();
 }
 
 int Map::get_acquirableWater(string areaname) {
 	areainformation temp;
+	int tempnum;
 	temp = findArea(areaname);
-	return temp.arearesource->get_resource_water();
+	tempnum = temp.areanum;
+	return area[tempnum].arearesource->get_resource_water();
 }
 
 
@@ -433,4 +458,13 @@ void Map::set_SemiareaHost(Player* _host_player, string areaname) {
     host = _host_player->get_player_name()+"(Semi)";
     tempnum = temp.areanum;
     area[tempnum].areahost = host;
+}
+
+bool Map::isTrue(string areaname) {
+	for (int i = 0; i < 30; i++) {
+		if (area[i].areaname == areaname) {
+			return true;
+		}
+	}
+	return false;
 }

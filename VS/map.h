@@ -39,11 +39,11 @@ public:
 	Map(int _max_area);
 	~Map();
 	string get_occupationPlayer(string areaname);
-	Resource *get_occupationCost(string areaname);
+	Resource* get_occupationCost(string areaname);
 	int get_acquirableFood(string areaname);
 	int get_acquirableGold(string areaname);
 	int get_acquirableWater(string areaname);
-	void get_acquirableResource(string areaname);
+	Resource* get_acquirableResource(string areaname);
 	string* get_movableArea(string areaname);
 	Army get_unit(string areaname, Player* _host_player);
 	Army get_unitWhole(Player* _host_player);
@@ -58,14 +58,14 @@ public:
 	void set_unit(string areaname, string tendency, int count);
 
 	areainformation findArea(int areaNum);
-    areainformation findArea(string areaname);
+	areainformation findArea(string areaname);
 	areainformation* get_wholeMap();
 	void upgrade_Area(string areaname);
 	void showAreaInformation(string areaname);
 	int attackable(string startarea, string endarea);
 	void firstArea(Player* player, int i);
 	int areaLevel(string areaname);
-    bool show_conquerAbleArea(string areaHost);
-    void set_SemiareaHost(Player* _host_player, string areaname);
-
-    };
+	bool show_conquerAbleArea(string areaHost);
+	void set_SemiareaHost(Player* _host_player, string areaname);
+	bool isTrue(string areaname);
+};
