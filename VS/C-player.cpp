@@ -275,7 +275,7 @@ bool Player::produce_unit(string tendency, int product_count, string area) {
                    game_master.get_gameMap()->set_unit(area, tendency, set_product.areaunit.Navycount + product_count);
                else if (tendency == "Infantry")
                    game_master.get_gameMap()->set_unit(area, tendency, set_product.areaunit.Infantrycount + product_count);
-               else if (tendency == "Cabalry")
+               else if (tendency == "Cavalry")
                    game_master.get_gameMap()->set_unit(area, tendency, set_product.areaunit.Cavalrycount + product_count);
                else if (tendency == "Archer")
                    game_master.get_gameMap()->set_unit(area, tendency, set_product.areaunit.Archercount + product_count);
