@@ -403,10 +403,16 @@ int* Map::get_wholeArea(Player* _host_player) {
 	temp = _host_player->get_player_name();
 	int* wholeArea;
 	wholeArea = new int [30];
-	for (int i = 0; i < 30; i++) {
-        if (temp == area[i].areahost) {
+	for (int i = 0; i < 30; i++) 
+	{
+        if (temp == area[i].areahost) 
+		{
             wholeArea[i] = 1;
         }
+		else
+		{
+			wholeArea[i] = 0;
+		}
     }
 	return wholeArea;
 }
