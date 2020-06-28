@@ -228,7 +228,7 @@ void Unit::calculate_unit(string to, string underattack_tendency, string attack_
         searching->set_unit(to, underattack_tendency, leftcnt);
     }
 }
-bool Unit::TFtendency(string name) 
+bool Unit::isValidTendency(string name)
 {
     if (name == "Infantry" || name == "Archer" || name == "Cavalry" || name == "Navy")
     {

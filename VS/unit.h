@@ -55,14 +55,11 @@ public:
     int get_attack_range() { return _attack_range; };
     int get_unit_cnt() { return _unit_cnt; };
 
-    //?⑥닔
-
- 
-
+    //func
     //병력이 공격해서 변화하는 상대병력의 수를 계산   
 	void calculate_unit(string to, string undetattack_tendency, string attack_tendency, int cnt);
     //존재하는 병종인지
-    bool TFtendency(string name);
+    bool isValidTendency(string name);
 };
 
 
