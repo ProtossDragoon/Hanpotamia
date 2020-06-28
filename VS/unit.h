@@ -61,7 +61,8 @@ public:
 
     //병력이 공격해서 변화하는 상대병력의 수를 계산   
 	void calculate_unit(string to, string undetattack_tendency, string attack_tendency, int cnt);
-
+    //존재하는 병종인지
+    bool TFtendency(string name);
 };
 
 
