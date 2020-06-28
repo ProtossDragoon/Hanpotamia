@@ -75,4 +75,7 @@ public:
 	void readMaxCommandCntAndResetCommandCnt(Player*);
 	void calculateAndSetAllPlayersMaxCommandCnt();
 	void checkAllPlayersAlive();
+
+	//// methods - utilities
+	bool isVaildArea(string areaname);
 };

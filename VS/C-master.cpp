@@ -324,7 +324,6 @@ void Master::showGameDiscription()
 
 
 //// methods - rule management
-
 void Master::readMaxCommandCntAndResetCommandCnt(Player *player)
 {
 	int max_command_cnt = player->get_maxControlCnt();
@@ -395,3 +394,9 @@ void Master::checkAllPlayersAlive()
 	}
 }
 
+
+//// methods - utilities
+bool Master::isVaildArea(string areaname)
+{
+	return _gamemap->isTrue(areaname);
+}
