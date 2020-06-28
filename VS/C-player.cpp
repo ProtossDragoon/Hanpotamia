@@ -177,16 +177,20 @@ void Player::selectAction() {
                     command_notcompleted = true;
                 }
             }
+            // command 2 : 유닛 이동 및 공격
             else if (command == 2)
             {
-                cout << "이동 가능한 지역" << endl;
-                cout << "====================================================================" << endl;
-                display_movableArea();
-                cout << "====================================================================" << endl;
+                // cout << "이동 가능한 지역" << endl;
+                // cout << "====================================================================" << endl;
+                // display_movableArea();
+                // cout << "====================================================================" << endl;
 
                 from = inputWrapper<string>("책사 : 어느 지역의 병력을 이동하시나요?");
                 if (game_master.isVaildArea(from))
                 {
+                    // 인접한 지역 출력
+                    game_master.showNearbyArea(from);
+                    
                     to = inputWrapper<string>("책사 : 어디로 병력을 이동하시나요?");
                     if (game_master.isVaildArea(to))
                     {
@@ -217,6 +221,7 @@ void Player::selectAction() {
                     command_notcompleted = true;
                 }
             }
+            // command 4 : 보유 지역 조회
             else if (command == 4)
             {
                 command = inputWrapper<int>("1. 전체 지역 정보 조회    2. 단일 지역 정보 조회");
@@ -231,12 +236,14 @@ void Player::selectAction() {
                 }
                 command_notcompleted = true;
             }
+            // command 5 : 보유 자원 조회
             else if (command == 5)
             {
                 cout << "보유하고 있는 자원 " << endl;
                 show_myResource();
                 command_notcompleted = true;
             }
+            // command 6 : 보유 병력 조회
             else if (command == 6)
             {
                 Map* searching = game_master.get_gameMap();
@@ -270,10 +277,12 @@ void Player::selectAction() {
                 }
                 command_notcompleted = true;
             }
+            // command 9 : 턴 넘기기
             else if (command == 9)
             {
                 cout << "턴 넘기기" << endl;
             }
+            // command else : 범위를 벗어나는 숫자 입력
             else
             {
                 command = -1;
@@ -355,10 +364,10 @@ bool Player::fight(string from_area, string to_area) {
 
     while(attack_Unit.data() && under_attack_Unit.data()) 
     { //string 함수중 Data , c_str Data 함수 사용 오류나면 c_str 함수 사용해보자
-        cout << "자신의 공격 할 병과를 입력하세요" << endl;
-        cin >> attack_Unit;
-        cout << "공격 할 병력의 수를 입력하세요 " << endl;
-        cin >> count_attacker;
+
+        cout << "[보병] Infantry  [궁병] Archer    [기병] Cavalry    [해병] Navy" << endl;
+        attack_Unit = inputWrapper<string>("자신의 공격 할 병과를 입력하세요");
+        count_attacker = inputWrapper<int>("공격 할 병력의 수를 입력하세요");
 
         if(is_attackableArea(attack_Unit,from_area,to_area)) 
         {
@@ -385,10 +394,9 @@ void Player::move(string from, string to) {
 
     if (this->is_yourArea(from)) {
         game_master.get_gameMap()->showAreaInformation(from);
-        cout << endl << " 움직일 병과를 입력하세요 " << endl;
-        cin >> tendency;
-        cout << " 움직일 병력의 수를 입력하세요 " << endl;
-        cin >> count;
+        cout << "[보병] Infantry  [궁병] Archer    [기병] Cavalry    [해병] Navy" << endl;
+        tendency = inputWrapper<string>("움직일 병과를 입력하세요");
+        count = inputWrapper<int>("움직일 병력의 수를 입력하세요");
         if (is_movableArea(tendency, from, to)) {
 
             game_master.get_gameMap()->set_unit(to, tendency, count);

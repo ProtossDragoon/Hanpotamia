@@ -69,6 +69,7 @@ public:
 
 	//// methods - gmae explanation
 	void showGameDiscription();
+	void showNearbyArea(string areaname);
 
 
 	//// methods - rule management
@@ -79,4 +80,5 @@ public:
 	//// methods - utilities
 	bool isVaildArea(string areaname);
 	bool isValidUnitTendency(string unittendency);
+	void countDownTimer(int second, string text);
 };

@@ -177,6 +177,13 @@ int Map::attackable(string startarea, string endarea) {
 }
 
 string* Map::get_movableArea(string areaname) {
+	// 이거 동적할당으로 바뀌었으니까 이거 콜한 함수들 다 시발 free 하세욘~
+	string* nearbyinfotemp = new string[30];
+	for (int i = 0; i < 30; i++)
+	{
+		// init
+		nearbyinfotemp[i] = "NO";
+	}
 	areainformation temp;
 	int tempnum;
 	int j = 0;
@@ -184,12 +191,13 @@ string* Map::get_movableArea(string areaname) {
 	tempnum = temp.areanum;
 	for (int i = 0; i < _max_area; i++) {
 		if (_route[tempnum][i] == 1) {
-			temp.neighborarea[j] = area[i].areaname;
+			// cout << (area[i].areaname) << endl;
+			nearbyinfotemp[j] = area[i].areaname;
 			j++;
 		}
 	}
-	temp.neighborarea[j]="NO";
-	return temp.neighborarea;
+	nearbyinfotemp[j]="NO";
+	return nearbyinfotemp;
 }
 
 Resource* Map::get_acquirableResource(string areaname) {

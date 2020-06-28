@@ -211,8 +211,7 @@ void Master::playerTurnEnd(Player *player)
 {
 	// 목적 : 이 플레이어의 동작 마무리 및 갱신
 	set_gameState("playerTurnEnd");
-
-	Sleep(2000);
+	countDownTimer(2, "player change");
 }
 
 //// methods - flow management
@@ -221,6 +220,7 @@ void Master::turnCycleEnd()
 {
 	// 목적 : 모든 플레이어의 차례가 끝났을 때
 	set_gameState("turnCycleEnd");
+	system("cls");
 
 	// -- 플레이어의 멸망을 체크
 	checkAllPlayersAlive();
@@ -322,6 +322,20 @@ void Master::showGameDiscription()
 	cout << "■■■■■■■■■■■■■■■■■■■■■■" << endl;
 }
 
+void Master::showNearbyArea(string areaname)
+{
+	string* nearby_areaname = get_gameMap()->get_movableArea(areaname);
+	string tempstr = nearby_areaname[0];
+	int i = 0;
+	cout << areaname << " 의 인접 지역 : ";
+	while (tempstr != "NO")
+	{ 
+		cout << tempstr << " ";
+		i += 1;
+		tempstr = nearby_areaname[i];
+	}
+}
+
 
 //// methods - rule management
 void Master::readMaxCommandCntAndResetCommandCnt(Player *player)
@@ -380,6 +394,7 @@ void Master::checkAllPlayersAlive()
 {
 	int myplace_cnt;
 	int* myplace_arr;
+	cout << "■■■■■■■■■■■■■■■■■■■■■■" << endl;
 	for (int i = 1; i <= _player_cnt; i++)
 	{
 		cout << "족장 " << _player[i]->get_player_name() <<" : ";
@@ -399,6 +414,7 @@ void Master::checkAllPlayersAlive()
 			set_isPlayerAlive(i, false);
 		}
 	}
+	cout << "■■■■■■■■■■■■■■■■■■■■■■" << endl;
 }
 
 
@@ -420,5 +436,16 @@ bool Master::isValidUnitTendency(string unittendency)
 	else
 	{
 		return false;
+	}
+}
+
+void Master::countDownTimer(int second, string text)
+{
+	cout << endl;
+	for (int i = second; i >= 0; i--)
+	{
+		cout << text << " in " << i << " second(s)";
+		Sleep(1000);
+		cout << "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b";
 	}
 }
