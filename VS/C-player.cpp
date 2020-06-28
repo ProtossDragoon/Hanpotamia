@@ -120,9 +120,12 @@ void Player::selectAction() {
             // 동작 수정 요청 : 나의 병력이 존재하는 곳들을 확인하고,
             // 나의 병력이 존재하는 곳들의 지역이 아무의 소유도 되지 않은 지역임을 확인
             // 아무도 점령하지 않은 지역이면, 해당 지역 목록을 화면에 출력
-            cout << " 점령 할 지역을 선택하세요 " << endl;
-            cin >> area;
-            command_notcompleted = conquerArea(area);
+            if(game_master.get_gameMap()->show_conquerAbleArea(this->get_player_name())) {
+                cout << " 점령 할 지역을 선택하세요 " << endl;
+                cin >> area;
+                command_notcompleted = conquerArea(area);
+            }else cout << "점령 가능한 지역이 없습니다. " << endl;
+
         }
         else if (command == 1) {
             // fixme : 내가 가지고 있는 지역에서 병력을 생산할 수 있는 것이니까
@@ -266,7 +269,7 @@ bool Player::produce_unit(string tendency, int product_count, string area) {
                    game_master.get_gameMap()->set_unit(area, tendency, set_product.areaunit.Navycount + product_count);
                else if (tendency == "Infantry")
                    game_master.get_gameMap()->set_unit(area, tendency, set_product.areaunit.Infantrycount + product_count);
-               else if (tendency == "cabalry")
+               else if (tendency == "Cabalry")
                    game_master.get_gameMap()->set_unit(area, tendency, set_product.areaunit.Cavalrycount + product_count);
                else if (tendency == "Archer")
                    game_master.get_gameMap()->set_unit(area, tendency, set_product.areaunit.Archercount + product_count);
@@ -329,7 +332,6 @@ bool Player::fight(string from_area, string to_area) {
             cin >> under_attack_Unit;
             fightUnit->calculate_unit(to_area,under_attack_Unit,attack_Unit,count_attacker);
             ////유닛함수에서 작성하기로 햇음. -> set_Unit 까지.
-            discount_currentControlCnt();
             return true;
         }
         else
@@ -343,9 +345,10 @@ void Player::move(string from, string to) {
     int count;
     int from_areaTendencyCount;
 
-    if(this->is_yourArea(from)) {
+
+    if (this->is_yourArea(from)) {
         game_master.get_gameMap()->showAreaInformation(from);
-        cout << endl << " 움직일 병과를 입력하세요 " << endl ;
+        cout << endl << " 움직일 병과를 입력하세요 " << endl;
         cin >> tendency;
         cout << " 움직일 병력의 수를 입력하세요 " << endl;
         cin >> count;
@@ -366,15 +369,13 @@ void Player::move(string from, string to) {
 
             cout << count << " 명의 " << tendency << " (이)가 " << to << " 지역에 주둔합니다. " << endl;
             cout << "===========>> 지역의 소유권을 얻기 위해서 Conquer 하십시오 <<=============" << endl;
-
             game_master.get_gameMap()->set_unit(from, tendency, from_areaTendencyCount - count);
+            game_master.get_gameMap()->set_SemiareaHost(this,to);
 
-            discount_currentControlCnt();
         } else cout << "선택한 유닛은 해당 지역으로 움직일 수 없습니다. (SYS : 이동 거리 부족 )" << endl;
-    }else cout << "해당 지역의 유닛을 컨트롤 할 수 없습니다. (SYS : 지역의 호스트가 아닙니다. )" << endl;
+    } else cout << "해당 지역의 유닛을 컨트롤 할 수 없습니다. (SYS : 지역의 호스트가 아닙니다. )" << endl;
+
 }
-
-
 bool Player::upgradeArea(string area) {
     // 지역업그레이드 함수
     Resource upgradecost;
@@ -389,7 +390,6 @@ bool Player::upgradeArea(string area) {
         if(upgradecost.check_resource(this->get_myResource(),&upgradecost)) 
         {
             game_master.get_gameMap()->upgrade_Area(area);
-            discount_currentControlCnt();
             success_procedure("지역 업그레이드");
             return false;
         }
@@ -406,7 +406,6 @@ bool Player::upgradeArea(string area) {
         if(upgradecost.check_resource(this->get_myResource(),&upgradecost)) 
         {
             game_master.get_gameMap()->upgrade_Area(area);
-            discount_currentControlCnt();
             success_procedure("지역 업그레이드");
             return false;
         }
@@ -437,33 +436,30 @@ bool Player::conquerArea(string areaName) {
     // 이용자의 병력이 존재하는 지역 중 점령당하지 않은 지역을 반환해야 함.
     // 그런데, 지금은 그냥 나의 병력이 존재하지 않는 지역도 입력을 받고 봄.
 
-    if(is_yourArea(areaName)) 
-    {
-        ////자원확인
-        if(research.check_resource(this->get_myResource(),game_master.get_gameMap()->get_occupationCost(areaName))) {
-            setting = game_master.get_gameMap()->get_areaInformation(areaName);
-            setting.areahost = this->get_player_name();
-            success_procedure("지역 정복");
-            cout << "이제부터 " << areaName << " 지역을 " << this->get_player_name() << "님이 소유 합니다." << endl;
-            discount_currentControlCnt();
-            ////자원획득
-            this->set_my_resource(
-                    this->get_myResource()->get_resource_food() + setting.arearesource->get_resource_food(),
-                    this->get_myResource()->get_resource_gold() + setting.arearesource->get_resource_gold(),
-                    this->get_myResource()->get_resource_water() + setting.arearesource->get_resource_water());
-            show_myResource();
+
+        if (game_master.get_gameMap()->get_areaInformation(areaName).areahost==this->get_player_name()+"(Semi)") {
+            ////자원확인
+            if (research.check_resource(this->get_myResource(),
+                                        game_master.get_gameMap()->get_occupationCost(areaName))) {
+                setting = game_master.get_gameMap()->get_areaInformation(areaName);
+                setting.areahost = this->get_player_name();
+                success_procedure("지역 정복");
+                cout << "이제부터 " << areaName << " 지역을 " << this->get_player_name() << "님이 소유 합니다." << endl;
+                ////자원획득
+                this->set_my_resource(
+                        this->get_myResource()->get_resource_food() + setting.arearesource->get_resource_food(),
+                        this->get_myResource()->get_resource_gold() + setting.arearesource->get_resource_gold(),
+                        this->get_myResource()->get_resource_water() + setting.arearesource->get_resource_water());
+                show_myResource();
+            } else {
+                cout << "책사 : 자원이 부족하여 지역 점령을 하지 못합니다." << endl;
+                return true; // 미완료 flag 세우기.
+            }
+        } else {
+            cout << "책사 : 족장님의 병력이 주둔하는 지역이 아닙니다." << endl;
+            return true; // 미완료 flag 세우기
         }
-        else
-        {
-            cout << "책사 : 자원이 부족하여 지역 점령을 하지 못합니다." << endl;
-            return true; // 미완료 flag 세우기.
-        }
-    }
-    else
-    {
-        cout << "책사 : 족장님의 지역이 아닙니다." << endl;
-        return true; // 미완료 flag 세우기
-    }
+
 }
 
 
