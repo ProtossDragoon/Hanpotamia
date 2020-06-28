@@ -131,11 +131,11 @@ void Player::selectAction() {
             }
             */
 
-            // command 0 : 
+            // command 0 : 지역 점령
             if (command == 0) {
                 if (game_master.get_gameMap()->show_conquerAbleArea(this->get_player_name()))
                 {
-                    area = inputWrapper<int>("점령 할 지역을 선택하세요");
+                    area = inputWrapper<string>("점령 할 지역을 선택하세요");
                     command_notcompleted = conquerArea(area);
                 }
                 else
@@ -144,6 +144,7 @@ void Player::selectAction() {
                     command_notcompleted = true;
                 }
             }
+            // command 1 : 유닛 생산
             else if (command == 1)
             {
                 cout << this->get_player_name() << "족장님이 소유하고 있는 지역 목록 ( 유닛 생산 가능 지역 목록 )" << endl;
@@ -151,7 +152,7 @@ void Player::selectAction() {
                 show_myWholePlace(game_master.get_gameMap()->get_wholeArea(this));
                 cout << "====================================================================" << endl;
 
-                cout << "[보병] Infantry  [궁병] Archery    [기병] Cavalry    [해병] Navy" << endl;
+                cout << "[보병] Infantry  [궁병] Archer    [기병] Cavalry    [해병] Navy" << endl;
 
                 tendency = inputWrapper<string>("책사 : 병과를 선택하세요");
                 unitname_valid = game_master.isValidUnitTendency(tendency);
@@ -194,6 +195,7 @@ void Player::selectAction() {
                     }
                     else
                     {
+                        cout << "책사 : 족장님의 땅이 아니거나, 유효한 땅이 아닙니다!" << endl;
                         command_notcompleted = true;
                     }
                 }
@@ -202,10 +204,18 @@ void Player::selectAction() {
                     command_notcompleted = true;
                 }
             }
+            // command 3 : 지역 업그레이드
             else if (command == 3)
             {
                 area = inputWrapper<string>("책사 : 업그레이드 할 지역명이 무엇인가요?");
-                command_notcompleted = upgradeArea(area);
+                if (is_yourArea(area))
+                {
+                    command_notcompleted = upgradeArea(area);
+                }
+                else
+                {
+                    command_notcompleted = true;
+                }
             }
             else if (command == 4)
             {
