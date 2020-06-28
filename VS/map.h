@@ -65,4 +65,7 @@ public:
 	int attackable(string startarea, string endarea);
 	void firstArea(Player* player, int i);
 	int areaLevel(string areaname);
-};
+    bool show_conquerAbleArea(string areaHost);
+    void set_SemiareaHost(Player* _host_player, string areaname);
+
+    };

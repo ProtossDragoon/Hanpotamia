@@ -404,3 +404,31 @@ int Map::areaLevel(string areaname) {
 	temp = findArea(areaname);
 	return temp.arealevel;
 }
+
+bool Map::show_conquerAbleArea(string areaHost){
+    int check=0;
+    string semihost = areaHost+"(Semi)";
+    cout << areaHost << "의 병력이 주둔하고 있는 지역을 표시합니다. " << endl;
+    cout << "===================================================" << endl;
+    for(int i=0; i<30; i++){
+        if(game_master.get_gameMap()->findArea(i).areahost==semihost) {
+            cout << game_master.get_gameMap()->findArea(i).areaname << endl;
+            check=1;
+        }
+    }
+    if(check==1)
+        return true;
+    else
+        return false;
+
+}
+
+void Map::set_SemiareaHost(Player* _host_player, string areaname) {
+    areainformation temp;
+    string host;
+    int tempnum;
+    temp = findArea(areaname);
+    host = _host_player->get_player_name()+"(Semi)";
+    tempnum = temp.areanum;
+    area[tempnum].areahost = host;
+}
