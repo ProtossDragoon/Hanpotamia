@@ -36,7 +36,7 @@ Unit_Infantry::Unit_Infantry() : Unit()
     _resource_food = 10;
     _troop_production = 5;
     _moving_range = 2;
-    _moving_area_type = 0;//수정
+    _moving_area_type = 0;
     _attack_range = 1;
     _unit_cnt = 0;
 }
@@ -53,7 +53,7 @@ Unit_Archer::Unit_Archer() : Unit()
     _resource_food = 5;
     _troop_production = 3;
     _moving_range = 1;
-    _moving_area_type = 0;//수정
+    _moving_area_type = 0;
     _attack_range = 2;
     _unit_cnt = 0;
 }
@@ -70,7 +70,7 @@ Unit_Cavalry::Unit_Cavalry() : Unit()
     _resource_food = 10;
     _troop_production = 5;
     _moving_range = 2;
-    _moving_area_type = 0;//수정
+    _moving_area_type = 0;
     _attack_range = 1;
     _unit_cnt = 0;
 }
@@ -87,7 +87,7 @@ Unit_Navy::Unit_Navy() : Unit()
     _resource_food = 20;
     _troop_production = 2;
     _moving_range = 2;
-    _moving_area_type = 2;//수정
+    _moving_area_type = 2;
     _attack_range = 3;
     _unit_cnt = 0;
 }
@@ -127,7 +127,7 @@ void Unit::set_moving_range(int movingrange)
 {
     _moving_range = movingrange;
 }
-void Unit::set_moving_area_type(int movingareatype)//보병이 물에서 다닐수 있게 한다면 사용
+void Unit::set_moving_area_type(int movingareatype)
 {
     _moving_area_type = movingareatype;
 }
@@ -140,31 +140,12 @@ void Unit::set_unit_cnt(int cnt)
     _unit_cnt = cnt;
 }
 
-//func
-
-
-//int Unit::totalattackdamage(Unit *attack_tendency, int cnt)
-//{
-//    return attack_tendency->get_attack_damage() * cnt;
-//}
-//
-//int Unit::calculate_underattack_hp(string to, Unit underattack_tendency) 
-//{
-//
-//}
-//
-//
-//void Unit::calculate_unit(string to, string undetattack_tendency, string attack_tendency, int cnt) 
-//{
-//    totalattackdamage(attack_tendency, cnt);
-//
-//}
 
 
 
 
-void Unit::calculate_unit(string to, string underattack_tendency, string attack_tendency, int cnt)
-{
+void Unit::calculate_unit(string to, string underattack_tendency, string attack_tendency, int cnt)//전투계산은 공격하는 병종의 공격력과 인원수의 곱(totalattackdamage)를 상대방의 전체체력(totalhp)에서
+{                                                                                                 //뺀 후에 남은 int를 상대방의 한 기당 체력과 인원수로 나누어 남은 인원수를 구하는 방식으로 함
     Map* searching=game_master.get_gameMap();
     int totalattackdamage;
     int totalhp;

@@ -34,9 +34,8 @@ public:
     void add_resource_water(int water);
 
     //func
-
+    //플레이어가 보유한 자원과 필요한 자원의 양을 비교하여 행동을 수행할 수 있는지 확인
     bool check_resource(Resource* player, Resource* need);
-    ////??��별로 ?�요?�니??
-
+    //유닛을 생산하는데 필요한 자원양계산
     Resource * calculate_produce_unit(string tendency, int cnt);
 };
