@@ -40,12 +40,12 @@ public :
     //Control Function
     //병과, ?�산 ???�자�??��?
     void selectAction();
-    void produce_unit(string tendency, int product_count,string area);
+    bool produce_unit(string tendency, int product_count,string area);
     void MoveOrAttack_unit(string from, string to);
     bool fight(string from_area, string to_area);
     void move(string from_area, string to_area);
-    void upgradeArea(string area);
-    void conquerArea(string areaName);
+    bool upgradeArea(string area);
+    bool conquerArea(string areaName);
     void display_movableArea();
     bool is_yourArea(string area);
     static bool is_attackableArea(string attack_Unit, string from_area,string to_area);

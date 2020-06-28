@@ -2,6 +2,7 @@
 #include<iostream>
 #include<string>
 #include<stdlib.h>
+#include<Windows.h>
 using namespace std;
 
 //// Constructor
@@ -47,7 +48,7 @@ void Master::gameReady(int initial_player_cnt)
 
 	_player_cnt = initial_player_cnt;
 	_turn_passed = 0;
-	_turn_available = 100;
+	_turn_available = 5;
 
 	// -- 플레이어 할당
 	if (initial_player_cnt <= 0)
@@ -79,6 +80,7 @@ void Master::gameReady(int initial_player_cnt)
 			_player[i] = new Player(tempname, 2, 2);
 			_is_player_alive[i] = true;
 		}
+
 		_player_score = new int[_player_cnt+1];
 		_player_score[0] = -1;
 		for (int i = 1; i <= _player_cnt; i++)
@@ -100,13 +102,55 @@ void Master::gameReady(int initial_player_cnt)
 	    _gamemap->firstArea(_player[i],i);
 	system("cls");
 	showGameDiscription();
+	for (int i = 3; i >= 0; i--)
+	{
+		cout << "start in " << i << " second(s)";
+		Sleep(1000);
+		cout << "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b";
+	}
+
+	cout << "Mission Object      " << endl;
+	cout << "상대의 모든 점령지를 빼앗고, 한강 유역 문명의 주인이 되어라";
+
+	Sleep(3000);
+
+	system("cls");
 }
 
 //// methods - flow management
 // 모든 플레이어의 턴을 준비할 때 수행
 void Master::turnCycleStart()
 {
+	// 목적 : 모든 플레이어의 턴을 시작할 때 공통되는 로직 수행
 	set_gameState("turnCycleStart");
+
+	// -- 모든 플레이어의 가용 턴 복구
+	for (int i = 1; i <= _player_cnt; i++)
+	{
+		_player[i]->set_currentControlCnt(_player[i]->get_maxControlCnt());
+	}
+
+	// -- 모든 플레이어 자원 지급
+	int temp_food = 0;
+	int temp_gold = 0;
+	int temp_water = 0;	
+	for (int i = 1; i <= _player_cnt; i++)
+	{
+		temp_food = 0;
+		temp_gold = 0;
+		temp_water = 0;
+		_player[i]->get_myPlace();
+		for (int j = 0; j < 30; j++)
+		{
+			temp_food += _gamemap->get_acquirableFood((_gamemap->findArea(j)).areaname);
+			temp_gold += _gamemap->get_acquirableGold((_gamemap->findArea(j)).areaname);
+			temp_water += _gamemap->get_acquirableWater((_gamemap->findArea(j)).areaname);
+		}
+		_player[i]->get_myResource()->add_resource_food(temp_food);
+		_player[i]->get_myResource()->add_resource_gold(temp_gold);
+		_player[i]->get_myResource()->add_resource_water(temp_water);
+	}
+	
 }
 
 //// methods - flow management
@@ -114,17 +158,21 @@ void Master::turnCycleStart()
 // reutrn : 이 플레이어가 턴을 받았을 때 동작할 수 있는 회수
 int Master::playerTrunStart(Player *player)
 {
-	// 목적 : 특정 플레이어의 턴이 시작되면 어떻게 해야겠어. 0이었던 턴도 다시 주고 해야지.
+	// 목적 : 특정 플레이어의 턴이 시작
 	set_gameState("playerTrunStart");
 
 	/*	플레이어가 죽었을 경우 관련해서 이 함수에서 처리해줄 것.
 	 	즉, Player 배열에서 데이터 빼고 버리지 말고 여기서 흐름 처리.*/
+
 
 	// -- 만약 멸망한 플레이어라면 주지 않음.
 	if (!get_isPlayerAlive(player))
 	{
 		return 0;
 	}
+
+	system("cls");
+	showGameDiscription();
 
 	return player->get_maxControlCnt();
 }
@@ -163,6 +211,8 @@ void Master::playerTurnEnd(Player *player)
 {
 	// 목적 : 이 플레이어의 동작 마무리 및 갱신
 	set_gameState("playerTurnEnd");
+
+	Sleep(2000);
 }
 
 //// methods - flow management

@@ -40,6 +40,9 @@ public:
 	~Map();
 	string get_occupationPlayer(string areaname);
 	Resource *get_occupationCost(string areaname);
+	int get_acquirableFood(string areaname);
+	int get_acquirableGold(string areaname);
+	int get_acquirableWater(string areaname);
 	void get_acquirableResource(string areaname);
 	string* get_movableArea(string areaname);
 	Army get_unit(string areaname, Player* _host_player);
@@ -61,4 +64,5 @@ public:
 	void showAreaInformation(string areaname);
 	int attackable(string startarea, string endarea);
 	void firstArea(Player* player, int i);
+	int areaLevel(string areaname);
 };

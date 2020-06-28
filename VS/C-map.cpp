@@ -27,36 +27,36 @@ void Map::set_areaInformation() {
 	int i, j;
 	areainformation temp;
 	string tempareaname;
-	game_master.get_gameMap()->area[0] = { "강남구",0,"육지",1 };
-	game_master.get_gameMap()->area[1] = { "용산구",1,"육지",1 };
-	game_master.get_gameMap()->area[2] = { "서초구",2,"육지",1 };
-	game_master.get_gameMap()->area[3] = { "송파구",3,"육지",1 };
-	game_master.get_gameMap()->area[4] = { "마포구",4,"육지",1 };
-	game_master.get_gameMap()->area[5] = { "성동구",5,"육지",1 };
-	game_master.get_gameMap()->area[6] = { "동작구",6,"육지",1 };
-	game_master.get_gameMap()->area[7] = { "영등포구",7,"육지",1 };
-	game_master.get_gameMap()->area[8] = { "광진구",8,"육지",1 };
-	game_master.get_gameMap()->area[9] = { "종로구",9,"육지",1 };
-	game_master.get_gameMap()->area[10] = { "중구",10,"육지",1 };
-	game_master.get_gameMap()->area[11] = { "강동구",11,"육지",1 };
-	game_master.get_gameMap()->area[12] = { "양천구",12,"육지",1 };
-	game_master.get_gameMap()->area[13] = { "동대문구",13,"육지",1 };
-	game_master.get_gameMap()->area[14] = { "서대문구",14,"육지",1 };
-	game_master.get_gameMap()->area[15] = { "강서구",15,"육지",1 };
-	game_master.get_gameMap()->area[16] = { "관악구",16,"육지",1 };
-	game_master.get_gameMap()->area[17] = { "성북구",17,"육지",1 };
-	game_master.get_gameMap()->area[18] = { "은평구",18,"육지",1 };
-	game_master.get_gameMap()->area[19] = { "노원구",19,"육지",1 };
-	game_master.get_gameMap()->area[20] = { "구로구",20,"육지",1 };
-	game_master.get_gameMap()->area[21] = { "중랑구",21,"육지",1 };
-	game_master.get_gameMap()->area[22] = { "금천구",22,"육지",1 };
-	game_master.get_gameMap()->area[23] = { "강북구",23,"육지",1 };
-	game_master.get_gameMap()->area[24] = { "도봉구",24,"육지",1 };
-	game_master.get_gameMap()->area[25] = { "강1",25,"강",1 };
-	game_master.get_gameMap()->area[26] = { "강2",26,"강",1 };
-	game_master.get_gameMap()->area[27] = { "강3",27,"강",1 };
-	game_master.get_gameMap()->area[28] = { "강4",28,"강",1 };
-	game_master.get_gameMap()->area[29] = { "강5",29,"강",1 };
+	area[0] = { "강남구",0,"육지",1 };
+	area[1] = { "용산구",1,"육지",1 };
+	area[2] = { "서초구",2,"육지",1 };
+	area[3] = { "송파구",3,"육지",1 };
+	area[4] = { "마포구",4,"육지",1 };
+	area[5] = { "성동구",5,"육지",1 };
+	area[6] = { "동작구",6,"육지",1 };
+	area[7] = { "영등포구",7,"육지",1 };
+	area[8] = { "광진구",8,"육지",1 };
+	area[9] = { "종로구",9,"육지",1 };
+	area[10] = { "중구",10,"육지",1 };
+	area[11] = { "강동구",11,"육지",1 };
+	area[12] = { "양천구",12,"육지",1 };
+	area[13] = { "동대문구",13,"육지",1 };
+	area[14] = { "서대문구",14,"육지",1 };
+	area[15] = { "강서구",15,"육지",1 };
+	area[16] = { "관악구",16,"육지",1 };
+	area[17] = { "성북구",17,"육지",1 };
+	area[18] = { "은평구",18,"육지",1 };
+	area[19] = { "노원구",19,"육지",1 };
+	area[20] = { "구로구",20,"육지",1 };
+	area[21] = { "중랑구",21,"육지",1 };
+	area[22] = { "금천구",22,"육지",1 };
+	area[23] = { "강북구",23,"육지",1 };
+	area[24] = { "도봉구",24,"육지",1 };
+	area[25] = { "강1",25,"강",1 };
+	area[26] = { "강2",26,"강",1 };
+	area[27] = { "강3",27,"강",1 };
+	area[28] = { "강4",28,"강",1 };
+	area[29] = { "강5",29,"강",1 };
 	for (i = 0; i < 30; i++) {
 		for (j = 0; j < 30; j++) {
 			area[i].neighborarea[j] = "\0";
@@ -69,10 +69,10 @@ void Map::set_areaInformation() {
 		area[i].areaunit.Navycount = 0;
 
 		area[i].arearesource = new Resource();
-		area[i].occupationcost = new Resource();
 		area[i].arearesource->set_resource_food(0);
 		area[i].arearesource->set_resource_water(0);
 		area[i].arearesource->set_resource_gold(0);
+		area[i].occupationcost = new Resource();
 		area[i].occupationcost->set_resource_food(0);
 		area[i].occupationcost->set_resource_gold(0);
 		area[i].occupationcost->set_resource_water(0);
@@ -215,6 +215,25 @@ void Map::set_acquirableWater(string areaname) {
 	}
 }
 
+int Map::get_acquirableFood(string areaname) {
+	areainformation temp;
+	temp = findArea(areaname);
+	return temp.arearesource->get_resource_food();
+}
+
+int Map::get_acquirableGold(string areaname) {
+	areainformation temp;
+	temp = findArea(areaname);
+	return temp.arearesource->get_resource_gold();
+}
+
+int Map::get_acquirableWater(string areaname) {
+	areainformation temp;
+	temp = findArea(areaname);
+	return temp.arearesource->get_resource_water();
+}
+
+
 void Map::set_areaHost(Player* _host_player, string areaname) {
     areainformation temp;
     string host;
@@ -245,20 +264,21 @@ Army Map::get_unit(string areaname, Player* _host_player) {
 
 Army Map::get_unitWhole(Player* _host_player) {
 	string host;
-	Army temp;
+	Army* temp;
+	temp = new Army;
 	int i;
 	int cnt = 0;
 	host = _host_player->get_player_name();
 	for (i = 0; i < 30; i++) {
 		if (host == area[i].areahost) {
-			temp.Archercount += area[i].areaunit.Archercount;
-			temp.Navycount += area[i].areaunit.Navycount;
-			temp.Cavalrycount += area[i].areaunit.Cavalrycount;
-			temp.Infantrycount += area[i].areaunit.Infantrycount;
+			temp->Archercount += area[i].areaunit.Archercount;
+			temp->Navycount += area[i].areaunit.Navycount;
+			temp->Cavalrycount += area[i].areaunit.Cavalrycount;
+			temp->Infantrycount += area[i].areaunit.Infantrycount;
 			cnt++;
 		}
 	}
-	return temp;
+	return *temp;
 	if (cnt == 0) {
 		cout << host << "주인이 아닙니다." << endl;
 	}
@@ -293,23 +313,28 @@ areainformation Map::get_areaInformation(string areaname) {
 
 void Map::upgrade_Area(string areaname) {
 	areainformation temp;
+	int tempnum;
 	temp = findArea(areaname);
-	temp.arealevel++;
+	tempnum = temp.areanum;
+	area[tempnum].arealevel++;
 }
 
 void Map::set_unit(string areaname, string tendency, int count) {
-	 areainformation temp = findArea(areaname);
+	areainformation temp;
+	int tempnum;
+	temp = findArea(areaname);
+	tempnum = temp.areanum;
 	if (tendency == "Infantry") {
-		temp.areaunit.Infantrycount += count;
+		area[tempnum].areaunit.Infantrycount += count;
 	}
 	else if (tendency == "Navy") {
-		temp.areaunit.Navycount += count;
+		area[tempnum].areaunit.Navycount += count;
 	}
 	else if (tendency == "Cavalry") {
-		temp.areaunit.Cavalrycount += count;
+		area[tempnum].areaunit.Cavalrycount += count;
 	}
 	else {
-		temp.areaunit.Archercount += count;
+		area[tempnum].areaunit.Archercount += count;
 	}
 }
 
@@ -372,4 +397,10 @@ void Map::firstArea(Player* player, int i) {
     else {
         set_areaHost(player, "은평구");
     }
+}
+
+int Map::areaLevel(string areaname) {
+	areainformation temp;
+	temp = findArea(areaname);
+	return temp.arealevel;
 }
