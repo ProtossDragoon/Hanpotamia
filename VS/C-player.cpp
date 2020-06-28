@@ -113,7 +113,7 @@ void Player::selectAction() {
     bool areaname_valid;
         
     command = -1;
-    command_notcompleted = true;
+    command_notcompleted = true; ////유효한 동작(조작 가능 횟수를 줄이는 것)인지 확인하는 것.
     while (command == -1 || command_notcompleted) {
         
         command_notcompleted = false;
@@ -141,7 +141,7 @@ void Player::selectAction() {
                 else
                 {
                     cout << "책사 : 병력이 존재하지 않아 점령 가능한 지역이 없습니다. " << endl;
-                    command_notcompleted = true;
+                    command_notcompleted = true; ////COMMAND NOT COMPLETED -> 조작가능횟수 줄이지 않음
                 }
             }
             // command 1 : 유닛 생산
@@ -195,7 +195,7 @@ void Player::selectAction() {
                     if (game_master.isVaildArea(to))
                     {
                         // command_notcompleted = 
-                        MoveOrAttack_unit(from, to);
+                        MoveOrAttack_unit(from, to); ////이동 및 공격
                     }
                     else
                     {
@@ -290,7 +290,7 @@ void Player::selectAction() {
                 command_notcompleted = true;
             }
         }
-        catch (int e)
+        catch (int e) //// Exception Contorl
         {
             cin.ignore(INT_MAX, '\n');
             cin.clear();
@@ -305,6 +305,8 @@ void Player::selectAction() {
 
 
 bool Player::produce_unit(string tendency, int product_count, string area) {
+    ////유닛 생성 함수
+    ////현자 가지고 있는 자원 과 비교하여 유닛생성 후 Map 배치
     Resource research = this->_my_resource;
     areainformation set_product;
     set_product=game_master.get_gameMap()->get_areaInformation(area);
@@ -342,7 +344,7 @@ bool Player::produce_unit(string tendency, int product_count, string area) {
    }
 }
 
-// fixme : 이거 유닛 없으면 우찌되는거임?
+
 void Player::MoveOrAttack_unit(string from, string to) {
     if (game_master.get_gameMap()->get_occupationPlayer(to)!="\0") 
     {
@@ -420,7 +422,7 @@ void Player::move(string from, string to) {
             cout << count << " 명의 " << tendency << " (이)가 " << to << " 지역에 주둔합니다. " << endl;
             cout << "===========>> 지역의 소유권을 얻기 위해서 Conquer 하십시오 <<=============" << endl;
             game_master.get_gameMap()->set_unit(from, tendency, from_areaTendencyCount - count);
-            game_master.get_gameMap()->set_SemiareaHost(this,to);
+            game_master.get_gameMap()->set_SemiareaHost(this,to); ////임시소유주가 된다.
 
         } else cout << "선택한 유닛은 해당 지역으로 움직일 수 없습니다. (SYS : 이동 거리 부족 )" << endl;
     } else cout << "해당 지역의 유닛을 컨트롤 할 수 없습니다. (SYS : 지역의 호스트가 아닙니다. )" << endl;
@@ -475,18 +477,12 @@ bool Player::upgradeArea(string area) {
 
 
 // void conquerArea() : 플레이어가 특정 지역 점령을 명령했을 때 수행되는 함수.
-// fixme : 얘가 어디서부터 어디까지 할건데?
+
 bool Player::conquerArea(string areaName) {
     Resource research= this->_my_resource;
     areainformation setting;
     //areaName 으로 단일 지역에 대해 this 포인터로 지역 소유권 확립
-    
-    // fixme : 지역 점령 시 로직 구현
-    // 지역 점령 명령 동작을 이용자로부터 입력받았을 때,
-    // 이용자의 병력이 존재하는 지역 중 점령당하지 않은 지역을 반환해야 함.
-    // 그런데, 지금은 그냥 나의 병력이 존재하지 않는 지역도 입력을 받고 봄.
-
-
+    ////임시소유하고 있는 지역 ( 병력 주둔 중 인 지역 ) 을 Display 하고 점령 함.
         if (game_master.get_gameMap()->get_areaInformation(areaName).areahost==this->get_player_name()+"(Semi)") {
             ////자원확인
             if (research.check_resource(this->get_myResource(),
