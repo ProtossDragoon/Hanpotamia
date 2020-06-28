@@ -379,14 +379,21 @@ void Master::calculateAndSetAllPlayersMaxCommandCnt()
 void Master::checkAllPlayersAlive()
 {
 	int myplace_cnt;
-	for (int i = 1; i < _player_cnt; i++)
+	int* myplace_arr;
+	for (int i = 1; i <= _player_cnt; i++)
 	{
+		cout << "족장 " << _player[i]->get_player_name() <<" : ";
 		myplace_cnt = 0;
-		int* myplace_arr = _player[i]->get_myPlace(); // return : [0,1,0,0,0,1,0...]
-		for (int j = 0; j < 25; j++)
+		myplace_arr = _player[i]->get_myPlace(); // return : [0,1,0,0,0,1,0...]
+		for (int j = 0; j < 30; j++)
 		{
-			if (myplace_arr[i] == 1) myplace_cnt++;
+			if (myplace_arr[j] == 1)
+			{
+				myplace_cnt++;
+				cout << _gamemap->findArea(j).areaname << " ";
+			}
 		}
+		cout << "(총 " << myplace_cnt << " 개)" << endl;
 		if (myplace_cnt == 0)
 		{
 			set_isPlayerAlive(i, false);

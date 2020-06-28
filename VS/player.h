@@ -54,7 +54,7 @@ public :
     bool upgradeArea(string area);
     bool conquerArea(string areaName);
     void display_movableArea();
-    bool is_yourArea(string area, bool vervose);
+    bool is_yourArea(string area, bool vervose = true);
     static bool is_attackableArea(string attack_Unit, string from_area,string to_area);
     static bool is_movableArea(string moving_Unit, string from_area, string to_area);
     static void success_procedure(string type);

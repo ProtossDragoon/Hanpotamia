@@ -48,7 +48,7 @@ Resource* Player::get_myResource() {
     return &_my_resource;
 }
 
-int * Player::get_myPlace() {
+int *Player::get_myPlace() {
     Map *searching = game_master.get_gameMap();
     int *myPlace=searching->get_wholeArea(this);
     return myPlace; ////int 형 배열로 자신이 소유하는 전체 지역 반환
@@ -485,7 +485,7 @@ void Player::display_movableArea() {
     }
 }
 
-bool Player::is_yourArea(string area, bool vervose = true) {
+bool Player::is_yourArea(string area, bool vervose) {
 
     if (game_master.isVaildArea(area))
     {
