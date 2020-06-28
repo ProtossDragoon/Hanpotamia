@@ -11,9 +11,9 @@ Player::Player(string player_name, int current_control_time, int max_control_tim
     _player_name=player_name;
     _current_control_time=current_control_time;
     _max_control_time=max_control_time;
-    _my_resource.set_resource_food(200);
-    _my_resource.set_resource_gold(200);
     _my_resource.set_resource_water(200);
+    _my_resource.set_resource_gold(200);
+    _my_resource.set_resource_food(200);
 }
 ////setter
 
