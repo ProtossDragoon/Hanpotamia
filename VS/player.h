@@ -69,5 +69,9 @@ inputtype Player::inputWrapper(string comment)
     cout << comment << " >>> ";
     cin >> input;
     cout << endl;
+    if (cin.fail())
+    {
+        throw -1;
+    }
     return input;
 }
