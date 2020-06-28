@@ -181,12 +181,12 @@ void Player::selectAction() {
                 }
                 else
                 {
-
+                    command_notcompleted = true;
                 }
             }
             else
             {
-
+                command_notcompleted = true;
             }
         }
         else if (command == 3) 
@@ -487,7 +487,7 @@ void Player::display_movableArea() {
 
 bool Player::is_yourArea(string area, bool vervose) {
 
-    if (game_master.isVaildArea(area))
+    if (!game_master.isVaildArea(area))
     {
         if (vervose == true) cout << "존재하지 않는 지역입니다." << endl;
         return false;
