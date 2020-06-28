@@ -263,7 +263,6 @@ bool Player::produce_unit(string tendency, int product_count, string area) {
 
    if(research.check_resource(this->get_myResource(),research.calculate_produce_unit(tendency,product_count))){
        ////자원확인
-       if (research.check_resource(this->get_myResource(), this->get_myResource())) {
            if (this->is_yourArea(area)) {
                if (tendency == "Navy")
                    game_master.get_gameMap()->set_unit(area, tendency, set_product.areaunit.Navycount + product_count);
@@ -288,12 +287,6 @@ bool Player::produce_unit(string tendency, int product_count, string area) {
                return true;
            }
        }
-       else
-       {
-           cout << "책사 : 자원이 부족하여 " << tendency << " 를 생산할 수 없습니다!" << endl;
-           return true;
-       }
-   }
    else 
    {
        cout << "책사 : 자원이 부족하여 " << tendency << " 를 생산할 수 없습니다!" << endl;
