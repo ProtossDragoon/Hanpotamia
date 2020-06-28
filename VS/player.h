@@ -28,7 +28,7 @@ public :
     //getter
     //Output �??�래?�별 배열 ( 배열??�?번�? 주소 Return)
     int *get_myPlace();
-    void show_myWholePlace(int place[]);
+    void show_myWholePlace(int *place);
 
     Resource *get_myResource();
     void show_myResource();
