@@ -9,6 +9,7 @@
 using namespace std;
 extern Master game_master;
 
+//이름을 인자로 받아 지역 찾아 반환
 areainformation Map::findArea(string areaname) {
 	for (int i = 0; i < 30; i++) {
 		if (game_master.get_gameMap()->area[i].areaname == areaname) {
@@ -17,14 +18,13 @@ areainformation Map::findArea(string areaname) {
 	}
 }
 
-////박태정 작성 Overloading 함수
+////Overloading 함수
 areainformation Map::findArea(int areaNum) {
 	return area[areaNum];
 }
 
 
-////삭제 니니
-
+////지역 정보 세팅
 void Map::set_areaInformation() {
 	int i, j;
 	areainformation temp;
@@ -98,6 +98,7 @@ void Map::set_areaInformation() {
 Map::~Map() {
 }
 
+//Map생성자 지역끼리 연결되어 있는지의 여부를 확인하는 _route인접행렬 생성
 Map::Map(int _max_area):_max_area(_max_area) {
     _route = new int* [_max_area];
     for (int i = 0; i < _max_area; i++) {
@@ -153,9 +154,9 @@ Map::Map(int _max_area):_max_area(_max_area) {
 	_route[26][27] = 1;
 	_route[27][28] = 1;
 	_route[28][29] = 1;
-//	set_areaInformation();
 }
 
+//선택한 지역이 사거리 2이내에 있는지 확인하고 공격할 수 있는지 확인
 int Map::attackable(string startarea, string endarea) {
 	int from, to;
 	areainformation temp;
@@ -176,6 +177,7 @@ int Map::attackable(string startarea, string endarea) {
 	return 0;
 }
 
+//선택한 지역이 인접해 있는지 확인
 string* Map::get_movableArea(string areaname) {
 	areainformation temp;
 	int tempnum;
@@ -272,6 +274,7 @@ void Map::set_areaHost(Player* _host_player, string areaname) {
     area[tempnum].areahost = host;
 }
 
+//지역의 병력이 얼마나 있는지 확인
 Army Map::get_unit(string areaname, Player* _host_player) {
 	areainformation temp;
 	string host;
@@ -290,6 +293,7 @@ Army Map::get_unit(string areaname, Player* _host_player) {
 	}
 }
 
+//전체 병력을 조회
 Army Map::get_unitWhole(Player* _host_player) {
 	string host;
 	Army* temp;
@@ -312,6 +316,7 @@ Army Map::get_unitWhole(Player* _host_player) {
 	}
 }
 
+//땅의 지역 주인이 누구인지 확인
 string Map::get_occupationPlayer(string areaname) {
 	areainformation temp;
 	temp = findArea(areaname);
@@ -332,6 +337,7 @@ Resource *Map::get_occupationCost(string areaname) {
 	return hi;
 }
 
+//지역의 이름을 인자로 받아 그 지역의 정보를 반환
 areainformation Map::get_areaInformation(string areaname) {
 	areainformation temp;
 	temp = findArea(areaname);
@@ -346,6 +352,7 @@ void Map::upgrade_Area(string areaname) {
 	area[tempnum].arealevel++;
 }
 
+//병력을 지역에 배치
 void Map::set_unit(string areaname, string tendency, int count) {
 	areainformation temp;
 	int tempnum;
@@ -365,6 +372,7 @@ void Map::set_unit(string areaname, string tendency, int count) {
 	}
 }
 
+//지역정보를 보여주는 함수
 void Map::showAreaInformation(string areaname) {
 	areainformation temp;
 	int tempResource = 0;
@@ -399,6 +407,7 @@ void Map::showAreaInformation(string areaname) {
 	cout << "물 :" << tempCost << endl;
 }
 
+//가지고 있는 전체 지역 (지역을 가지고 있으면 1인) 배열을 반환 
 int* Map::get_wholeArea(Player* _host_player) {
 	string temp;
 	temp = _host_player->get_player_name();
@@ -418,6 +427,7 @@ int* Map::get_wholeArea(Player* _host_player) {
 	return wholeArea;
 }
 
+//초기 할당 지역
 void Map::firstArea(Player* player, int i) {
     if (i == 1) {
         set_areaHost(player, "강남구");
@@ -438,7 +448,7 @@ int Map::areaLevel(string areaname) {
 	temp = findArea(areaname);
 	return temp.arealevel;
 }
-
+//점령할 수 있는 지역인지 확인
 bool Map::show_conquerAbleArea(string areaHost){
     int check=0;
     string semihost = areaHost+"(Semi)";
@@ -457,6 +467,7 @@ bool Map::show_conquerAbleArea(string areaHost){
 
 }
 
+//임시 소유지 명시하는 함수
 void Map::set_SemiareaHost(Player* _host_player, string areaname) {
     areainformation temp;
     string host;
@@ -467,6 +478,7 @@ void Map::set_SemiareaHost(Player* _host_player, string areaname) {
     area[tempnum].areahost = host;
 }
 
+//bool형 있는 지역인지 확인
 bool Map::isTrue(string areaname) {
 	for (int i = 0; i < 30; i++) {
 		if (area[i].areaname == areaname) {
