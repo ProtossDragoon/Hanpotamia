@@ -29,7 +29,7 @@ Civilization at Han River<br>
 
 ### 1차 견본
 
-![readmeimage/class_architecture.png](readmeimage/class_architecture.png)
+![readmeimage/class_architecture.png](readmeimage/finaluml.png)
 
 <br>
 
