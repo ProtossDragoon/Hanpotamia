@@ -29,14 +29,18 @@ Civilization at Han River<br>
 
 ### 1차 견본
 
-![readmeimage/class_architecture.png](readmeimage/finaluml.png)
+![readmeimage/class_architecture.png](readmeimage/class_architecture.png)
 
 <br>
 
 ### 2차 견본
 
+![readmeimage/class_architecture.png](readmeimage/finaluml.png)
+
+<br>
+
 - [참고자료 : UML Class diagram 기본](https://infinitejava.tistory.com/61)
-- [참고자료 : Sequence diagram]
+- 안용학교수님의 멘토링(?)
 - 추가적으로 더 배우는 내용
 - static 클래스
 
