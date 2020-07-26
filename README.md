@@ -52,6 +52,7 @@ Civilization at Han River<br>
 ## LAB
 
 - python 기반의 Hanpotamia Game 의 GUI Client
+- *야 이거 하기로 했잖아 언제 할거야;*
 
 ### Dependencies
 
