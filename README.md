@@ -46,6 +46,23 @@ Civilization at Han River<br>
 
 <br>
 
+## Running Example
+
+### \#1
+![readmeimage/class_architecture.png](readmeimage/running3.png)
+
+<br>
+
+### \#2
+![readmeimage/class_architecture.png](readmeimage/running2.png)
+
+<br>
+
+### \#3
+![readmeimage/class_architecture.png](readmeimage/running1.png)
+
+<br>
+
 ## VS
 
 - Visual Studio 2019
