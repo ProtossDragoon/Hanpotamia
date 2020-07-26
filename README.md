@@ -6,7 +6,13 @@ Civilization at Han River<br>
 
 ## Team
 
-[표]
+| name | role | class | etc  |
+|:----:|:----:|:-----:|:----:|
+| 18 박태정| 팀장 | player.cpp | git사용 안내, 코드 리뷰, 발표 |
+| 18 이장후|   | master.cpp, main.cpp | git사용 안내, git merge 담당, 문서작업 |
+| 19 김태헌|  | map.cpp| UML, 그래프 구조 구현 |
+| 19 임동재|  | unit.cpp, resource.cpp| 발표 자료 준비 |
+
 
 <br>
 
@@ -15,7 +21,7 @@ Civilization at Han River<br>
 
 <br>
 
-[프로젝트 제안서 / 중간 보고서 link]() <br>
+[프로젝트 제안서 / 중간 보고서 link](https://github.com/ProtossDragoon/SJU-Subject/blob/master/3-1ProblemSolvingAndLabC%2B%2B/2020-1_c%2B%2B_Final_Team_Project.pdf) <br>
 
 <br>
 
